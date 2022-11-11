@@ -7,18 +7,9 @@ class Customer {
 
   static fromCustomerData(customerData, bookingData) {
     const matchedBookings = bookingData.filter(
-      (booking) => booking.userID === customerData.id
-    )
-
-    const bookings = matchedBookings.map((matchedBooking) => {
-      return {
-        id: matchedBooking.id,
-        userID: matchedBooking.userID,
-        date: matchedBooking.date,
-        roomNumber: matchedBooking.roomNumber,
-      } // change this to an instance of booking once class is created
-    })
-    return new Customer(customerData, bookings)
+      (booking) => booking.userID === customerData.id)
+      
+    return new Customer(customerData, matchedBookings)
   }
 
   showPastBookings() {
