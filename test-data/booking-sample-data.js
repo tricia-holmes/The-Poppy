@@ -30,3 +30,10 @@ export const bookingSampleData = [
     roomNumber: 7,
   },
 ]
+
+export const bookingSampleData2 = {
+  id: '5fth8u4i7k55hl6t7',
+  userID: 22,
+  date: '2029/11/10',
+  roomNumber: 19,
+}
