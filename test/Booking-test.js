@@ -32,8 +32,8 @@ describe('Booking', () => {
   })
 
   it('should have a booking date', () => {
-    expect(booking1.date).to.equal('2022/11/10')
-    expect(booking2.date).to.equal('2023/12/16')
+    expect(booking1.date).to.deep.equal(new Date('2022/11/10'))
+    expect(booking2.date).to.deep.equal(new Date('2023/12/16'))
   })
 
   it('should have a room number for the booking', () => {
@@ -45,7 +45,7 @@ describe('Booking', () => {
     expect(booking3).to.deep.equal({
       id: undefined,
       userID: undefined,
-      date: undefined,
+      date: new Date(undefined),
       roomNumber: undefined,
     })
   })
