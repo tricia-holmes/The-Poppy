@@ -33,7 +33,7 @@ const pastBookingsContainer = document.querySelector('[date-id = pastBookings]')
 
 //--------------Global Variables------------------
 const store = {
-  currentDate: '',
+  currentDate: new Date(),
   customer: new Customer(),
   hotel: new Hotel(),
   bookingImages: [
@@ -53,11 +53,10 @@ const InitializeCustomerApp = () => {
       store.hotel = createHotel(data.roomData, data.bookingData)
       loadCustomerProfile()
       loadTotalAmountSpent()
-      createCurrentDate()
       loadUpcomingBookings()
       loadPastBookings()
     })
-    .catch((err) => alert(err))  // need to replace with DOM function
+    .catch((err) => alert(err)) // need to replace with DOM function
 }
 
 // if I do manager iteration -> create a InitializeManagerApp
@@ -110,7 +109,7 @@ const loadUpcomingBookings = () => {
     reservation.innerText = 'Reservation Number:'
     reservationNumber.innerText = ` ${upcomingBooking.id}`
     bookingDate.innerText = 'Booking Date:'
-    date.innerText = ` ${upcomingBooking.date}`
+    date.innerText = `${formatBookingDisplayDate(upcomingBooking.date)}`
 
     // create function for appending elements
     bookingFigure.appendChild(bookingImg)
@@ -125,6 +124,7 @@ const loadUpcomingBookings = () => {
 
 const loadPastBookings = () => {
   const pastBookings = store.customer.showPastBookings(store.currentDate)
+  console.log('PAST', pastBookings)
 
   pastBookings.forEach((booking) => {
     const pastBooking = document.createElement('div')
@@ -134,7 +134,7 @@ const loadPastBookings = () => {
     pastDate.classList.add('pastDate')
 
     pastBooking.style.backgroundImage = `url(../images/${getRandomImage()})`
-    pastDate.innerText = `${booking.date}`
+    pastDate.innerText = `${formatBookingDisplayDate(booking.date)}`
 
     pastBooking.appendChild(pastDate)
     pastBookingsContainer.appendChild(pastBooking)
@@ -150,7 +150,6 @@ const loadTotalAmountSpent = () => {
   const total = store.customer.getTotalCost(store.hotel)
   const totalFormatted = formatForCurrency(total)
   customerToalSpentDisplay.innerText = `${totalFormatted}`
-  // console.log(store.customer.bookings)
 }
 
 //--------------Util Functions-------------------
@@ -170,8 +169,10 @@ const formatForCurrency = (amount) => {
   return formatCurrency.format(amount)
 }
 
-const createCurrentDate = () => {
-  store.currentDate = `${new Date().getFullYear()}/${
-    new Date().getMonth() + 1
-  }/${new Date().getDate()}`
+const formatBookingDisplayDate = (bookingDate) => {
+  return bookingDate.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
 }
