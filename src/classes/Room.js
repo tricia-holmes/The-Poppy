@@ -19,16 +19,13 @@ class Room {
     return new Room(roomData, matchedBookings)
   }
 
-  isAvailable(selectedDate) {
-    const foundBooking = this.bookings.find((booking) =>
-      selectedDate.includes(booking.date)
+  isAvailable(customerSelectedDate) {
+    const foundBooking = this.bookings.find(
+      (booking) =>
+        JSON.stringify(customerSelectedDate) === JSON.stringify(booking.date)
     )
 
-    if (foundBooking) {
-      return false
-    } else {
-      return true
-    }
+    return !foundBooking
   }
 
   book(newBooking) {
