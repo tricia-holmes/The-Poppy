@@ -16,11 +16,15 @@ class Customer {
   }
 
   showPastBookings(currentDate) {
-    return this.bookings.filter((booking) => booking.date < currentDate)
+    return this.bookings
+      .filter((booking) => booking.date < currentDate)
+      .sort((a, b) => b.date - a.date)
   }
 
   showUpcomingBookings(currentDate) {
-    return this.bookings.filter((booking) => booking.date >= currentDate)
+    return this.bookings
+      .filter((booking) => booking.date >= currentDate)
+      .sort((a, b) => a.date - b.date)
   }
 
   getTotalCost(hotel) {
