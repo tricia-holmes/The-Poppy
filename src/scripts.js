@@ -1,6 +1,6 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
-
+import { fetchGetAll } from './apiCalls'
 import Customer from './classes/Customer'
 import Hotel from './classes/Hotel'
 import {
@@ -45,44 +45,39 @@ const store = {
   ],
 }
 
+//--------------Initialize App------------------
+const InitializeCustomerApp = () => {
+  fetchGetAll()
+    .then((data) => {
+      store.customer = createRandomCustomer(data.customerData, data.bookingData)
+      store.hotel = createHotel(data.roomData, data.bookingData)
+      loadCustomerProfile()
+      loadTotalAmountSpent()
+      createCurrentDate()
+      loadUpcomingBookings()
+      loadPastBookings()
+    })
+    .catch((err) => alert(err))  // need to replace with DOM function
+}
+
+// if I do manager iteration -> create a InitializeManagerApp
+// this will use `fetchGetAll` and will use DOM fns that load the app for manager
+
 //--------------Event Listeners------------------
-window.addEventListener('load', () => {
-  createRandomCustomer(customerSampleData, bookingSampleData)
-  createHotel(roomSampleData, bookingSampleData)
-})
-
-window.addEventListener('load', () => {
-  loadCustomerProfile()
-})
-
-window.addEventListener('load', () => {
-  loadTotalAmountSpent()
-})
-
-window.addEventListener('load', () => {
-  createCurrentDate()
-})
-
-window.addEventListener('load', () => {
-  loadUpcomingBookings()
-})
-
-window.addEventListener('load', () => {
-  loadPastBookings()
-})
+window.addEventListener('load', InitializeCustomerApp)
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
   const customerIndex = randomizeFromArray(customerSampleData)
-  store.customer = Customer.fromCustomerData(
+  return Customer.fromCustomerData(
     customerSampleData[customerIndex],
     bookingSampleData
   )
 }
 
 const createHotel = (roomSampleData, bookingSampleData) => {
-  const hotelInfo = Hotel.fromData(roomSampleData, bookingSampleData)
-  store.hotel = hotelInfo
+  const hotel = Hotel.fromData(roomSampleData, bookingSampleData)
+  return hotel
 }
 
 const loadUpcomingBookings = () => {

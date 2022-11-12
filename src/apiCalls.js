@@ -2,12 +2,10 @@ const fetchGetData = (url) => {
   return fetch(url).then((response) => {
     if (!response.ok) {
       response.json().then((body) => {
-        alert(body.message) // need to replace with DOM function
         throw new Error(body.message)
       })
     } else {
-      console.log('WHAT AM I', response)
-      response.json()
+      return response.json()
     }
   })
 }
@@ -36,10 +34,13 @@ const fetchGetAll = () => {
     apiCallMap.getRoomData(),
     apiCallMap.getBookingData(),
   ]).then((data) => {
+    // console.log('CUSTOMERS', data[0].customers)
     return {
-      customerData: data[0],
-      roomData: data[1],
-      bookingData: data[2],
+      customerData: data[0].customers,
+      roomData: data[1].rooms,
+      bookingData: data[2].bookings,
     }
   })
 }
+
+export {fetchGetData, apiCallMap, fetchGetAll}
