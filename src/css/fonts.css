@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Cormorant-Light';
+  src: url('../fonts/CormorantGaramond-Light.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Cormorant-Regular';
+  src: url('../fonts/CormorantGaramond-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Cormorant-Semi-Bold-Italic';
+  src: url('../fonts/CormorantGaramond-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 400;
+}
