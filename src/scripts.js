@@ -30,9 +30,12 @@ const upcomingBookingsContainer = document.querySelector(
   '[data-id = UpcomingBookings]'
 )
 const pastBookingsContainer = document.querySelector('[date-id = pastBookings]')
+const navBtn = document.querySelector('[data-id = navbar]')
+const userDashboardSection = document.querySelector('[data-page-type = user-dashboard]')
 
 //--------------Global Variables------------------
 const store = {
+  currentPage: 'user dashboard',
   currentDate: new Date(),
   customer: new Customer(),
   hotel: new Hotel(),
@@ -51,6 +54,7 @@ const InitializeCustomerApp = () => {
     .then((data) => {
       store.customer = createRandomCustomer(data.customerData, data.bookingData)
       store.hotel = createHotel(data.roomData, data.bookingData)
+      defineEventListeners()
       loadCustomerProfile()
       loadTotalAmountSpent()
       loadUpcomingBookings()
@@ -152,6 +156,17 @@ const loadTotalAmountSpent = () => {
   customerToalSpentDisplay.innerText = `${totalFormatted}`
 }
 
+const updateNavBtn = () => {
+  if (store.currentPage === 'user dashboard') {
+    navBtn.innerText = 'Make Reservations'
+    toggleHtmlElement(userDashboardSection)
+  } else if (store.currentPage === 'website') {
+    navBtn.innerText = 'Login'
+  } else {
+    navBtn.innerText = 'Dashboard'
+  }
+}
+
 //--------------Util Functions-------------------
 const randomizeFromArray = (array) => {
   return Math.floor(Math.random() * array.length)
@@ -159,6 +174,14 @@ const randomizeFromArray = (array) => {
 
 const getRandomImage = () => {
   return store.bookingImages[randomizeFromArray(store.bookingImages)]
+}
+
+const defineEventListeners = () => {
+  navBtn.addEventListener('click', updateNavBtn)
+}
+
+const toggleHtmlElement = (element) => {
+  element.classList.toggle('toggleDisplay')
 }
 
 const formatForCurrency = (amount) => {
