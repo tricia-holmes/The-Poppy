@@ -22,6 +22,10 @@ import './images/test-hotel3.jpg'
 import './images/test-hotel4.jpg'
 import './images/test-hotel5.jpg'
 
+//--------------Query Selectors------------------
+const customerNameDisplay = document.querySelector('[data-id = customerName]')
+const customerIdDisplay = document.querySelector('[data-id = customerId]')
+
 //--------------Global Variables------------------
 
 const store = {
@@ -41,14 +45,14 @@ const store = {
 
 window.addEventListener('load', () => {
   createRandomCustomer(customerSampleData, bookingSampleData)
-  console.log("HELLO", store.customer)
+  console.log('HELLO', customerNameDisplay.innerText)
 })
 
-//--------------Util Functions-------------------
-
-const randomizeFromArray = (array) => {
-  return Math.floor(Math.random() * array.length)
-}
+window.addEventListener('load', () => {
+  loadCustomerProfile()
+  console.log('HELLO', customerNameDisplay.innerText)
+})
+//--------------Event Handlers------------------
 
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
   const customerIndex = randomizeFromArray(customerSampleData)
@@ -56,4 +60,15 @@ const createRandomCustomer = (customerSampleData, bookingSampleData) => {
     customerSampleData[customerIndex],
     bookingSampleData
   )
+}
+
+const loadCustomerProfile = () => {
+  customerNameDisplay.innerText = `${store.customer.name}`
+  customerIdDisplay.innerText = `${store.customer.id}`
+}
+
+//--------------Util Functions-------------------
+
+const randomizeFromArray = (array) => {
+  return Math.floor(Math.random() * array.length)
 }

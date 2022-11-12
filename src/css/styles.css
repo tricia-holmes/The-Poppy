@@ -164,7 +164,7 @@ main {
   object-position: center;
 }
 
-.user__container {
+.customer__container {
   background-color: aquamarine;
   position: relative;
   display: flex;
@@ -180,9 +180,9 @@ main {
   border-bottom: 1px solid #000000;
 }
 
-.user__placeholder {
-  font-size: 32px;
-  margin: 10px;
+.customer__placeholder {
+  font-size: 24px;
+  /* margin: 10px; */
 }
 
 .pastBookings__container {
