@@ -31,7 +31,6 @@ const upcomingBookingsContainer = document.querySelector(
 )
 
 //--------------Global Variables------------------
-
 const store = {
   currentDate: '',
   customer: new Customer(),
@@ -46,7 +45,6 @@ const store = {
 }
 
 //--------------Event Listeners------------------
-
 window.addEventListener('load', () => {
   createRandomCustomer(customerSampleData, bookingSampleData)
   createHotel(roomSampleData, bookingSampleData)
@@ -69,7 +67,6 @@ window.addEventListener('load', () => {
 })
 
 //--------------Event Handlers------------------
-
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
   const customerIndex = randomizeFromArray(customerSampleData)
   store.customer = Customer.fromCustomerData(
@@ -139,7 +136,6 @@ const loadTotalAmountSpent = () => {
 }
 
 //--------------Util Functions-------------------
-
 const randomizeFromArray = (array) => {
   return Math.floor(Math.random() * array.length)
 }
