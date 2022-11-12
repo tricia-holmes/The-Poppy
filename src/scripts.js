@@ -109,7 +109,7 @@ const loadUpcomingBookings = () => {
 
     // create function for inputting data
     booking.dataset.id = `${upcomingBooking.id}`
-    bookingImg.src = '../images/test-hotel4.jpg'
+    bookingImg.src = `../images/${getRandomImage()}`
     reservation.innerText = 'Reservation Number:'
     reservationNumber.innerText = ` ${upcomingBooking.id}`
     bookingDate.innerText = 'Booking Date:'
@@ -142,6 +142,10 @@ const loadTotalAmountSpent = () => {
 
 const randomizeFromArray = (array) => {
   return Math.floor(Math.random() * array.length)
+}
+
+const getRandomImage = () => {
+  return store.bookingImages[randomizeFromArray(store.bookingImages)]
 }
 
 const formatForCurrency = (amount) => {
