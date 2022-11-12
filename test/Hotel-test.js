@@ -45,19 +45,19 @@ describe('Hotel', () => {
           {
             id: '5fwrgu4i7k55hl6um',
             userID: 41,
-            date: '2021/02/07',
+            date: new Date('2021/02/07'),
             roomNumber: 4,
           },
           {
             id: '5fo6gu4i7k55hl6um',
             userID: 41,
-            date: '2023/10/07',
+            date: new Date('2023/10/07'),
             roomNumber: 4,
           },
           {
             id: '5fwrgu4i7k55hl6xm',
             userID: 23,
-            date: '2023/12/16',
+            date: new Date('2023/12/16'),
             roomNumber: 4,
           },
         ],
@@ -73,7 +73,7 @@ describe('Hotel', () => {
           {
             id: '5fwrgu4i7k55hl6tm',
             userID: 41,
-            date: '2022/11/10',
+            date: new Date('2022/11/10'),
             roomNumber: 19,
           },
         ],
@@ -89,7 +89,7 @@ describe('Hotel', () => {
           {
             id: '5fwrgu4i7k55hl6t7',
             userID: 20,
-            date: '2022/11/10',
+            date: new Date('2022/11/10'),
             roomNumber: 7,
           },
         ],
@@ -119,31 +119,31 @@ describe('Hotel', () => {
       {
         id: '5fwrgu4i7k55hl6tm',
         userID: 41,
-        date: '2022/11/10',
+        date: new Date('2022/11/10'),
         roomNumber: 19,
       },
       {
         id: '5fwrgu4i7k55hl6um',
         userID: 41,
-        date: '2021/02/07',
+        date: new Date('2021/02/07'),
         roomNumber: 4,
       },
       {
         id: '5fo6gu4i7k55hl6um',
         userID: 41,
-        date: '2023/10/07',
+        date: new Date('2023/10/07'),
         roomNumber: 4,
       },
       {
         id: '5fwrgu4i7k55hl6xm',
         userID: 23,
-        date: '2023/12/16',
+        date: new Date ('2023/12/16'),
         roomNumber: 4,
       },
       {
         id: '5fwrgu4i7k55hl6t7',
         userID: 20,
-        date: '2022/11/10',
+        date: new Date('2022/11/10'),
         roomNumber: 7,
       },
     ])
@@ -158,11 +158,11 @@ describe('Hotel', () => {
   })
 
   it('should be able to check if a selected date is vaild and not past due', () => {
-    expect(hotel.isValidDate('2025/12/05')).to.equal(true)
+    expect(hotel.isValidDate(new Date('2025/12/05'))).to.equal(true)
   })
 
   it('should be able to check if a selected date is not vaild and past due', () => {
-    expect(hotel.isValidDate('2020/12/05')).to.equal(false)
+    expect(hotel.isValidDate(new Date('2020/12/05'))).to.equal(false)
   })
 
   it('should be able to show what rooms are available for a given date', () => {
@@ -178,7 +178,7 @@ describe('Hotel', () => {
           {
             id: '5fwrgu4i7k55hl6tm',
             userID: 41,
-            date: '2022/11/10',
+            date: new Date('2022/11/10'),
             roomNumber: 19,
           },
         ],
@@ -194,7 +194,7 @@ describe('Hotel', () => {
           {
             id: '5fwrgu4i7k55hl6t7',
             userID: 20,
-            date: '2022/11/10',
+            date: new Date('2022/11/10'),
             roomNumber: 7,
           },
         ],
