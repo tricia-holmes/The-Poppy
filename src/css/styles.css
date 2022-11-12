@@ -12,6 +12,11 @@ main {
   background: honeydew;
 }
 
+
+.toggleDisplay {
+  display: none !important;
+}
+
 /* Page Layout */
 
 .page__layout {
@@ -43,7 +48,7 @@ main {
 .navbar__btn {
   cursor: pointer;
   height: 20px;
-  width: 75px;
+  width: 134px;
   margin-right: 20px;
 }
 
