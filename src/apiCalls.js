@@ -1,3 +1,5 @@
+//--------------GET Fetch Calls-------------------
+
 const fetchGetData = (url) => {
   return fetch(url).then((response) => {
     if (!response.ok) {
@@ -42,5 +44,16 @@ const fetchGetAll = () => {
     }
   })
 }
+
+//--------------POST Fetch Calls-------------------
+
+const formatDateForPost = (date) => {
+  return bookingDate.toLocaleDateString('en-ZA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+}
+
 
 export {fetchGetData, apiCallMap, fetchGetAll}
