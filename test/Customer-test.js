@@ -11,7 +11,7 @@ import Hotel from '../src/classes/Hotel'
 const expect = chai.expect
 
 describe('Customer', () => {
-  let hotel, customer1, customer2, customer3, customer4, newBooking
+  let hotel, customer1, customer2, customer3, customer4, newBooking, currentDate
 
   beforeEach(() => {
     hotel = Hotel.fromData(roomSampleData, bookingSampleData)
@@ -29,6 +29,9 @@ describe('Customer', () => {
       bookingSampleData
     )
     newBooking = new Booking(bookingSampleData2)
+    currentDate = `${new Date().getFullYear()}/${
+      new Date().getMonth() + 1
+    }/${new Date().getDate()}`
   })
 
   it('should be a function', () => {
@@ -95,7 +98,7 @@ describe('Customer', () => {
   })
 
   it("should be able to show the customer's past bookings", () => {
-    expect(customer1.showPastBookings()).to.deep.equal([
+    expect(customer1.showPastBookings(currentDate)).to.deep.equal([
       {
         id: '5fwrgu4i7k55hl6tm',
         userID: 41,
@@ -112,11 +115,11 @@ describe('Customer', () => {
   })
 
   it("should not include current day bookings in the customer's past bookings", () => {
-    expect(customer4.showPastBookings()).to.deep.equal([])
+    expect(customer4.showPastBookings(currentDate)).to.deep.equal([])
   }) // need to update method to pass in a current date so this can be tested
 
   it("should be able to show the customer's current and upcoming books", () => {
-    expect(customer1.showUpcomingBookings()).to.deep.equal([
+    expect(customer1.showUpcomingBookings(currentDate)).to.deep.equal([
       {
         id: '5fo6gu4i7k55hl6um',
         userID: 41,

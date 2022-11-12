@@ -143,7 +143,6 @@ const loadPastBookings = () => {
 
     pastBooking.appendChild(pastDate)
     pastBookingsContainer.appendChild(pastBooking)
-    console.log('HELLO')
   })
 }
 
