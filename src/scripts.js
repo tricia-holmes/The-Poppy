@@ -26,6 +26,9 @@ import './images/test-hotel5.jpg'
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
 const customerIdDisplay = document.querySelector('[data-id = customerId]')
 const customerToalSpentDisplay = document.querySelector('[data-id = totalCost]')
+const upcomingBookingsContainer = document.querySelector(
+  '[data-id = UpcomingBookings]'
+)
 
 //--------------Global Variables------------------
 
@@ -59,8 +62,12 @@ window.addEventListener('load', () => {
 
 window.addEventListener('load', () => {
   createCurrentDate()
+})
+
+window.addEventListener('load', () => {
   loadUpcomingBookings()
 })
+
 //--------------Event Handlers------------------
 
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -77,9 +84,46 @@ const createHotel = (roomSampleData, bookingSampleData) => {
 }
 
 const loadUpcomingBookings = () => {
-  const upcomingBookings = store.customer.showUpcomingBookings(store.currentDate)
-  console.log(upcomingBookings)
+  const upcomingBookings = store.customer.showUpcomingBookings(
+    store.currentDate
+  )
 
+  upcomingBookings.forEach((upcomingBooking) => {
+    // create function for creating html elements
+    const booking = document.createElement('div')
+    const bookingFigure = document.createElement('figure')
+    const bookingImg = document.createElement('img')
+    const reservation = document.createElement('p')
+    const reservationNumber = document.createElement('span')
+    const bookingDate = document.createElement('p')
+    const date = document.createElement('span')
+
+    // create function for creating css classes
+    booking.classList.add('booking')
+    bookingFigure.classList.add('booking__figure')
+    bookingImg.classList.add('booking__img')
+    reservation.classList.add('booking__label')
+    reservationNumber.classList.add('placeholder')
+    bookingDate.classList.add('booking__label')
+    date.classList.add('placeholder')
+
+    // create function for inputting data
+    booking.dataset.id = `${upcomingBooking.id}`
+    bookingImg.src = '../images/test-hotel4.jpg'
+    reservation.innerText = 'Reservation Number:'
+    reservationNumber.innerText = ` ${upcomingBooking.id}`
+    bookingDate.innerText = 'Booking Date:'
+    date.innerText = ` ${upcomingBooking.date}`
+
+    // create function for appending elements
+    bookingFigure.appendChild(bookingImg)
+    booking.appendChild(bookingFigure)
+    reservation.appendChild(reservationNumber)
+    booking.appendChild(reservation)
+    bookingDate.appendChild(date)
+    booking.appendChild(bookingDate)
+    upcomingBookingsContainer.appendChild(booking)
+  })
 }
 
 const loadCustomerProfile = () => {
