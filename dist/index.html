@@ -15,101 +15,117 @@
       data-page-type="user dashboard"
       class="page__layout user__dashboard"
     >
-    <div class="divider"></div>
-    <section class="toprow__container">
-      <section class="currentBookings__container">
-        <div class="booking">
-          <figure class="booking__figure">
-            <img
-              class="booking__img"
-              src="../images/test-hotel.jpg"
-              alt="test-image"
-            />
-          </figure>
-          <p class="booking__label">
-            Reservation Number:
-            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+      <div class="divider"></div>
+      <section class="toprow__container">
+        <section data-id="UpcomingBookings" class="currentBookings__container">
+          <div class="booking">
+            <figure class="booking__figure">
+              <img
+                class="booking__img"
+                src="../images/test-hotel.jpg"
+                alt="test-image"
+              />
+            </figure>
+            <p class="booking__label">
+              Reservation Number:
+              <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+            </p>
+            <p class="booking__label">
+              Booking Date: <span class="placeholder">2022/11/10</span>
+            </p>
+          </div>
+          <div class="booking">
+            <figure class="booking__figure">
+              <img
+                class="booking__img"
+                src="../images/test-hotel2.jpg"
+                alt="test-image"
+              />
+            </figure>
+            <p class="booking__label">
+              Reservation Number:
+              <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+            </p>
+            <p class="booking__label">
+              Booking Date: <span class="placeholder">2022/11/10</span>
+            </p>
+          </div>
+          <div class="booking">
+            <figure class="booking__figure">
+              <img
+                class="booking__img"
+                src="../images/test-hotel3.jpg"
+                alt="test-image"
+              />
+            </figure>
+            <p class="booking__label">
+              Reservation Number:
+              <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+            </p>
+            <p class="booking__label">
+              Booking Date: <span class="placeholder">2022/11/10</span>
+            </p>
+          </div>
+          <div class="booking">
+            <figure class="booking__figure">
+              <img
+                class="booking__img"
+                src="../images/test-hotel4.jpg"
+                alt="test-image"
+              />
+            </figure>
+            <p class="booking__label">
+              Reservation Number:
+              <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+            </p>
+            <p class="booking__label">
+              Booking Date: <span class="placeholder">2022/11/10</span>
+            </p>
+          </div>
+          <div class="booking">
+            <figure class="booking__figure">
+              <img
+                style="object-position: top"
+                class="booking__img"
+                src="../images/test-hotel5.jpg"
+                alt="test-image"
+              />
+            </figure>
+            <p class="booking__label">
+              Reservation Number:
+              <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+            </p>
+            <p class="booking__label">
+              Booking Date: <span class="placeholder">2022/11/10</span>
+            </p>
+          </div>
+        </section>
+        <section class="customer__container">
+          <p class="customer__placeholder">
+            customer name:
+            <span data-id="customerName" class="customer__info">user name</span>
           </p>
-          <p class="booking__label">
-            Booking Date: <span class="placeholder">2022/11/10</span>
+          <p class="customer__placeholder">
+            user id:
+            <span data-id="customerId" class="customer__info">user id</span>
           </p>
-        </div>
-        <div class="booking">
-          <figure class="booking__figure">
-            <img
-              class="booking__img"
-              src="../images/test-hotel2.jpg"
-              alt="test-image"
-            />
-          </figure>
-          <p class="booking__label">
-            Reservation Number:
-            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
-          </p>
-          <p class="booking__label">
-            Booking Date: <span class="placeholder">2022/11/10</span>
-          </p>
-        </div>
-        <div class="booking">
-          <figure class="booking__figure">
-            <img
-              class="booking__img"
-              src="../images/test-hotel3.jpg"
-              alt="test-image"
-            />
-          </figure>
-          <p class="booking__label">
-            Reservation Number:
-            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
-          </p>
-          <p class="booking__label">
-            Booking Date: <span class="placeholder">2022/11/10</span>
-          </p>
-        </div>
-        <div class="booking">
-          <figure class="booking__figure">
-            <img
-              class="booking__img"
-              src="../images/test-hotel4.jpg"
-              alt="test-image"
-            />
-          </figure>
-          <p class="booking__label">
-            Reservation Number:
-            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
-          </p>
-          <p class="booking__label">
-            Booking Date: <span class="placeholder">2022/11/10</span>
-          </p>
-        </div>
-        <div class="booking">
-          <figure class="booking__figure">
-            <img
-              style="object-position: top"
-              class="booking__img"
-              src="../images/test-hotel5.jpg"
-              alt="test-image"
-            />
-          </figure>
-          <p class="booking__label">
-            Reservation Number:
-            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
-          </p>
-          <p class="booking__label">
-            Booking Date: <span class="placeholder">2022/11/10</span>
-          </p>
-        </div>
+        </section>
       </section>
-      <section class="user__container">
-        <p class="user__placeholder">user name</p>
-        <p class="user__placeholder">user id</p>
+
+      <section class="bottomrow__container">
+        <section date-id="pastBookings" class="pastBookings__container">
+          <!-- <div class="pastBooking">
+            <p class="pastDate">10/20/2020</p>
+          </div>
+          <div class="pastBooking">Past Date</div>
+          <div class="pastBooking">Past Date</div> -->
+        </section>
+        <section class="totalCost__container">
+          <p data-id="totalCost" class="customer__placeholder">
+            money that you have spent
+          </p>
+        </section>
       </section>
-    </section>
-  </div>
-    <section class="bottomrow__container">
-      <section class="pastBookings__container">UPCOMING BOOKINGS</section>
-      <section class="totalCost__container">TOTAL COST</section>
-    </section>
     </section>
 
     <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
