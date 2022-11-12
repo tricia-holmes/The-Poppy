@@ -15,19 +15,11 @@ class Customer {
     return new Customer(customerData, matchedBookings)
   }
 
-  showPastBookings() {
-    const newDate = new Date() // change this to be a global variable passed in
-    const currentDate = `${newDate.getFullYear()}/${
-      newDate.getMonth() + 1
-    }/${newDate.getDate()}`
+  showPastBookings(currentDate) {
     return this.bookings.filter((booking) => booking.date < currentDate)
   }
 
-  showUpcomingBookings() {
-    const newDate = new Date() // change this to be a global variable passed in
-    const currentDate = `${newDate.getFullYear()}/${
-      newDate.getMonth() + 1
-    }/${newDate.getDate()}`
+  showUpcomingBookings(currentDate) {
     return this.bookings.filter((booking) => booking.date >= currentDate)
   }
 

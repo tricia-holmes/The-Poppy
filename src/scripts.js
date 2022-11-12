@@ -56,6 +56,11 @@ window.addEventListener('load', () => {
 window.addEventListener('load', () => {
   loadTotalAmountSpent()
 })
+
+window.addEventListener('load', () => {
+  createCurrentDate()
+  loadUpcomingBookings()
+})
 //--------------Event Handlers------------------
 
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -69,6 +74,12 @@ const createRandomCustomer = (customerSampleData, bookingSampleData) => {
 const createHotel = (roomSampleData, bookingSampleData) => {
   const hotelInfo = Hotel.fromData(roomSampleData, bookingSampleData)
   store.hotel = hotelInfo
+}
+
+const loadUpcomingBookings = () => {
+  const upcomingBookings = store.customer.showUpcomingBookings(store.currentDate)
+  console.log(upcomingBookings)
+
 }
 
 const loadCustomerProfile = () => {
@@ -90,6 +101,15 @@ const randomizeFromArray = (array) => {
 }
 
 const formatForCurrency = (amount) => {
- const formatCurrency = Intl.NumberFormat(undefined, {style: 'currency', currency: 'USD'})
- return formatCurrency.format(amount)
+  const formatCurrency = Intl.NumberFormat(undefined, {
+    style: 'currency',
+    currency: 'USD',
+  })
+  return formatCurrency.format(amount)
+}
+
+const createCurrentDate = () => {
+  store.currentDate = `${new Date().getFullYear()}/${
+    new Date().getMonth() + 1
+  }/${new Date().getDate()}`
 }
