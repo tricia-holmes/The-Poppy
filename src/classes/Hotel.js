@@ -19,16 +19,16 @@ class Hotel {
     return new Hotel(rooms, bookings)
   }
 
-  isValidDate(selectedDate) {
+  isValidDate(customerSelectedDate) {
     const currentDate = new Date()
-    const customerSelectedDate = new Date(selectedDate)
-
+    
     return customerSelectedDate >= currentDate
   }
-
+  
   showAvailableRooms(selectedDate) {
-    if (this.isValidDate(selectedDate)) {
-      return this.rooms.filter((room) => room.isAvailable(selectedDate))
+    const customerSelectedDate = new Date(selectedDate)
+    if (this.isValidDate(customerSelectedDate)) {
+      return this.rooms.filter((room) => room.isAvailable(customerSelectedDate))
     }
 
     return 'Sorry that date has already past! Please select another!'

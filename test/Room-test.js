@@ -55,7 +55,7 @@ describe('Room', () => {
       {
         id: '5fwrgu4i7k55hl6tm',
         userID: 41,
-        date: '2022/11/10',
+        date: new Date('2022/11/10'),
         roomNumber: 19,
       },
     ])
@@ -79,11 +79,11 @@ describe('Room', () => {
   })
 
   it('should have a way to tell if a room is available for a given date range', () => {
-    expect(room1.isAvailable('2025/10/07')).to.deep.equal(true)
+    expect(room1.isAvailable(new Date('2025/10/07'))).to.deep.equal(true)
   })
 
   it('should have a way to tell if a room is not available for a given date range', () => {
-    expect(room2.isAvailable('2022/11/10')).to.deep.equal(false)
+    expect(room2.isAvailable(new Date('2022/11/10'))).to.deep.equal(false)
   })
 
   it('should be able to add a new booking', () => {
@@ -92,13 +92,13 @@ describe('Room', () => {
       {
         id: '5fwrgu4i7k55hl6tm',
         userID: 41,
-        date: '2022/11/10',
+        date: new Date('2022/11/10'),
         roomNumber: 19,
       },
       {
         id: '5fth8u4i7k55hl6t7',
         userID: 22,
-        date: '2029/11/10',
+        date: new Date('2029/11/10'),
         roomNumber: 19,
       },
     ])
