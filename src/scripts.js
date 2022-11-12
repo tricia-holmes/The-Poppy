@@ -29,6 +29,7 @@ const customerToalSpentDisplay = document.querySelector('[data-id = totalCost]')
 const upcomingBookingsContainer = document.querySelector(
   '[data-id = UpcomingBookings]'
 )
+const pastBookingsContainer = document.querySelector('[date-id = pastBookings]')
 
 //--------------Global Variables------------------
 const store = {
@@ -64,6 +65,10 @@ window.addEventListener('load', () => {
 
 window.addEventListener('load', () => {
   loadUpcomingBookings()
+})
+
+window.addEventListener('load', () => {
+  loadPastBookings()
 })
 
 //--------------Event Handlers------------------
@@ -120,6 +125,25 @@ const loadUpcomingBookings = () => {
     bookingDate.appendChild(date)
     booking.appendChild(bookingDate)
     upcomingBookingsContainer.appendChild(booking)
+  })
+}
+
+const loadPastBookings = () => {
+  const pastBookings = store.customer.showPastBookings(store.currentDate)
+
+  pastBookings.forEach((booking) => {
+    const pastBooking = document.createElement('div')
+    const pastDate = document.createElement('p')
+
+    pastBooking.classList.add('pastBooking')
+    pastDate.classList.add('pastDate')
+
+    pastBooking.style.backgroundImage = `url(../images/${getRandomImage()})`
+    pastDate.innerText = `${booking.date}`
+
+    pastBooking.appendChild(pastDate)
+    pastBookingsContainer.appendChild(pastBooking)
+    console.log('HELLO')
   })
 }
 

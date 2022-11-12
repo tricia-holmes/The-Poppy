@@ -216,10 +216,11 @@ main {
   background-blend-mode: overlay;
   background-color: rgb(126 0 255 / 34%);
   color: white;
-  width: 288px;
-  height: 175px;
+  width: 325px;
+  height: 220px;
   margin: 10px;
-  font-size: 30px;
+  font-size: 36px;
+  line-height: 1.5;
 }
 
 .totalCost__container {
