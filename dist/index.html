@@ -1,16 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
-</head>
-<body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Poppy Hotel</title>
+  </head>
+  <body>
+    <header class="page__navbar">
+      <h1 class="navbar__logo">The Poppy</h1>
+      <button class="navbar__btn">Login</button>
+    </header>
+    <section
+      data-page-type="user dashboard"
+      class="page__layout user__dashboard"
+    >
+    <div class="divider"></div>
+    <section class="toprow__container">
+      <section class="currentBookings__container">
+        <div class="booking">
+          <figure class="booking__figure">
+            <img
+              class="booking__img"
+              src="../images/test-hotel.jpg"
+              alt="test-image"
+            />
+          </figure>
+          <p class="booking__label">
+            Reservation Number:
+            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+          </p>
+          <p class="booking__label">
+            Booking Date: <span class="placeholder">2022/11/10</span>
+          </p>
+        </div>
+        <div class="booking">
+          <figure class="booking__figure">
+            <img
+              class="booking__img"
+              src="../images/test-hotel2.jpg"
+              alt="test-image"
+            />
+          </figure>
+          <p class="booking__label">
+            Reservation Number:
+            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+          </p>
+          <p class="booking__label">
+            Booking Date: <span class="placeholder">2022/11/10</span>
+          </p>
+        </div>
+        <div class="booking">
+          <figure class="booking__figure">
+            <img
+              class="booking__img"
+              src="../images/test-hotel3.jpg"
+              alt="test-image"
+            />
+          </figure>
+          <p class="booking__label">
+            Reservation Number:
+            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+          </p>
+          <p class="booking__label">
+            Booking Date: <span class="placeholder">2022/11/10</span>
+          </p>
+        </div>
+        <div class="booking">
+          <figure class="booking__figure">
+            <img
+              class="booking__img"
+              src="../images/test-hotel4.jpg"
+              alt="test-image"
+            />
+          </figure>
+          <p class="booking__label">
+            Reservation Number:
+            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+          </p>
+          <p class="booking__label">
+            Booking Date: <span class="placeholder">2022/11/10</span>
+          </p>
+        </div>
+        <div class="booking">
+          <figure class="booking__figure">
+            <img
+              style="object-position: top"
+              class="booking__img"
+              src="../images/test-hotel5.jpg"
+              alt="test-image"
+            />
+          </figure>
+          <p class="booking__label">
+            Reservation Number:
+            <span class="placeholder">5fwrgu4i7k55hl6tm</span>
+          </p>
+          <p class="booking__label">
+            Booking Date: <span class="placeholder">2022/11/10</span>
+          </p>
+        </div>
+      </section>
+      <section class="user__container">
+        <p class="user__placeholder">user name</p>
+        <p class="user__placeholder">user id</p>
+      </section>
+    </section>
+  </div>
+    <section class="bottomrow__container">
+      <section class="pastBookings__container">UPCOMING BOOKINGS</section>
+      <section class="totalCost__container">TOTAL COST</section>
+    </section>
+    </section>
 
-</body>
+    <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+    <script src="bundle.js"></script>
+  </body>
 </html>
