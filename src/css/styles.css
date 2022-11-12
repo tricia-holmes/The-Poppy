@@ -56,11 +56,33 @@ main {
 .user__dashboard {
   position: absolute;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   /* flex-wrap: wrap; */
-  align-items: center;
+  /* align-items: center; */
   /* overflow: hidden; */
   /* justify-content: space-between; */
+}
+
+.toprow__container {
+  position: absolute;
+  top: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 55%;
+  z-index: 10;
+}
+
+.bottomrow__container {
+  position: absolute;
+  /* left: 0; */
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 29.3%;
 }
 
 .divider {
@@ -72,23 +94,25 @@ main {
 }
 
 .currentBookings__container {
-  background-color: aqua;
+  background-color: rgb(225, 182, 255);
   position: relative;
   display: flex;
-  flex-wrap: nowrap;
-  /* justify-content: center; */
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   overflow-x: auto;
   overflow-y: hidden;
-  top: -42px;
+  top: -48px;
   /* flex: 1; */
-  height: 50%;
+  height: 100%;
   width: 75%;
+  border-top: 2px solid #000000;
   border-right: 1px solid #000000;
   border-bottom: 1px solid #000000;
 }
 .booking {
-  background-color: rgb(255, 255, 214);
+  background-color: #fff;
   font-size: 20px;
   display: flex;
   flex: 0 0 auto;
@@ -103,7 +127,7 @@ main {
 .booking:only-child {
   position: absolute;
   left: 37.5%;
-  background-color: rgb(255, 255, 214);
+  background-color: #fff;
   font-size: 20px;
   display: flex;
   flex-direction: column;
@@ -144,12 +168,51 @@ main {
   background-color: aquamarine;
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* flex-wrap: wrap; */
-  top: -42px;
+  flex-wrap: wrap;
+  top: -48px;
   width: 25%;
-  height: 50%;
+  height: 100%;
+  border-top: 2px solid #000000;
   border-left: 1px solid #000000;
   border-bottom: 1px solid #000000;
+}
+
+.user__placeholder {
+  font-size: 32px;
+  margin: 10px;
+}
+
+.pastBookings__container {
+  background-color: lightgoldenrodyellow;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* top: -42px; */
+  /* height: 50%; */
+  height: 100%;
+  width: 75%;
+  border-right: 1px solid #000000;
+  border-top: 1px solid #000000;
+}
+
+.totalCost__container {
+  background-color: lightcoral;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 25%;
+  height: 100%;
+  border-left: 1px solid #000000;
+  border-top: 1px solid #000000;
 }
