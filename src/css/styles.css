@@ -181,8 +181,13 @@ main {
 }
 
 .customer__placeholder {
-  font-size: 24px;
-  /* margin: 10px; */
+  font-size: 28px;
+}
+
+.customer__info {
+  font-size: 28px;
+  color: rgb(7, 57, 131);
+  font-family: Cormorant-Semi-Bold-Italic;
 }
 
 .pastBookings__container {

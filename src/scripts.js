@@ -25,6 +25,7 @@ import './images/test-hotel5.jpg'
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
 const customerIdDisplay = document.querySelector('[data-id = customerId]')
+const customerToalSpentDisplay = document.querySelector('[data-id = totalCost]')
 
 //--------------Global Variables------------------
 
@@ -45,12 +46,15 @@ const store = {
 
 window.addEventListener('load', () => {
   createRandomCustomer(customerSampleData, bookingSampleData)
-  console.log('HELLO', customerNameDisplay.innerText)
+  createHotel(roomSampleData, bookingSampleData)
 })
 
 window.addEventListener('load', () => {
   loadCustomerProfile()
-  console.log('HELLO', customerNameDisplay.innerText)
+})
+
+window.addEventListener('load', () => {
+  loadTotalAmountSpent()
 })
 //--------------Event Handlers------------------
 
@@ -62,13 +66,30 @@ const createRandomCustomer = (customerSampleData, bookingSampleData) => {
   )
 }
 
+const createHotel = (roomSampleData, bookingSampleData) => {
+  const hotelInfo = Hotel.fromData(roomSampleData, bookingSampleData)
+  store.hotel = hotelInfo
+}
+
 const loadCustomerProfile = () => {
   customerNameDisplay.innerText = `${store.customer.name}`
   customerIdDisplay.innerText = `${store.customer.id}`
+}
+
+const loadTotalAmountSpent = () => {
+  const total = store.customer.getTotalCost(store.hotel)
+  const totalFormatted = formatForCurrency(total)
+  customerToalSpentDisplay.innerText = `${totalFormatted}`
+  console.log(store.customer.bookings)
 }
 
 //--------------Util Functions-------------------
 
 const randomizeFromArray = (array) => {
   return Math.floor(Math.random() * array.length)
+}
+
+const formatForCurrency = (amount) => {
+ const formatCurrency = Intl.NumberFormat(undefined, {style: 'currency', currency: 'USD'})
+ return formatCurrency.format(amount)
 }
