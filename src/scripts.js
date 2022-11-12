@@ -155,7 +155,7 @@ const loadTotalAmountSpent = () => {
   const total = store.customer.getTotalCost(store.hotel)
   const totalFormatted = formatForCurrency(total)
   customerToalSpentDisplay.innerText = `${totalFormatted}`
-  console.log(store.customer.bookings)
+  // console.log(store.customer.bookings)
 }
 
 //--------------Util Functions-------------------
