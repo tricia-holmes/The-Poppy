@@ -3,12 +3,6 @@
 import { fetchGetAll } from './apiCalls'
 import Customer from './classes/Customer'
 import Hotel from './classes/Hotel'
-import {
-  bookingSampleData,
-  bookingSampleData2,
-} from '../test-data/booking-sample-data'
-import { roomSampleData } from '../test-data/room-sample-data'
-import { customerSampleData } from '../test-data/customer-sample-data'
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/fonts.css'
