@@ -21,6 +21,12 @@ import './images/test-hotel2.jpg'
 import './images/test-hotel3.jpg'
 import './images/test-hotel4.jpg'
 import './images/test-hotel5.jpg'
+import './images/test-room.jpg'
+import './images/dollar.svg'
+import './images/room.svg'
+import './images/bed.svg'
+import './images/bidet.svg'
+
 
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
@@ -31,7 +37,12 @@ const upcomingBookingsContainer = document.querySelector(
 )
 const pastBookingsContainer = document.querySelector('[date-id = pastBookings]')
 const navBtn = document.querySelector('[data-id = navbar]')
-const userDashboardSection = document.querySelector('[data-page-type = user-dashboard]')
+const userDashboardSection = document.querySelector(
+  '[data-page-type = user-dashboard]'
+)
+const reservationsPageSection = document.querySelector(
+  '[data-page-type = reservations]'
+)
 
 //--------------Global Variables------------------
 const store = {
@@ -158,12 +169,15 @@ const loadTotalAmountSpent = () => {
 
 const updateNavBtn = () => {
   if (store.currentPage === 'user dashboard') {
-    navBtn.innerText = 'Make Reservations'
+    changeElementInnerText(navBtn, 'Dashboard')
+    setCurrentPage('reservations')
     toggleHtmlElement(userDashboardSection)
-  } else if (store.currentPage === 'website') {
-    navBtn.innerText = 'Login'
-  } else {
-    navBtn.innerText = 'Dashboard'
+    toggleHtmlElement(reservationsPageSection)
+  } else if (store.currentPage === 'reservations') {
+    changeElementInnerText(navBtn, 'Make Reservations')
+    setCurrentPage('user dashboard')
+    toggleHtmlElement(userDashboardSection)
+    toggleHtmlElement(reservationsPageSection)
   }
 }
 
@@ -182,6 +196,14 @@ const defineEventListeners = () => {
 
 const toggleHtmlElement = (element) => {
   element.classList.toggle('toggleDisplay')
+}
+
+const setCurrentPage = (currentPage) => {
+  store.currentPage = currentPage
+}
+
+const changeElementInnerText = (element, text) => {
+  element.innerText = text
 }
 
 const formatForCurrency = (amount) => {
