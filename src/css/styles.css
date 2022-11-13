@@ -12,6 +12,10 @@ main {
   background: honeydew;
 }
 
+.toggleDisplay {
+  display: none !important;
+}
+
 /* Page Layout */
 
 .page__layout {
@@ -31,7 +35,7 @@ main {
   align-items: center;
   width: 100%;
   height: 60px;
-  background-color: hotpink;
+  background-color: rgb(255, 177, 216);
   z-index: 100;
 }
 
@@ -43,7 +47,7 @@ main {
 .navbar__btn {
   cursor: pointer;
   height: 20px;
-  width: 75px;
+  width: 134px;
   margin-right: 20px;
 }
 
@@ -235,4 +239,195 @@ main {
   height: 100%;
   border-left: 1px solid #000000;
   border-top: 1px solid #000000;
+}
+
+/* Reservations Page */
+.reservations__page {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.search__container {
+  background-color: #fe398c;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 50%;
+  height: 100%;
+}
+
+.results__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: aqua;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 50%;
+  height: 100vh;
+  bottom: 0;
+}
+
+.available__title {
+  position: relative;
+  top: -30px;
+  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 100px;
+  margin-top:85px;
+  margin-bottom: -24px;
+  z-index: 10;
+}
+
+.available__room {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 0 0 auto;
+  /* margin-top: 15px; */
+  margin-bottom: 14px;
+  height: 538px;
+  width: 480px;
+  background-color: #ffffed;
+}
+
+.title__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room__title {
+  display: flex;
+  font-family: Cormorant-Bold;
+  font-size: 30px;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.room__number {
+  display: flex;
+  font-family: Cormorant-Semi-Bold;
+  font-size: 34px;
+  margin: 0;
+}
+
+.room__figure {
+  display: flex;
+  height: 200px;
+  width: 90%;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  contain: content;
+}
+
+.room__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.room__divider {
+  width: 90%;
+  border: 1px solid #000000;
+  z-index: 10;
+}
+
+.details__container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.bed__container,
+.type__container,
+.cost__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cost__icon {
+  height: 67px;
+  margin: 0;
+}
+
+.cost__text {
+  font-family: Cormorant-Semi-Bold;
+  font-size: 21px;
+  text-align: center;
+  width: 92px;
+  margin: 0;
+}
+
+.bed__icon,
+.type__icon {
+  height: 67px;
+  margin-bottom: 10px;
+}
+
+.bed__text,
+.type__text {
+  font-family: Cormorant-Semi-Bold;
+  font-size: 22px;
+  text-align: center;
+  width: 111px;
+  margin: 0;
+}
+
+.bed__amount {
+  font-size: 26px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.bidet__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.bidet__icon {
+  height: 54px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.bidet__text {
+  font-family: Cormorant-Semi-Bold;
+  font-size: 21px;
+  text-align: center;
+  width: 92px;
+  margin: 0;
+}
+
+.book__btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 202px;
+  height: 52px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: Cormorant-Semi-Bold;
+  font-size: 28px;
+  text-align: center;
+  background-color: #000000;
+  color: #fff;
 }
