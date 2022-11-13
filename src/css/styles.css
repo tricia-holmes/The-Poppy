@@ -418,6 +418,9 @@ main {
 .book__btn {
   all: unset;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 202px;
   height: 52px;
   margin-top: 10px;
