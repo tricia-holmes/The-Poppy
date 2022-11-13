@@ -27,7 +27,6 @@ import './images/room.svg'
 import './images/bed.svg'
 import './images/bidet.svg'
 
-
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
 const customerIdDisplay = document.querySelector('[data-id = customerId]')
@@ -43,6 +42,7 @@ const userDashboardSection = document.querySelector(
 const reservationsPageSection = document.querySelector(
   '[data-page-type = reservations]'
 )
+const resultsContainer = document.querySelector('[data-id = results]')
 
 //--------------Global Variables------------------
 const store = {
@@ -70,6 +70,7 @@ const InitializeCustomerApp = () => {
       loadTotalAmountSpent()
       loadUpcomingBookings()
       loadPastBookings()
+      loadAvailableRooms('2023/11/30')
     })
     .catch((err) => alert(err)) // need to replace with DOM function
 }
@@ -167,6 +168,52 @@ const loadTotalAmountSpent = () => {
   customerToalSpentDisplay.innerText = `${totalFormatted}`
 }
 
+const loadAvailableRooms = (selectedDate) => {
+  const availabeRooms = store.hotel.showAvailableRooms(selectedDate)
+  availabeRooms.forEach((availbleRoom) => {
+    const room = document.createElement('div')
+    room.dataset.id = `${availbleRoom.number}`
+    room.classList.add('available__room')
+    room.innerHTML = `<div class="title__container">
+    <h2 class="room__title">Room Number</h2>
+    <h3 class="room__number">${availbleRoom.number}</h3>
+  </div>
+  <figure class="room__figure">
+    <img class="room__img" src="./images/test-room.jpg" />
+  </figure>
+  <div class="room__divider"></div>
+  <div class="details__container">
+    <div class="cost__container">
+      <img class="cost__icon" src="./images/dollar.svg" />
+      <p class="cost__text">$${availbleRoom.costPerNight} per night</p>
+    </div>
+    <div class="type__container">
+      <img class="type__icon" src="./images/room.svg" />
+      <p class="type__text">${availbleRoom.roomType}</p>
+    </div>
+    <div class="bed__container">
+      <img class="bed__icon" src="./images/bed.svg" />
+      <p class="bed__text"><span class="bed__amount">${
+        availbleRoom.numBeds
+      }</span>${availbleRoom.bedSize}</p>
+    </div>
+    <div class="bidet__container">
+      <img class="bidet__icon" src="./images/bidet.svg" />
+      <p class="bidet__text">${checkForBidet(availbleRoom)}</p>
+    </div>
+  </div>
+  <div class="room__divider"></div>`
+
+    const bookBtn = document.createElement('btn')
+    bookBtn.classList.add('book__btn')
+    bookBtn.innerText = 'Book Now'
+    bookBtn.dataset.id = `{availableRoom.id}`
+
+    room.appendChild(bookBtn)
+    resultsContainer.appendChild(room)
+  })
+}
+
 const updateNavBtn = () => {
   if (store.currentPage === 'user dashboard') {
     changeElementInnerText(navBtn, 'Dashboard')
@@ -178,6 +225,14 @@ const updateNavBtn = () => {
     setCurrentPage('user dashboard')
     toggleHtmlElement(userDashboardSection)
     toggleHtmlElement(reservationsPageSection)
+  }
+}
+
+const checkForBidet = (room) => {
+  if (room.bidet) {
+    return 'bidet included'
+  } else {
+    return 'bidet not included'
   }
 }
 
