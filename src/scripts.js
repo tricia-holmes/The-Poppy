@@ -40,6 +40,11 @@ const resultsContainer = document.querySelector('[data-id = results]')
 const arrivalDateInput = document.querySelector('#arrivalDate')
 const searchBtn = document.querySelector('[data-id = search]')
 const depatureDateInput = document.querySelector('#departureDate')
+const bookingModal = document.querySelector('[data-id = bookingModal]')
+const closeModalBtn = document.querySelector('[data-id = closeModalBtn]')
+const bookingModalDetails = document.querySelector(
+  '[data-id = bookingModalDetails]'
+)
 
 //--------------Global Variables------------------
 const store = {
@@ -221,7 +226,7 @@ const loadAvailableRooms = () => {
       bookBtn.classList.add('book__btn')
       bookBtn.innerText = 'Book Now'
       bookBtn.dataset.id = `${availableRoom.number}`
-      bookBtn.addEventListener('click', openModal)
+      bookBtn.addEventListener('click', toggleBookingModal)
 
       room.appendChild(bookBtn)
       resultsContainer.appendChild(room)
@@ -271,9 +276,59 @@ const checkForBidet = (room) => {
   }
 }
 
-const openModal = (event) => {
-  console.log("MODAL", event.currentTarget.dataset.id)
-} 
+const toggleBookingModal = (event) => {
+  if (
+    event.currentTarget.className === 'book__btn' ||
+    event.currentTarget.className === 'close__btn'
+  ) {
+    bookingModal.classList.toggle('booking__modal-toggle')
+  }
+  console.log('MODAL', event.currentTarget.dataset.id)
+}
+
+const findBookingModalDetails = (event) => {
+  bookingModalDetails.innerHTML = ''
+  bookingModalDetails.innerHTML = `
+  <div class="booking__header">
+  <h1 class="booking__logo">THE POPPY</h1>
+  <button data-id="closeModalBtn" class="close__btn">&times;</button>
+</div>
+<div class="room__divider"></div>
+<p class="booking__number">
+  Room No.<span class="booking__span"> 308</span>
+</p>
+<div class="room__divider"></div>
+<div class="modal__details__container">
+  <div class="cost__container">
+    <img class="cost__icon" src="./images/dollar.svg" />
+    <p class="cost__text">$456.90 per night</p>
+  </div>
+  <div class="type__container">
+    <img class="type__icon" src="./images/room.svg" />
+    <p class="type__text">junior suite</p>
+  </div>
+  <div class="bed__container">
+    <img class="bed__icon" src="./images/bed.svg" />
+    <p class="bed__text"><span class="bed__amount">3</span>king</p>
+  </div>
+  <div class="bidet__container">
+    <img class="bidet__icon" src="./images/bidet.svg" />
+    <p class="bidet__text">bidet included</p>
+  </div>
+</div>
+<div class="room__divider"></div>
+<div class="summary__container">
+  <div class="reservations__container">
+    <p class="reservations__date">Reservation Dates:</p>
+    <p class="reservations__range">11/16/2022 - 11/18/2022</p>
+  </div>
+  <div class="reservations__container">
+    <p class="reservations__total">Total Cost:</p>
+    <p class="reservations__cost">$478.89</p>
+  </div>
+</div>
+<button class="confirm__btn">Book</button>`
+}
 
 //--------------Util Functions-------------------
 const randomizeFromArray = (array) => {
@@ -289,6 +344,7 @@ const defineEventListeners = () => {
   arrivalDateInput.addEventListener('input', setArrivalDate)
   depatureDateInput.addEventListener('input', setDepatureDate)
   searchBtn.addEventListener('click', loadAvailableRooms)
+  closeModalBtn.addEventListener('click', toggleBookingModal)
 }
 
 const toggleHtmlElement = (element) => {
