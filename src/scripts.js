@@ -28,7 +28,7 @@ const customerToalSpentDisplay = document.querySelector('[data-id = totalCost]')
 const upcomingBookingsContainer = document.querySelector(
   '[data-id = UpcomingBookings]'
 )
-const pastBookingsContainer = document.querySelector('[date-id = pastBookings]')
+const pastBookingsContainer = document.querySelector('[data-id = pastBookings]')
 const navBtn = document.querySelector('[data-id = navbar]')
 const userDashboardSection = document.querySelector(
   '[data-page-type = user-dashboard]'
@@ -37,11 +37,18 @@ const reservationsPageSection = document.querySelector(
   '[data-page-type = reservations]'
 )
 const resultsContainer = document.querySelector('[data-id = results]')
+const arrivalDateInput = document.querySelector('#arrivalDate')
+const searchBtn = document.querySelector('[data-id = search]')
+const depatureDateInput = document.querySelector('#departureDate')
 
 //--------------Global Variables------------------
 const store = {
   currentPage: 'user dashboard',
-  currentDate: new Date(),
+  currentDate: new Date(
+    `${new Date().getFullYear()}/${
+      new Date().getMonth() + 1
+    }/${new Date().getDate()}`
+  ),
   customer: new Customer(),
   hotel: new Hotel(),
   bookingImages: [
@@ -51,6 +58,8 @@ const store = {
     'test-hotel4.jpg',
     'test-hotel4.jpg',
   ],
+  arrialDate: '',
+  depatureDate: '',
 }
 
 //--------------Initialize App------------------
@@ -64,9 +73,8 @@ const InitializeCustomerApp = () => {
       loadTotalAmountSpent()
       loadUpcomingBookings()
       loadPastBookings()
-      loadAvailableRooms('2023/11/30')
     })
-    .catch((err) => alert(err)) // need to replace with DOM function
+    .catch((err) => console.error(err)) // need to replace with DOM function
 }
 
 // if I do manager iteration -> create a InitializeManagerApp
@@ -162,50 +170,81 @@ const loadTotalAmountSpent = () => {
   customerToalSpentDisplay.innerText = `${totalFormatted}`
 }
 
-const loadAvailableRooms = (selectedDate) => {
-  const availabeRooms = store.hotel.showAvailableRooms(selectedDate)
-  availabeRooms.forEach((availbleRoom) => {
-    const room = document.createElement('div')
-    room.dataset.id = `${availbleRoom.number}`
-    room.classList.add('available__room')
-    room.innerHTML = `<div class="title__container">
-    <h2 class="room__title">Room Number</h2>
-    <h3 class="room__number">${availbleRoom.number}</h3>
-  </div>
-  <figure class="room__figure">
-    <img class="room__img" src="./images/test-room.jpg" />
-  </figure>
-  <div class="room__divider"></div>
-  <div class="details__container">
-    <div class="cost__container">
-      <img class="cost__icon" src="./images/dollar.svg" />
-      <p class="cost__text">$${availbleRoom.costPerNight} per night</p>
-    </div>
-    <div class="type__container">
-      <img class="type__icon" src="./images/room.svg" />
-      <p class="type__text">${availbleRoom.roomType}</p>
-    </div>
-    <div class="bed__container">
-      <img class="bed__icon" src="./images/bed.svg" />
-      <p class="bed__text"><span class="bed__amount">${
-        availbleRoom.numBeds
-      }</span>${availbleRoom.bedSize}</p>
-    </div>
-    <div class="bidet__container">
-      <img class="bidet__icon" src="./images/bidet.svg" />
-      <p class="bidet__text">${checkForBidet(availbleRoom)}</p>
-    </div>
-  </div>
-  <div class="room__divider"></div>`
+const loadAvailableRooms = () => {
+  console.log(store.currentDate)
+  const availableRooms = store.hotel.showAvailableRooms(
+    store.arrialDate,
+    store.currentDate,
+    store.depatureDate
+  )
+  console.log('ROOMS', availableRooms)
 
-    const bookBtn = document.createElement('btn')
-    bookBtn.classList.add('book__btn')
-    bookBtn.innerText = 'Book Now'
-    bookBtn.dataset.id = `{availableRoom.id}`
+  if (typeof availableRooms === 'string') {
+    alert(availableRooms)
+  } else {
+    availableRooms.forEach((availbleRoom) => {
+      const room = document.createElement('div')
+      room.dataset.id = `${availbleRoom.number}`
+      room.classList.add('available__room')
+      room.innerHTML = `<div class="title__container">
+      <h2 class="room__title">Room Number</h2>
+      <h3 class="room__number">${availbleRoom.number}</h3>
+    </div>
+    <figure class="room__figure">
+      <img class="room__img" src="./images/test-room.jpg" />
+    </figure>
+    <div class="room__divider"></div>
+    <div class="details__container">
+      <div class="cost__container">
+        <img class="cost__icon" src="./images/dollar.svg" />
+        <p class="cost__text">$${availbleRoom.costPerNight} per night</p>
+      </div>
+      <div class="type__container">
+        <img class="type__icon" src="./images/room.svg" />
+        <p class="type__text">${availbleRoom.roomType}</p>
+      </div>
+      <div class="bed__container">
+        <img class="bed__icon" src="./images/bed.svg" />
+        <p class="bed__text"><span class="bed__amount">${
+          availbleRoom.numBeds
+        }</span>${availbleRoom.bedSize}</p>
+      </div>
+      <div class="bidet__container">
+        <img class="bidet__icon" src="./images/bidet.svg" />
+        <p class="bidet__text">${checkForBidet(availbleRoom)}</p>
+      </div>
+    </div>
+    <div class="room__divider"></div>`
 
-    room.appendChild(bookBtn)
-    resultsContainer.appendChild(room)
-  })
+      const bookBtn = document.createElement('btn')
+      bookBtn.classList.add('book__btn')
+      bookBtn.innerText = 'Book Now'
+      bookBtn.dataset.id = `{availableRoom.id}`
+
+      room.appendChild(bookBtn)
+      resultsContainer.appendChild(room)
+    })
+  }
+}
+
+const setArrivalDate = () => {
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  depatureDateInput.value = arrivalDateInput.value
+  const formattedSelectedDate = new Date(
+    arrivalDateInput.value.split('-').join('/')
+    )
+    store.arrialDate = formattedSelectedDate
+    store.depatureDate = formattedSelectedDate
+  console.log('ARRIVE', formattedSelectedDate)
+}
+
+const setDepatureDate = () => {
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  const formattedSelectedDate = new Date(
+    depatureDateInput.value.split('-').join('/')
+  )
+  store.depatureDate = formattedSelectedDate
+  console.log('DEPART', formattedSelectedDate)
 }
 
 const updateNavBtn = () => {
@@ -241,6 +280,9 @@ const getRandomImage = () => {
 
 const defineEventListeners = () => {
   navBtn.addEventListener('click', updateNavBtn)
+  arrivalDateInput.addEventListener('input', setArrivalDate)
+  depatureDateInput.addEventListener('input', setDepatureDate)
+  searchBtn.addEventListener('click', loadAvailableRooms)
 }
 
 const toggleHtmlElement = (element) => {
