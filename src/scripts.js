@@ -1,8 +1,9 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
-import { fetchGetAll } from './apiCalls'
+import { fetchGetAll, apiCallMap } from './apiCalls'
 import Customer from './classes/Customer'
 import Hotel from './classes/Hotel'
+import Booking from './classes/Booking'
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/fonts.css'
@@ -68,7 +69,7 @@ const store = {
   departureDate: '',
 }
 
-//--------------Initialize App------------------
+//--------------Initialize Customer App------------------
 const InitializeCustomerApp = () => {
   fetchGetAll()
     .then((data) => {
@@ -85,6 +86,17 @@ const InitializeCustomerApp = () => {
 
 // if I do manager iteration -> create a InitializeManagerApp
 // this will use `fetchGetAll` and will use DOM fns that load the app for manager
+
+//--------------Make Reservation------------------
+const makeReservation = (customer, bookingDate, roomNumber) => {
+  apiCallMap.addNewBooking(customer, bookingDate, roomNumber).then((data) => {
+    store.hotel.addBooking(new Booking(data.newBooking), customer)
+    loadAvailableRooms()
+    loadUpcomingBookings()
+    console.log('WHAT AM I?', customer.bookings)
+    console.log("ROOM", store.hotel.findRoomByNumber(data.newBooking.roomNumber))
+  })
+}
 
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
@@ -104,6 +116,7 @@ const createHotel = (roomSampleData, bookingSampleData) => {
 }
 
 const loadUpcomingBookings = () => {
+  upcomingBookingsContainer.innerHTML = ``
   const upcomingBookings = store.customer.showUpcomingBookings(
     store.currentDate
   )
@@ -358,7 +371,7 @@ const findBookingModalDetails = (event) => {
   confirmBtn.classList.add('confirm__btn')
   confirmBtn.innerText = 'Book'
   confirmBtn.dataset.id = `${roomToBook.number}`
-  confirmBtn.addEventListener('click', toggleBookingModal)
+  confirmBtn.addEventListener('click', setupReservation)
 
   bookingModalDetails.appendChild(confirmBtn)
 }
@@ -431,4 +444,10 @@ const formatForReservationDate = () => {
 
 const resetSearchResults = () => {
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+}
+
+const setupReservation = (event) => {
+  const roomNumber = Number(event.currentTarget.dataset.id)
+  console.log('TELL EM', roomNumber)
+  makeReservation(store.customer, store.arrvialDate, roomNumber)
 }
