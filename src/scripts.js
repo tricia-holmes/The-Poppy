@@ -191,7 +191,6 @@ const loadAvailableRooms = () => {
     store.departureDate
   )
 
-  
   if (typeof rooms === 'string') {
     alert(rooms)
   } else {
@@ -212,7 +211,9 @@ const loadAvailableRooms = () => {
     <div class="details__container">
       <div class="cost__container">
         <img class="cost__icon" src="./images/dollar.svg" />
-        <p class="cost__text">${formatForCurrency(availableRoom.costPerNight)} per night</p>
+        <p class="cost__text">${formatForCurrency(
+          availableRoom.costPerNight
+        )} per night</p>
       </div>
       <div class="type__container">
         <img class="type__icon" src="./images/room.svg" />
@@ -294,12 +295,12 @@ const toggleBookingModal = (event) => {
   console.log(event.currentTarget.className)
   findBookingModalDetails(event)
 
-  if (
-    event.currentTarget.className === 'book__btn' ||
-    event.currentTarget.className === 'confirm__btn'
-  ) {
-    bookingModal.classList.toggle('booking__modal-toggle')
-  }
+  // if (
+  //   event.currentTarget.className === 'book__btn' ||
+  //   event.currentTarget.className === 'confirm__btn'
+  // ) {
+  bookingModal.classList.toggle('booking__modal-toggle')
+  // }
 
   // console.log('MODAL', store.hotel.findRoomByNumber(roomNumber))
 }
@@ -347,7 +348,9 @@ const findBookingModalDetails = (event) => {
   </div>
   <div class="reservations__container">
     <p class="reservations__total">Total Cost:</p>
-    <p class="reservations__cost">${formatForCurrency(roomToBook.costPerNight)}</p>
+    <p class="reservations__cost">${formatForCurrency(
+      roomToBook.costPerNight
+    )}</p>
   </div>
 </div>`
 
