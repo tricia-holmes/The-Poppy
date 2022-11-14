@@ -430,6 +430,19 @@ main {
   text-align: center;
   background-color: #000000;
   color: #fff;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid transparent;
+}
+
+
+.book__btn:hover {
+  background-color: #fff;
+  color: #000000;
+  border-color: #000000;
+}
+
+.book__btn:active {
+  transform: scale(0.98);
 }
 
 /* Search */

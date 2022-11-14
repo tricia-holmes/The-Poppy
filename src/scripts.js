@@ -171,6 +171,7 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   console.log(store.currentDate)
   const availableRooms = store.hotel.showAvailableRooms(
     store.arrialDate,
@@ -182,13 +183,13 @@ const loadAvailableRooms = () => {
   if (typeof availableRooms === 'string') {
     alert(availableRooms)
   } else {
-    availableRooms.forEach((availbleRoom) => {
+    availableRooms.forEach((availableRoom) => {
       const room = document.createElement('div')
-      room.dataset.id = `${availbleRoom.number}`
+      room.dataset.id = `${availableRoom.number}`
       room.classList.add('available__room')
       room.innerHTML = `<div class="title__container">
       <h2 class="room__title">Room Number</h2>
-      <h3 class="room__number">${availbleRoom.number}</h3>
+      <h3 class="room__number">${availableRoom.number}</h3>
     </div>
     <figure class="room__figure">
       <img class="room__img" src="./images/test-room.jpg" />
@@ -197,21 +198,21 @@ const loadAvailableRooms = () => {
     <div class="details__container">
       <div class="cost__container">
         <img class="cost__icon" src="./images/dollar.svg" />
-        <p class="cost__text">$${availbleRoom.costPerNight} per night</p>
+        <p class="cost__text">$${availableRoom.costPerNight} per night</p>
       </div>
       <div class="type__container">
         <img class="type__icon" src="./images/room.svg" />
-        <p class="type__text">${availbleRoom.roomType}</p>
+        <p class="type__text">${availableRoom.roomType}</p>
       </div>
       <div class="bed__container">
         <img class="bed__icon" src="./images/bed.svg" />
         <p class="bed__text"><span class="bed__amount">${
-          availbleRoom.numBeds
-        }</span>${availbleRoom.bedSize}</p>
+          availableRoom.numBeds
+        }</span>${availableRoom.bedSize}</p>
       </div>
       <div class="bidet__container">
         <img class="bidet__icon" src="./images/bidet.svg" />
-        <p class="bidet__text">${checkForBidet(availbleRoom)}</p>
+        <p class="bidet__text">${checkForBidet(availableRoom)}</p>
       </div>
     </div>
     <div class="room__divider"></div>`
@@ -219,7 +220,8 @@ const loadAvailableRooms = () => {
       const bookBtn = document.createElement('btn')
       bookBtn.classList.add('book__btn')
       bookBtn.innerText = 'Book Now'
-      bookBtn.dataset.id = `{availableRoom.id}`
+      bookBtn.dataset.id = `${availableRoom.number}`
+      bookBtn.addEventListener('click', openModal)
 
       room.appendChild(bookBtn)
       resultsContainer.appendChild(room)
@@ -232,9 +234,9 @@ const setArrivalDate = () => {
   depatureDateInput.value = arrivalDateInput.value
   const formattedSelectedDate = new Date(
     arrivalDateInput.value.split('-').join('/')
-    )
-    store.arrialDate = formattedSelectedDate
-    store.depatureDate = formattedSelectedDate
+  )
+  store.arrialDate = formattedSelectedDate
+  store.depatureDate = formattedSelectedDate
   console.log('ARRIVE', formattedSelectedDate)
 }
 
@@ -268,6 +270,10 @@ const checkForBidet = (room) => {
     return 'bidet not included'
   }
 }
+
+const openModal = (event) => {
+  console.log("MODAL", event.currentTarget.dataset.id)
+} 
 
 //--------------Util Functions-------------------
 const randomizeFromArray = (array) => {
