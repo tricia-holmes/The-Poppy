@@ -39,7 +39,7 @@ const reservationsPageSection = document.querySelector(
 const resultsContainer = document.querySelector('[data-id = results]')
 const arrivalDateInput = document.querySelector('#arrivalDate')
 const searchBtn = document.querySelector('[data-id = search]')
-const depatureDateInput = document.querySelector('#departureDate')
+const departureDateInput = document.querySelector('#departureDate')
 const bookingModal = document.querySelector('[data-id = bookingModal]')
 const closeModalBtn = document.querySelector('[data-id = closeModalBtn]')
 const bookingModalDetails = document.querySelector(
@@ -64,7 +64,7 @@ const store = {
     'test-hotel4.jpg',
   ],
   arrialDate: '',
-  depatureDate: '',
+  departureDate: '',
 }
 
 //--------------Initialize App------------------
@@ -87,6 +87,9 @@ const InitializeCustomerApp = () => {
 
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
+window.addEventListener('click', () => {
+  console.log("ID", event.currentTarget.className)
+})
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -178,10 +181,15 @@ const loadTotalAmountSpent = () => {
 const loadAvailableRooms = () => {
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   console.log(store.currentDate)
+
+  if (!store.arrialDate || !store.currentDate || !store.departureDate) {
+    return alert('not defined!')
+  }
+
   const availableRooms = store.hotel.showAvailableRooms(
     store.arrialDate,
     store.currentDate,
-    store.depatureDate
+    store.departureDate
   )
   console.log('ROOMS', availableRooms)
 
@@ -226,7 +234,7 @@ const loadAvailableRooms = () => {
       bookBtn.classList.add('book__btn')
       bookBtn.innerText = 'Book Now'
       bookBtn.dataset.id = `${availableRoom.number}`
-      bookBtn.addEventListener('click', toggleBookingModal)
+      bookBtn.addEventListener('click', loadBookingModal)
 
       room.appendChild(bookBtn)
       resultsContainer.appendChild(room)
@@ -236,21 +244,21 @@ const loadAvailableRooms = () => {
 
 const setArrivalDate = () => {
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
-  depatureDateInput.value = arrivalDateInput.value
+  departureDateInput.value = arrivalDateInput.value
   const formattedSelectedDate = new Date(
     arrivalDateInput.value.split('-').join('/')
   )
   store.arrialDate = formattedSelectedDate
-  store.depatureDate = formattedSelectedDate
+  store.departureDate = formattedSelectedDate
   console.log('ARRIVE', formattedSelectedDate)
 }
 
 const setDepatureDate = () => {
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   const formattedSelectedDate = new Date(
-    depatureDateInput.value.split('-').join('/')
+    departureDateInput.value.split('-').join('/')
   )
-  store.depatureDate = formattedSelectedDate
+  store.departureDate = formattedSelectedDate
   console.log('DEPART', formattedSelectedDate)
 }
 
@@ -276,17 +284,29 @@ const checkForBidet = (room) => {
   }
 }
 
+const loadBookingModal = (event) => {
+  toggleBookingModal(event)
+  findBookingModalDetails(event)
+}
+
 const toggleBookingModal = (event) => {
+  console.log(event.currentTarget.className)
+  findBookingModalDetails(event)
+
   if (
     event.currentTarget.className === 'book__btn' ||
-    event.currentTarget.className === 'close__btn'
+    event.currentTarget.className === 'confirm__btn'
   ) {
     bookingModal.classList.toggle('booking__modal-toggle')
   }
-  console.log('MODAL', event.currentTarget.dataset.id)
+
+  // console.log('MODAL', store.hotel.findRoomByNumber(roomNumber))
 }
 
 const findBookingModalDetails = (event) => {
+  const roomNumber = Number(event.currentTarget.dataset.id)
+  const roomToBook = store.hotel.findRoomByNumber(roomNumber)
+
   bookingModalDetails.innerHTML = ''
   bookingModalDetails.innerHTML = `
   <div class="booking__header">
@@ -295,39 +315,48 @@ const findBookingModalDetails = (event) => {
 </div>
 <div class="room__divider"></div>
 <p class="booking__number">
-  Room No.<span class="booking__span"> 308</span>
+  Room No.<span class="booking__span"> ${roomToBook.number}</span>
 </p>
 <div class="room__divider"></div>
 <div class="modal__details__container">
   <div class="cost__container">
     <img class="cost__icon" src="./images/dollar.svg" />
-    <p class="cost__text">$456.90 per night</p>
+    <p class="cost__text">$${roomToBook.costPerNight} per night</p>
   </div>
   <div class="type__container">
     <img class="type__icon" src="./images/room.svg" />
-    <p class="type__text">junior suite</p>
+    <p class="type__text">${roomToBook.roomType}</p>
   </div>
   <div class="bed__container">
     <img class="bed__icon" src="./images/bed.svg" />
-    <p class="bed__text"><span class="bed__amount">3</span>king</p>
+    <p class="bed__text"><span class="bed__amount">${
+      roomToBook.numBeds
+    }</span>${roomToBook.bedSize}</p>
   </div>
   <div class="bidet__container">
     <img class="bidet__icon" src="./images/bidet.svg" />
-    <p class="bidet__text">bidet included</p>
+    <p class="bidet__text">${checkForBidet(roomToBook)}</p>
   </div>
 </div>
 <div class="room__divider"></div>
 <div class="summary__container">
   <div class="reservations__container">
     <p class="reservations__date">Reservation Dates:</p>
-    <p class="reservations__range">11/16/2022 - 11/18/2022</p>
+    <p class="reservations__range">${formatForReservationDate()}</p>
   </div>
   <div class="reservations__container">
     <p class="reservations__total">Total Cost:</p>
     <p class="reservations__cost">$478.89</p>
   </div>
-</div>
-<button class="confirm__btn">Book</button>`
+</div>`
+
+  const confirmBtn = document.createElement('btn')
+  confirmBtn.classList.add('confirm__btn')
+  confirmBtn.innerText = 'Book'
+  confirmBtn.dataset.id = `${roomToBook.number}`
+  confirmBtn.addEventListener('click', toggleBookingModal)
+
+  bookingModalDetails.appendChild(confirmBtn)
 }
 
 //--------------Util Functions-------------------
@@ -342,7 +371,7 @@ const getRandomImage = () => {
 const defineEventListeners = () => {
   navBtn.addEventListener('click', updateNavBtn)
   arrivalDateInput.addEventListener('input', setArrivalDate)
-  depatureDateInput.addEventListener('input', setDepatureDate)
+  departureDateInput.addEventListener('input', setDepatureDate)
   searchBtn.addEventListener('click', loadAvailableRooms)
   closeModalBtn.addEventListener('click', toggleBookingModal)
 }
@@ -373,4 +402,16 @@ const formatBookingDisplayDate = (bookingDate) => {
     month: '2-digit',
     day: '2-digit',
   })
+}
+
+const formatForReservationDate = () => {
+  if (
+    formatBookingDisplayDate(store.arrialDate) ===
+    formatBookingDisplayDate(store.departureDate)
+  ) {
+    return formatBookingDisplayDate(store.arrialDate)
+  } else {
+    return `${formatBookingDisplayDate(store.arrialDate)} - 
+      ${formatBookingDisplayDate(store.departureDate)}`
+  }
 }

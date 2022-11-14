@@ -539,6 +539,7 @@ main {
   text-align: center;
   cursor: pointer;
   color: lightgray;
+  z-index: 20;
 }
 
 .close__btn:hover {
@@ -582,6 +583,7 @@ main {
   align-items: center;
   justify-content: space-around;
   width: 100%;
+  margin-top: 10px;
 }
 
 .reservations__container {
@@ -613,6 +615,7 @@ main {
   bottom: 0;
   width: 100%;
   height: 83px;
+  line-height: 70px;
   background-color: #000000;
   color: #fff;
   transition: all 0.3s ease-in-out;
