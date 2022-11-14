@@ -40,6 +40,7 @@ const resultsContainer = document.querySelector('[data-id = results]')
 const arrivalDateInput = document.querySelector('#arrivalDate')
 const searchBtn = document.querySelector('[data-id = search]')
 const departureDateInput = document.querySelector('#departureDate')
+const roomTypeInput = document.querySelector('#roomTypes')
 const bookingModal = document.querySelector('[data-id = bookingModal]')
 const closeModalBtn = document.querySelector('[data-id = closeModalBtn]')
 const bookingModalDetails = document.querySelector(
@@ -63,7 +64,7 @@ const store = {
     'test-hotel4.jpg',
     'test-hotel4.jpg',
   ],
-  arrialDate: '',
+  arrvialDate: '',
   departureDate: '',
 }
 
@@ -87,9 +88,6 @@ const InitializeCustomerApp = () => {
 
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
-window.addEventListener('click', () => {
-  console.log("ID", event.currentTarget.className)
-})
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -179,23 +177,26 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
+  console.log(roomTypeInput.value)
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   console.log(store.currentDate)
 
-  if (!store.arrialDate || !store.currentDate || !store.departureDate) {
+  if (!store.arrvialDate || !store.currentDate || !store.departureDate) {
     return alert('not defined!')
   }
 
-  const availableRooms = store.hotel.showAvailableRooms(
-    store.arrialDate,
+  const rooms = store.hotel.showAvailableRooms(
+    store.arrvialDate,
     store.currentDate,
     store.departureDate
   )
-  console.log('ROOMS', availableRooms)
 
-  if (typeof availableRooms === 'string') {
-    alert(availableRooms)
+  
+  if (typeof rooms === 'string') {
+    alert(rooms)
   } else {
+    const availableRooms = checkRoomType(roomTypeInput.value, rooms)
+    console.log('ROOMS', availableRooms)
     availableRooms.forEach((availableRoom) => {
       const room = document.createElement('div')
       room.dataset.id = `${availableRoom.number}`
@@ -211,7 +212,7 @@ const loadAvailableRooms = () => {
     <div class="details__container">
       <div class="cost__container">
         <img class="cost__icon" src="./images/dollar.svg" />
-        <p class="cost__text">$${availableRoom.costPerNight} per night</p>
+        <p class="cost__text">${formatForCurrency(availableRoom.costPerNight)} per night</p>
       </div>
       <div class="type__container">
         <img class="type__icon" src="./images/room.svg" />
@@ -248,7 +249,7 @@ const setArrivalDate = () => {
   const formattedSelectedDate = new Date(
     arrivalDateInput.value.split('-').join('/')
   )
-  store.arrialDate = formattedSelectedDate
+  store.arrvialDate = formattedSelectedDate
   store.departureDate = formattedSelectedDate
   console.log('ARRIVE', formattedSelectedDate)
 }
@@ -346,7 +347,7 @@ const findBookingModalDetails = (event) => {
   </div>
   <div class="reservations__container">
     <p class="reservations__total">Total Cost:</p>
-    <p class="reservations__cost">$478.89</p>
+    <p class="reservations__cost">${formatForCurrency(roomToBook.costPerNight)}</p>
   </div>
 </div>`
 
@@ -357,6 +358,14 @@ const findBookingModalDetails = (event) => {
   confirmBtn.addEventListener('click', toggleBookingModal)
 
   bookingModalDetails.appendChild(confirmBtn)
+}
+
+const checkRoomType = (roomTypeInput, availabelRooms) => {
+  if (roomTypeInput === 'optional') {
+    return availabelRooms
+  } else {
+    return store.hotel.filterRoomsByRoomType(roomTypeInput, availabelRooms)
+  }
 }
 
 //--------------Util Functions-------------------
@@ -374,6 +383,7 @@ const defineEventListeners = () => {
   departureDateInput.addEventListener('input', setDepatureDate)
   searchBtn.addEventListener('click', loadAvailableRooms)
   closeModalBtn.addEventListener('click', toggleBookingModal)
+  roomTypeInput.addEventListener('input', resetSearchResults)
 }
 
 const toggleHtmlElement = (element) => {
@@ -406,12 +416,16 @@ const formatBookingDisplayDate = (bookingDate) => {
 
 const formatForReservationDate = () => {
   if (
-    formatBookingDisplayDate(store.arrialDate) ===
+    formatBookingDisplayDate(store.arrvialDate) ===
     formatBookingDisplayDate(store.departureDate)
   ) {
-    return formatBookingDisplayDate(store.arrialDate)
+    return formatBookingDisplayDate(store.arrvialDate)
   } else {
-    return `${formatBookingDisplayDate(store.arrialDate)} - 
+    return `${formatBookingDisplayDate(store.arrvialDate)} - 
       ${formatBookingDisplayDate(store.departureDate)}`
   }
+}
+
+const resetSearchResults = () => {
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
 }
