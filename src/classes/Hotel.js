@@ -15,20 +15,22 @@ class Hotel {
     const bookings = bookingData.map((booking) => {
       return new Booking(booking)
     })
-    
+
     return new Hotel(rooms, bookings)
   }
 
-  isValidDate(customerSelectedDate) {
-    const currentDate = new Date()
-    
-    return customerSelectedDate >= currentDate
+  isValidDate(arrivalDate, currentDate, depatureDate) {
+    return (
+      depatureDate.getTime() >= arrivalDate.getTime() &&
+      arrivalDate.getTime() >= currentDate.getTime()
+    )
   }
-  
-  showAvailableRooms(selectedDate) {
-    const customerSelectedDate = new Date(selectedDate)
-    if (this.isValidDate(customerSelectedDate)) {
-      return this.rooms.filter((room) => room.isAvailable(customerSelectedDate))
+
+  showAvailableRooms(arrivalDate, currentDate, depatureDate) {
+    if (this.isValidDate(arrivalDate, currentDate, depatureDate)) {
+      return this.rooms.filter((room) =>
+        room.isAvailable(arrivalDate, depatureDate)
+      )
     }
 
     return 'Sorry that date has already past! Please select another!'
