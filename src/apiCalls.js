@@ -25,7 +25,7 @@ const apiCallMap = {
   getBookingData: () => {
     return fetchGetData('http://localhost:3001/api/v1/bookings')
   },
-  // addNewBooking -> add this when post fn is created
+
   // deleteABooking -> add this when delete fn is created
 }
 
@@ -47,13 +47,45 @@ const fetchGetAll = () => {
 
 //--------------POST Fetch Calls-------------------
 
+const bookingUrl = 'http://localhost:3001/api/v1/bookings'
+
+const createPostRequests = (customer, dateRange, roomNumber) => {
+  const postRequests = []
+
+  dateRange.forEach((date) => {
+    const formatBookingDate = formatDateForPost(new Date(date))
+    const request = fetch(bookingUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userID: customer.id,
+        date: formatBookingDate,
+        roomNumber: roomNumber,
+      }),
+    }).then((response) => {
+      if (!response.ok) {
+        response.json().then((body) => {
+          throw new Error(body.message)
+        })
+      } else {
+        return response.json()
+      }
+    })
+    postRequests.push(request)
+  })
+  return postRequests
+}
+
+function postAll(requests) {
+  return Promise.all(requests).then((data) => data)
+}
+
 const formatDateForPost = (date) => {
-  return bookingDate.toLocaleDateString('en-ZA', {
+  return date.toLocaleDateString('en-ZA', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
   })
 }
 
-
-export {fetchGetData, apiCallMap, fetchGetAll}
+export { fetchGetData, apiCallMap, fetchGetAll, createPostRequests, postAll }

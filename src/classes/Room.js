@@ -30,7 +30,7 @@ class Room {
   }
 
   book(newBooking) {
-    this.bookings.push(new Booking(newBooking))
+    this.bookings.push(newBooking)
   }
 }
 

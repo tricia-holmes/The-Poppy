@@ -44,8 +44,8 @@ class Hotel {
     return 'Sorry that date has already past! Please select another!'
   }
 
-  addBooking(roomNumber, newBooking, customer) {
-    const selectedRoom = this.rooms.find((room) => room.number === roomNumber)
+  addBooking(newBooking, customer) {
+    const selectedRoom = this.rooms.find((room) => room.number === newBooking.roomNumber)
 
     selectedRoom.book(newBooking)
     customer.makeBooking(newBooking)

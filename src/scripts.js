@@ -1,8 +1,9 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
-import { fetchGetAll } from './apiCalls'
+import { fetchGetAll, createPostRequests, postAll } from './apiCalls'
 import Customer from './classes/Customer'
 import Hotel from './classes/Hotel'
+import Booking from './classes/Booking'
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/fonts.css'
@@ -64,11 +65,13 @@ const store = {
     'test-hotel4.jpg',
     'test-hotel4.jpg',
   ],
-  arrvialDate: '',
+  arrivialDate: '',
   departureDate: '',
+  allDates: [],
+  nightsPerStay: 0,
 }
 
-//--------------Initialize App------------------
+//--------------Initialize Customer App------------------
 const InitializeCustomerApp = () => {
   fetchGetAll()
     .then((data) => {
@@ -86,8 +89,32 @@ const InitializeCustomerApp = () => {
 // if I do manager iteration -> create a InitializeManagerApp
 // this will use `fetchGetAll` and will use DOM fns that load the app for manager
 
+//--------------Make Reservation------------------
+const makeReservation = (customer, dateRange, roomNumber) => {
+  const requests = createPostRequests(customer, dateRange, roomNumber)
+  postAll(requests)
+    .then((data) => {
+      console.log(data)
+      data.forEach((data) => {
+        store.hotel.addBooking(new Booking(data.newBooking), customer)
+        console.log(
+          'ROOM',
+          store.hotel.findRoomByNumber(data.newBooking.roomNumber)
+        )
+      })
+      loadAvailableRooms()
+      loadUpcomingBookings()
+      loadTotalAmountSpent()
+      console.log('WHAT AM I?', customer.bookings)
+    })
+    .catch((err) => console.error(err))
+}
+
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
+// bookingModalDetails.addEventListener('click', (event) => {
+//     console.log(event.target)
+// })
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -104,6 +131,7 @@ const createHotel = (roomSampleData, bookingSampleData) => {
 }
 
 const loadUpcomingBookings = () => {
+  upcomingBookingsContainer.innerHTML = ``
   const upcomingBookings = store.customer.showUpcomingBookings(
     store.currentDate
   )
@@ -177,16 +205,17 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
+  getDateRange()
   console.log(roomTypeInput.value)
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   console.log(store.currentDate)
 
-  if (!store.arrvialDate || !store.currentDate || !store.departureDate) {
+  if (!store.arrivialDate || !store.currentDate || !store.departureDate) {
     return alert('not defined!')
   }
 
   const rooms = store.hotel.showAvailableRooms(
-    store.arrvialDate,
+    store.arrivialDate,
     store.currentDate,
     store.departureDate
   )
@@ -250,7 +279,7 @@ const setArrivalDate = () => {
   const formattedSelectedDate = new Date(
     arrivalDateInput.value.split('-').join('/')
   )
-  store.arrvialDate = formattedSelectedDate
+  store.arrivialDate = formattedSelectedDate
   store.departureDate = formattedSelectedDate
   console.log('ARRIVE', formattedSelectedDate)
 }
@@ -287,20 +316,23 @@ const checkForBidet = (room) => {
 }
 
 const loadBookingModal = (event) => {
+  console.log('HELLO')
   toggleBookingModal(event)
   findBookingModalDetails(event)
 }
 
 const toggleBookingModal = (event) => {
-  console.log(event.currentTarget.className)
-  findBookingModalDetails(event)
+  console.log(event.target.className)
+  // findBookingModalDetails(event)
 
-  // if (
-  //   event.currentTarget.className === 'book__btn' ||
-  //   event.currentTarget.className === 'confirm__btn'
-  // ) {
-  bookingModal.classList.toggle('booking__modal-toggle')
-  // }
+  if (
+    event.target.className === 'book__btn' ||
+    event.target.className === 'close__btn'
+  ) {
+    bookingModal.classList.toggle('booking__modal-toggle')
+  }
+
+  console.log('BYE')
 
   // console.log('MODAL', store.hotel.findRoomByNumber(roomNumber))
 }
@@ -349,7 +381,7 @@ const findBookingModalDetails = (event) => {
   <div class="reservations__container">
     <p class="reservations__total">Total Cost:</p>
     <p class="reservations__cost">${formatForCurrency(
-      roomToBook.costPerNight
+      roomToBook.costPerNight * store.nightsPerStay
     )}</p>
   </div>
 </div>`
@@ -358,7 +390,7 @@ const findBookingModalDetails = (event) => {
   confirmBtn.classList.add('confirm__btn')
   confirmBtn.innerText = 'Book'
   confirmBtn.dataset.id = `${roomToBook.number}`
-  confirmBtn.addEventListener('click', toggleBookingModal)
+  confirmBtn.addEventListener('click', setupReservation)
 
   bookingModalDetails.appendChild(confirmBtn)
 }
@@ -385,7 +417,7 @@ const defineEventListeners = () => {
   arrivalDateInput.addEventListener('input', setArrivalDate)
   departureDateInput.addEventListener('input', setDepatureDate)
   searchBtn.addEventListener('click', loadAvailableRooms)
-  closeModalBtn.addEventListener('click', toggleBookingModal)
+  bookingModalDetails.addEventListener('click', toggleBookingModal)
   roomTypeInput.addEventListener('input', resetSearchResults)
 }
 
@@ -419,16 +451,45 @@ const formatBookingDisplayDate = (bookingDate) => {
 
 const formatForReservationDate = () => {
   if (
-    formatBookingDisplayDate(store.arrvialDate) ===
+    formatBookingDisplayDate(store.arrivialDate) ===
     formatBookingDisplayDate(store.departureDate)
   ) {
-    return formatBookingDisplayDate(store.arrvialDate)
+    return formatBookingDisplayDate(store.arrivialDate)
   } else {
-    return `${formatBookingDisplayDate(store.arrvialDate)} - 
+    return `${formatBookingDisplayDate(store.arrivialDate)} - 
       ${formatBookingDisplayDate(store.departureDate)}`
   }
 }
 
 const resetSearchResults = () => {
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+}
+
+const setupReservation = (event) => {
+  const roomNumber = Number(event.currentTarget.dataset.id)
+
+  console.log('TELL EM', roomNumber)
+  makeReservation(store.customer, store.allDates, roomNumber)
+}
+
+const getDateRange = () => {
+  store.allDates = []
+  store.nightsPerStay = 0
+
+  if (store.arrivialDate === store.departureDate) {
+    store.nightsPerStay++
+    store.allDates.push(store.arrivialDate)
+  }
+
+  const date = new Date(store.arrivialDate)
+  const endDate = new Date(store.departureDate)
+  // const allDates = []
+
+  while (date.getTime() < endDate.getTime()) {
+    store.allDates.push(formatBookingDisplayDate(date))
+    date.setDate(date.getDate() + 1)
+    store.nightsPerStay++
+  }
+  console.log(store.allDates)
+  console.log(store.nightsPerStay)
 }
