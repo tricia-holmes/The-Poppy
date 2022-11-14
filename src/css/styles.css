@@ -537,7 +537,7 @@ main {
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.75);
-  visibility: hidden;
+  display: none;
   opacity: 0;
   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
   width: 100%;
@@ -584,7 +584,7 @@ main {
   text-align: center;
   cursor: pointer;
   color: lightgray;
-  z-index: 20;
+  z-index: 100;
 }
 
 .close__btn:hover {
@@ -597,7 +597,7 @@ main {
 
 .booking__modal-toggle {
   z-index: 20;
-  visibility: visible;
+  display: block;
   transform: scale(1);
   opacity: 1;
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
@@ -650,7 +650,7 @@ main {
   font-size: 20px;
   margin-top: 18px;
 }
-
+.dismiss__btn,
 .confirm__btn {
   all: unset;
   cursor: pointer;
@@ -666,7 +666,51 @@ main {
   transition: all 0.3s ease-in-out;
 }
 
+
 .confirm__btn:hover {
   background-color: #000000;
   color: #fe398c;
+}
+
+/* Error Message */
+.error__modal {
+  position: fixed;
+  text-align: center;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: none;
+  opacity: 0;
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.1);
+}
+
+.error__modal-toggle {
+  z-index: 20;
+  display: block;
+  transform: scale(1);
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+
+
+.error__details {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  align-items: center;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #E15B5E;
+  width: 60vh;
+  height: 66vh;
+}
+
+.error__icon {
+  width: 100px;
 }

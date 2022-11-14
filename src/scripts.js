@@ -21,6 +21,7 @@ import './images/dollar.svg'
 import './images/room.svg'
 import './images/bed.svg'
 import './images/bidet.svg'
+import './images/crying.png'
 
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
@@ -43,10 +44,12 @@ const searchBtn = document.querySelector('[data-id = search]')
 const departureDateInput = document.querySelector('#departureDate')
 const roomTypeInput = document.querySelector('#roomTypes')
 const bookingModal = document.querySelector('[data-id = bookingModal]')
-const closeModalBtn = document.querySelector('[data-id = closeModalBtn]')
 const bookingModalDetails = document.querySelector(
   '[data-id = bookingModalDetails]'
 )
+
+const errorMessagePopUp = document.querySelector('[data-id = errorModal]')
+const dismissBtn = document.querySelector('.dismiss__btn')
 
 //--------------Global Variables------------------
 const store = {
@@ -93,7 +96,7 @@ const InitializeCustomerApp = () => {
 const makeReservation = (customer, dateRange, roomNumber) => {
   const requests = createPostRequests(customer, dateRange, roomNumber)
   postAll(requests)
-    .then((data) => {
+    .then(() => {
       console.log(data)
       data.forEach((data) => {
         store.hotel.addBooking(new Booking(data.newBooking), customer)
@@ -107,7 +110,11 @@ const makeReservation = (customer, dateRange, roomNumber) => {
       loadTotalAmountSpent()
       console.log('WHAT AM I?', customer.bookings)
     })
-    .catch((err) => console.error(err))
+    .catch((err) => {
+      // toggleHtmlElement(bookingModal)
+      showErrorMessage(errorMessagePopUp)
+      console.error(err)
+    })
 }
 
 //--------------Event Listeners------------------
@@ -325,11 +332,10 @@ const toggleBookingModal = (event) => {
   console.log(event.target.className)
   // findBookingModalDetails(event)
 
-  if (
-    event.target.className === 'book__btn' ||
-    event.target.className === 'close__btn'
-  ) {
-    bookingModal.classList.toggle('booking__modal-toggle')
+  if (event.target.className === 'book__btn') {
+    bookingModal.classList.add('booking__modal-toggle')
+  } else if (event.target.className === 'close__btn') {
+    bookingModal.classList.remove('booking__modal-toggle')
   }
 
   console.log('BYE')
@@ -419,6 +425,24 @@ const defineEventListeners = () => {
   searchBtn.addEventListener('click', loadAvailableRooms)
   bookingModalDetails.addEventListener('click', toggleBookingModal)
   roomTypeInput.addEventListener('input', resetSearchResults)
+  dismissBtn.addEventListener('click', hideErrorMessage)
+}
+
+const hideErrorMessage = () => {
+  // if (event.target.className === 'disMiss_Btn') {
+  errorMessagePopUp.classList.remove('error__modal-toggle')
+  // toggleHtmlElement(bookingModal)
+  // }
+}
+
+const showErrorMessage = () => {
+  errorMessagePopUp.classList.add('error__modal-toggle')
+  bookingModal.classList.remove('booking__modal-toggle')
+  // toggleHtmlElement(bookingModal)
+}
+
+const showElement = (element) => {
+  element.style.display = 'none'
 }
 
 const toggleHtmlElement = (element) => {
