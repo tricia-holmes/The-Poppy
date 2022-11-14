@@ -65,8 +65,9 @@ const store = {
     'test-hotel4.jpg',
     'test-hotel4.jpg',
   ],
-  arrvialDate: '',
+  arrivialDate: '',
   departureDate: '',
+  stayCostFactor: 0,
 }
 
 //--------------Initialize Customer App------------------
@@ -94,12 +95,19 @@ const makeReservation = (customer, bookingDate, roomNumber) => {
     loadAvailableRooms()
     loadUpcomingBookings()
     console.log('WHAT AM I?', customer.bookings)
-    console.log("ROOM", store.hotel.findRoomByNumber(data.newBooking.roomNumber))
+    console.log(
+      'ROOM',
+      store.hotel.findRoomByNumber(data.newBooking.roomNumber)
+    )
   })
 }
 
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
+bookingModalDetails.addEventListener('click', (event) => {
+  if (event.currentTarget.className === 'closeModalBtn')
+    console.log('YOU DID IT', event.currentTarget.className)
+})
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -194,12 +202,12 @@ const loadAvailableRooms = () => {
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   console.log(store.currentDate)
 
-  if (!store.arrvialDate || !store.currentDate || !store.departureDate) {
+  if (!store.arrivialDate || !store.currentDate || !store.departureDate) {
     return alert('not defined!')
   }
 
   const rooms = store.hotel.showAvailableRooms(
-    store.arrvialDate,
+    store.arrivialDate,
     store.currentDate,
     store.departureDate
   )
@@ -263,7 +271,7 @@ const setArrivalDate = () => {
   const formattedSelectedDate = new Date(
     arrivalDateInput.value.split('-').join('/')
   )
-  store.arrvialDate = formattedSelectedDate
+  store.arrivialDate = formattedSelectedDate
   store.departureDate = formattedSelectedDate
   console.log('ARRIVE', formattedSelectedDate)
 }
@@ -275,6 +283,7 @@ const setDepatureDate = () => {
   )
   store.departureDate = formattedSelectedDate
   console.log('DEPART', formattedSelectedDate)
+  getDateRange()
 }
 
 const updateNavBtn = () => {
@@ -432,12 +441,12 @@ const formatBookingDisplayDate = (bookingDate) => {
 
 const formatForReservationDate = () => {
   if (
-    formatBookingDisplayDate(store.arrvialDate) ===
+    formatBookingDisplayDate(store.arrivialDate) ===
     formatBookingDisplayDate(store.departureDate)
   ) {
-    return formatBookingDisplayDate(store.arrvialDate)
+    return formatBookingDisplayDate(store.arrivialDate)
   } else {
-    return `${formatBookingDisplayDate(store.arrvialDate)} - 
+    return `${formatBookingDisplayDate(store.arrivialDate)} - 
       ${formatBookingDisplayDate(store.departureDate)}`
   }
 }
@@ -448,6 +457,24 @@ const resetSearchResults = () => {
 
 const setupReservation = (event) => {
   const roomNumber = Number(event.currentTarget.dataset.id)
+
   console.log('TELL EM', roomNumber)
-  makeReservation(store.customer, store.arrvialDate, roomNumber)
+  makeReservation(store.customer, store.arrivialDate, roomNumber)
+}
+
+const getDateRange = () => {
+  store.stayCostFactor = 0
+
+  const date = new Date(store.arrivialDate)
+  const endDate = new Date(store.departureDate)
+  const allDates = []
+
+  while (date.getTime() <= endDate.getTime()) {
+    allDates.push(formatBookingDisplayDate(date))
+    date.setDate(date.getDate() + 1)
+    store.stayCostFactor++
+  }
+  console.log(allDates)
+  console.log(store.stayCostFactor)
+  return allDates
 }

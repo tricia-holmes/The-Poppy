@@ -57,7 +57,7 @@ const fetchGetAll = () => {
 
 const fetchPostRequest = (customer, bookingDate, roomNumber, url) => {
   const formatBookingDate = formatDateForPost(new Date(bookingDate))
-  console.log("POST DATE", formatBookingDate)
+  console.log('POST DATE', formatBookingDate)
   return fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
