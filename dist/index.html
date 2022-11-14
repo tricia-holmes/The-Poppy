@@ -35,7 +35,7 @@
 
       <section class="bottomrow__container">
         <section
-          date-id="pastBookings"
+          data-id="pastBookings"
           class="pastBookings__container"
         ></section>
         <section class="totalCost__container">
@@ -50,9 +50,23 @@
       <section data-id="results" class="results__container">
         <h1 class="available__title">Available</h1>
       </section>
-      <section class="search__container">
-        <p>Hi there how's it going</p>
-        <div class="test"></div>
+      <section class="search__section">
+        <div class="search__container">
+          <h2 class="search__instructions">
+            Select your arrival and departure dates
+          </h2>
+          <div class="dates__container">
+            <div class="arrival__conatiner">
+              <p>Arrival</p>
+              <input type="date" name="check-in date" id="arrivalDate"/>
+            </div>
+            <div class="departure__conatiner">
+              <p>Departure</p>
+              <input type="date" name="check-out date"  id="departureDate"/>
+            </div>
+          </div>
+          <button data-id="search">Search Now</button>
+        </div>
       </section>
     </section>
 
