@@ -23,6 +23,10 @@ class Hotel {
     return this.rooms.find(room => room.number === roomNumber)
   }
 
+  filterRoomsByRoomType(type, availabelRooms) {
+    return availabelRooms.filter(room => room.roomType === type)
+  }
+
   isValidDate(arrivalDate, currentDate, depatureDate) {
     return (
       depatureDate.getTime() >= arrivalDate.getTime() &&

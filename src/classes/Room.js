@@ -20,7 +20,6 @@ class Room {
   }
 
   isAvailable(arrivalDate, depatureDate) {
-    console.log(arrivalDate.getTime())
     const foundBooking = this.bookings.find(
       (booking) =>
         booking.date.getTime() >= arrivalDate.getTime() &&
