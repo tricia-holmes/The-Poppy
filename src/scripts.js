@@ -1,6 +1,6 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
-import { fetchGetAll, apiCallMap } from './apiCalls'
+import { fetchGetAll, createPostRequests, postAll } from './apiCalls'
 import Customer from './classes/Customer'
 import Hotel from './classes/Hotel'
 import Booking from './classes/Booking'
@@ -67,7 +67,8 @@ const store = {
   ],
   arrivialDate: '',
   departureDate: '',
-  stayCostFactor: 0,
+  allDates: [],
+  nightsPerStay: 0,
 }
 
 //--------------Initialize Customer App------------------
@@ -89,25 +90,31 @@ const InitializeCustomerApp = () => {
 // this will use `fetchGetAll` and will use DOM fns that load the app for manager
 
 //--------------Make Reservation------------------
-const makeReservation = (customer, bookingDate, roomNumber) => {
-  apiCallMap.addNewBooking(customer, bookingDate, roomNumber).then((data) => {
-    store.hotel.addBooking(new Booking(data.newBooking), customer)
-    loadAvailableRooms()
-    loadUpcomingBookings()
-    console.log('WHAT AM I?', customer.bookings)
-    console.log(
-      'ROOM',
-      store.hotel.findRoomByNumber(data.newBooking.roomNumber)
-    )
-  })
+const makeReservation = (customer, dateRange, roomNumber) => {
+  const requests = createPostRequests(customer, dateRange, roomNumber)
+  postAll(requests)
+    .then((data) => {
+      console.log(data)
+      data.forEach((data) => {
+        store.hotel.addBooking(new Booking(data.newBooking), customer)
+        console.log(
+          'ROOM',
+          store.hotel.findRoomByNumber(data.newBooking.roomNumber)
+        )
+      })
+      loadAvailableRooms()
+      loadUpcomingBookings()
+      loadTotalAmountSpent()
+      console.log('WHAT AM I?', customer.bookings)
+    })
+    .catch((err) => console.error(err))
 }
 
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
-bookingModalDetails.addEventListener('click', (event) => {
-  if (event.currentTarget.className === 'closeModalBtn')
-    console.log('YOU DID IT', event.currentTarget.className)
-})
+// bookingModalDetails.addEventListener('click', (event) => {
+//     console.log(event.target)
+// })
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -198,6 +205,7 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
+  getDateRange()
   console.log(roomTypeInput.value)
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   console.log(store.currentDate)
@@ -283,7 +291,6 @@ const setDepatureDate = () => {
   )
   store.departureDate = formattedSelectedDate
   console.log('DEPART', formattedSelectedDate)
-  getDateRange()
 }
 
 const updateNavBtn = () => {
@@ -309,20 +316,23 @@ const checkForBidet = (room) => {
 }
 
 const loadBookingModal = (event) => {
+  console.log('HELLO')
   toggleBookingModal(event)
   findBookingModalDetails(event)
 }
 
 const toggleBookingModal = (event) => {
-  console.log(event.currentTarget.className)
-  findBookingModalDetails(event)
+  console.log(event.target.className)
+  // findBookingModalDetails(event)
 
-  // if (
-  //   event.currentTarget.className === 'book__btn' ||
-  //   event.currentTarget.className === 'confirm__btn'
-  // ) {
-  bookingModal.classList.toggle('booking__modal-toggle')
-  // }
+  if (
+    event.target.className === 'book__btn' ||
+    event.target.className === 'close__btn'
+  ) {
+    bookingModal.classList.toggle('booking__modal-toggle')
+  }
+
+  console.log('BYE')
 
   // console.log('MODAL', store.hotel.findRoomByNumber(roomNumber))
 }
@@ -371,7 +381,7 @@ const findBookingModalDetails = (event) => {
   <div class="reservations__container">
     <p class="reservations__total">Total Cost:</p>
     <p class="reservations__cost">${formatForCurrency(
-      roomToBook.costPerNight
+      roomToBook.costPerNight * store.nightsPerStay
     )}</p>
   </div>
 </div>`
@@ -407,7 +417,7 @@ const defineEventListeners = () => {
   arrivalDateInput.addEventListener('input', setArrivalDate)
   departureDateInput.addEventListener('input', setDepatureDate)
   searchBtn.addEventListener('click', loadAvailableRooms)
-  closeModalBtn.addEventListener('click', toggleBookingModal)
+  bookingModalDetails.addEventListener('click', toggleBookingModal)
   roomTypeInput.addEventListener('input', resetSearchResults)
 }
 
@@ -459,22 +469,27 @@ const setupReservation = (event) => {
   const roomNumber = Number(event.currentTarget.dataset.id)
 
   console.log('TELL EM', roomNumber)
-  makeReservation(store.customer, store.arrivialDate, roomNumber)
+  makeReservation(store.customer, store.allDates, roomNumber)
 }
 
 const getDateRange = () => {
-  store.stayCostFactor = 0
+  store.allDates = []
+  store.nightsPerStay = 0
+
+  if (store.arrivialDate === store.departureDate) {
+    store.nightsPerStay++
+    store.allDates.push(store.arrivialDate)
+  }
 
   const date = new Date(store.arrivialDate)
   const endDate = new Date(store.departureDate)
-  const allDates = []
+  // const allDates = []
 
-  while (date.getTime() <= endDate.getTime()) {
-    allDates.push(formatBookingDisplayDate(date))
+  while (date.getTime() < endDate.getTime()) {
+    store.allDates.push(formatBookingDisplayDate(date))
     date.setDate(date.getDate() + 1)
-    store.stayCostFactor++
+    store.nightsPerStay++
   }
-  console.log(allDates)
-  console.log(store.stayCostFactor)
-  return allDates
+  console.log(store.allDates)
+  console.log(store.nightsPerStay)
 }
