@@ -19,6 +19,10 @@ class Hotel {
     return new Hotel(rooms, bookings)
   }
 
+  findRoomByNumber(roomNumber) {
+    return this.rooms.find(room => room.number === roomNumber)
+  }
+
   isValidDate(arrivalDate, currentDate, depatureDate) {
     return (
       depatureDate.getTime() >= arrivalDate.getTime() &&
