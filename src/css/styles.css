@@ -254,7 +254,7 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   overflow: hidden;
   width: 50%;
@@ -451,15 +451,26 @@ main {
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
-  background-color: lightyellow;
+  background-color: #2B2A2A;
+  color: #fff;
   width: 630px;
   height: 572px;
+}
+
+.search__title {
+  position: relative;
+  top: -30px;
+  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 100px;
+  margin-top: 85px;
+  margin-bottom: 58px;
+  z-index: 10;
 }
 
 .search__instructions {
   font-family: Cormorant-Regular;
   font-size: 32px;
-  margin-top: 160px;
+  margin-top: 72px;
 }
 
 .dates__container {
@@ -482,6 +493,40 @@ main {
   flex-direction: column;
   align-items: flex-start;
   margin-right: 75px;
+}
+
+.roomtype__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search__btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 202px;
+  height: 52px;
+  margin-top: 82px;
+  margin-bottom: 10px;
+  font-family: Cormorant-Semi-Bold;
+  font-size: 28px;
+  text-align: center;
+  background-color: #000000;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.search__btn:hover {
+  color: rgb(158, 216, 255);
+}
+
+.search__btn:active {
+  transform: scale(0.98);
 }
 
 /* Booking Modal */
