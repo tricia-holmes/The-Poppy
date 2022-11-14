@@ -3,12 +3,6 @@
 import { fetchGetAll } from './apiCalls'
 import Customer from './classes/Customer'
 import Hotel from './classes/Hotel'
-import {
-  bookingSampleData,
-  bookingSampleData2,
-} from '../test-data/booking-sample-data'
-import { roomSampleData } from '../test-data/room-sample-data'
-import { customerSampleData } from '../test-data/customer-sample-data'
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/fonts.css'
@@ -34,7 +28,7 @@ const customerToalSpentDisplay = document.querySelector('[data-id = totalCost]')
 const upcomingBookingsContainer = document.querySelector(
   '[data-id = UpcomingBookings]'
 )
-const pastBookingsContainer = document.querySelector('[date-id = pastBookings]')
+const pastBookingsContainer = document.querySelector('[data-id = pastBookings]')
 const navBtn = document.querySelector('[data-id = navbar]')
 const userDashboardSection = document.querySelector(
   '[data-page-type = user-dashboard]'
@@ -43,11 +37,24 @@ const reservationsPageSection = document.querySelector(
   '[data-page-type = reservations]'
 )
 const resultsContainer = document.querySelector('[data-id = results]')
+const arrivalDateInput = document.querySelector('#arrivalDate')
+const searchBtn = document.querySelector('[data-id = search]')
+const departureDateInput = document.querySelector('#departureDate')
+const roomTypeInput = document.querySelector('#roomTypes')
+const bookingModal = document.querySelector('[data-id = bookingModal]')
+const closeModalBtn = document.querySelector('[data-id = closeModalBtn]')
+const bookingModalDetails = document.querySelector(
+  '[data-id = bookingModalDetails]'
+)
 
 //--------------Global Variables------------------
 const store = {
   currentPage: 'user dashboard',
-  currentDate: new Date(),
+  currentDate: new Date(
+    `${new Date().getFullYear()}/${
+      new Date().getMonth() + 1
+    }/${new Date().getDate()}`
+  ),
   customer: new Customer(),
   hotel: new Hotel(),
   bookingImages: [
@@ -57,6 +64,8 @@ const store = {
     'test-hotel4.jpg',
     'test-hotel4.jpg',
   ],
+  arrvialDate: '',
+  departureDate: '',
 }
 
 //--------------Initialize App------------------
@@ -70,9 +79,8 @@ const InitializeCustomerApp = () => {
       loadTotalAmountSpent()
       loadUpcomingBookings()
       loadPastBookings()
-      loadAvailableRooms('2023/11/30')
     })
-    .catch((err) => alert(err)) // need to replace with DOM function
+    .catch((err) => console.error(err)) // need to replace with DOM function
 }
 
 // if I do manager iteration -> create a InitializeManagerApp
@@ -168,50 +176,92 @@ const loadTotalAmountSpent = () => {
   customerToalSpentDisplay.innerText = `${totalFormatted}`
 }
 
-const loadAvailableRooms = (selectedDate) => {
-  const availabeRooms = store.hotel.showAvailableRooms(selectedDate)
-  availabeRooms.forEach((availbleRoom) => {
-    const room = document.createElement('div')
-    room.dataset.id = `${availbleRoom.number}`
-    room.classList.add('available__room')
-    room.innerHTML = `<div class="title__container">
-    <h2 class="room__title">Room Number</h2>
-    <h3 class="room__number">${availbleRoom.number}</h3>
-  </div>
-  <figure class="room__figure">
-    <img class="room__img" src="./images/test-room.jpg" />
-  </figure>
-  <div class="room__divider"></div>
-  <div class="details__container">
-    <div class="cost__container">
-      <img class="cost__icon" src="./images/dollar.svg" />
-      <p class="cost__text">$${availbleRoom.costPerNight} per night</p>
-    </div>
-    <div class="type__container">
-      <img class="type__icon" src="./images/room.svg" />
-      <p class="type__text">${availbleRoom.roomType}</p>
-    </div>
-    <div class="bed__container">
-      <img class="bed__icon" src="./images/bed.svg" />
-      <p class="bed__text"><span class="bed__amount">${
-        availbleRoom.numBeds
-      }</span>${availbleRoom.bedSize}</p>
-    </div>
-    <div class="bidet__container">
-      <img class="bidet__icon" src="./images/bidet.svg" />
-      <p class="bidet__text">${checkForBidet(availbleRoom)}</p>
-    </div>
-  </div>
-  <div class="room__divider"></div>`
+const loadAvailableRooms = () => {
+  console.log(roomTypeInput.value)
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  console.log(store.currentDate)
 
-    const bookBtn = document.createElement('btn')
-    bookBtn.classList.add('book__btn')
-    bookBtn.innerText = 'Book Now'
-    bookBtn.dataset.id = `{availableRoom.id}`
+  if (!store.arrvialDate || !store.currentDate || !store.departureDate) {
+    return alert('not defined!')
+  }
 
-    room.appendChild(bookBtn)
-    resultsContainer.appendChild(room)
-  })
+  const rooms = store.hotel.showAvailableRooms(
+    store.arrvialDate,
+    store.currentDate,
+    store.departureDate
+  )
+
+  if (typeof rooms === 'string') {
+    alert(rooms)
+  } else {
+    const availableRooms = checkRoomType(roomTypeInput.value, rooms)
+    console.log('ROOMS', availableRooms)
+    availableRooms.forEach((availableRoom) => {
+      const room = document.createElement('div')
+      room.dataset.id = `${availableRoom.number}`
+      room.classList.add('available__room')
+      room.innerHTML = `<div class="title__container">
+      <h2 class="room__title">Room Number</h2>
+      <h3 class="room__number">${availableRoom.number}</h3>
+    </div>
+    <figure class="room__figure">
+      <img class="room__img" src="./images/test-room.jpg" />
+    </figure>
+    <div class="room__divider"></div>
+    <div class="details__container">
+      <div class="cost__container">
+        <img class="cost__icon" src="./images/dollar.svg" />
+        <p class="cost__text">${formatForCurrency(
+          availableRoom.costPerNight
+        )} per night</p>
+      </div>
+      <div class="type__container">
+        <img class="type__icon" src="./images/room.svg" />
+        <p class="type__text">${availableRoom.roomType}</p>
+      </div>
+      <div class="bed__container">
+        <img class="bed__icon" src="./images/bed.svg" />
+        <p class="bed__text"><span class="bed__amount">${
+          availableRoom.numBeds
+        }</span>${availableRoom.bedSize}</p>
+      </div>
+      <div class="bidet__container">
+        <img class="bidet__icon" src="./images/bidet.svg" />
+        <p class="bidet__text">${checkForBidet(availableRoom)}</p>
+      </div>
+    </div>
+    <div class="room__divider"></div>`
+
+      const bookBtn = document.createElement('btn')
+      bookBtn.classList.add('book__btn')
+      bookBtn.innerText = 'Book Now'
+      bookBtn.dataset.id = `${availableRoom.number}`
+      bookBtn.addEventListener('click', loadBookingModal)
+
+      room.appendChild(bookBtn)
+      resultsContainer.appendChild(room)
+    })
+  }
+}
+
+const setArrivalDate = () => {
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  departureDateInput.value = arrivalDateInput.value
+  const formattedSelectedDate = new Date(
+    arrivalDateInput.value.split('-').join('/')
+  )
+  store.arrvialDate = formattedSelectedDate
+  store.departureDate = formattedSelectedDate
+  console.log('ARRIVE', formattedSelectedDate)
+}
+
+const setDepatureDate = () => {
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  const formattedSelectedDate = new Date(
+    departureDateInput.value.split('-').join('/')
+  )
+  store.departureDate = formattedSelectedDate
+  console.log('DEPART', formattedSelectedDate)
 }
 
 const updateNavBtn = () => {
@@ -236,6 +286,91 @@ const checkForBidet = (room) => {
   }
 }
 
+const loadBookingModal = (event) => {
+  toggleBookingModal(event)
+  findBookingModalDetails(event)
+}
+
+const toggleBookingModal = (event) => {
+  console.log(event.currentTarget.className)
+  findBookingModalDetails(event)
+
+  // if (
+  //   event.currentTarget.className === 'book__btn' ||
+  //   event.currentTarget.className === 'confirm__btn'
+  // ) {
+  bookingModal.classList.toggle('booking__modal-toggle')
+  // }
+
+  // console.log('MODAL', store.hotel.findRoomByNumber(roomNumber))
+}
+
+const findBookingModalDetails = (event) => {
+  const roomNumber = Number(event.currentTarget.dataset.id)
+  const roomToBook = store.hotel.findRoomByNumber(roomNumber)
+
+  bookingModalDetails.innerHTML = ''
+  bookingModalDetails.innerHTML = `
+  <div class="booking__header">
+  <h1 class="booking__logo">THE POPPY</h1>
+  <button data-id="closeModalBtn" class="close__btn">&times;</button>
+</div>
+<div class="room__divider"></div>
+<p class="booking__number">
+  Room No.<span class="booking__span"> ${roomToBook.number}</span>
+</p>
+<div class="room__divider"></div>
+<div class="modal__details__container">
+  <div class="cost__container">
+    <img class="cost__icon" src="./images/dollar.svg" />
+    <p class="cost__text">$${roomToBook.costPerNight} per night</p>
+  </div>
+  <div class="type__container">
+    <img class="type__icon" src="./images/room.svg" />
+    <p class="type__text">${roomToBook.roomType}</p>
+  </div>
+  <div class="bed__container">
+    <img class="bed__icon" src="./images/bed.svg" />
+    <p class="bed__text"><span class="bed__amount">${
+      roomToBook.numBeds
+    }</span>${roomToBook.bedSize}</p>
+  </div>
+  <div class="bidet__container">
+    <img class="bidet__icon" src="./images/bidet.svg" />
+    <p class="bidet__text">${checkForBidet(roomToBook)}</p>
+  </div>
+</div>
+<div class="room__divider"></div>
+<div class="summary__container">
+  <div class="reservations__container">
+    <p class="reservations__date">Reservation Dates:</p>
+    <p class="reservations__range">${formatForReservationDate()}</p>
+  </div>
+  <div class="reservations__container">
+    <p class="reservations__total">Total Cost:</p>
+    <p class="reservations__cost">${formatForCurrency(
+      roomToBook.costPerNight
+    )}</p>
+  </div>
+</div>`
+
+  const confirmBtn = document.createElement('btn')
+  confirmBtn.classList.add('confirm__btn')
+  confirmBtn.innerText = 'Book'
+  confirmBtn.dataset.id = `${roomToBook.number}`
+  confirmBtn.addEventListener('click', toggleBookingModal)
+
+  bookingModalDetails.appendChild(confirmBtn)
+}
+
+const checkRoomType = (roomTypeInput, availabelRooms) => {
+  if (roomTypeInput === 'optional') {
+    return availabelRooms
+  } else {
+    return store.hotel.filterRoomsByRoomType(roomTypeInput, availabelRooms)
+  }
+}
+
 //--------------Util Functions-------------------
 const randomizeFromArray = (array) => {
   return Math.floor(Math.random() * array.length)
@@ -247,6 +382,11 @@ const getRandomImage = () => {
 
 const defineEventListeners = () => {
   navBtn.addEventListener('click', updateNavBtn)
+  arrivalDateInput.addEventListener('input', setArrivalDate)
+  departureDateInput.addEventListener('input', setDepatureDate)
+  searchBtn.addEventListener('click', loadAvailableRooms)
+  closeModalBtn.addEventListener('click', toggleBookingModal)
+  roomTypeInput.addEventListener('input', resetSearchResults)
 }
 
 const toggleHtmlElement = (element) => {
@@ -275,4 +415,20 @@ const formatBookingDisplayDate = (bookingDate) => {
     month: '2-digit',
     day: '2-digit',
   })
+}
+
+const formatForReservationDate = () => {
+  if (
+    formatBookingDisplayDate(store.arrvialDate) ===
+    formatBookingDisplayDate(store.departureDate)
+  ) {
+    return formatBookingDisplayDate(store.arrvialDate)
+  } else {
+    return `${formatBookingDisplayDate(store.arrvialDate)} - 
+      ${formatBookingDisplayDate(store.departureDate)}`
+  }
+}
+
+const resetSearchResults = () => {
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
 }

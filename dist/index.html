@@ -35,7 +35,7 @@
 
       <section class="bottomrow__container">
         <section
-          date-id="pastBookings"
+          data-id="pastBookings"
           class="pastBookings__container"
         ></section>
         <section class="totalCost__container">
@@ -47,72 +47,83 @@
       data-page-type="reservations"
       class="page__layout reservations__page toggleDisplay"
     >
+      <div data-id="bookingModal" class="booking__modal">
+        <div data-id="bookingModalDetails" class="booking__details">
+          <div class="booking__header">
+            <h1 class="booking__logo">THE POPPY</h1>
+            <button data-id="closeModalBtn" class="close__btn">&times;</button>
+          </div>
+          <div class="room__divider"></div>
+          <p class="booking__number">
+            Room No.<span class="booking__span"> 308</span>
+          </p>
+          <div class="room__divider"></div>
+          <div class="modal__details__container">
+            <div class="cost__container">
+              <img class="cost__icon" src="./images/dollar.svg" />
+              <p class="cost__text">$456.90 per night</p>
+            </div>
+            <div class="type__container">
+              <img class="type__icon" src="./images/room.svg" />
+              <p class="type__text">junior suite</p>
+            </div>
+            <div class="bed__container">
+              <img class="bed__icon" src="./images/bed.svg" />
+              <p class="bed__text"><span class="bed__amount">3</span>king</p>
+            </div>
+            <div class="bidet__container">
+              <img class="bidet__icon" src="./images/bidet.svg" />
+              <p class="bidet__text">bidet included</p>
+            </div>
+          </div>
+          <div class="room__divider"></div>
+          <div class="summary__container">
+            <div class="reservations__container">
+              <p class="reservations__date">Reservation Dates:</p>
+              <p class="reservations__range">11/16/2022 - 11/18/2022</p>
+            </div>
+            <div class="reservations__container">
+              <p class="reservations__total">Total Cost:</p>
+              <p class="reservations__cost">$478.89</p>
+            </div>
+          </div>
+          <button class="confirm__btn">Book</button>
+        </div>
+      </div>
       <section data-id="results" class="results__container">
         <h1 class="available__title">Available</h1>
-        <!-- <div class="available__room">
-          <div class="title__container">
-            <h2 class="room__title">Room Number</h2>
-            <h3 class="room__number">4</h3>
-          </div>
-          <figure class="room__figure">
-            <img class="room__img" src="./images/test-room.jpg" />
-          </figure>
-          <div class="room__divider"></div>
-          <div class="details__container">
-            <div class="cost__container">
-              <img class="cost__icon" src="./images/dollar.svg" />
-              <p class="cost__text">$429.44 per night</p>
-            </div>
-            <div class="type__container">
-              <img class="type__icon" src="./images/room.svg" />
-              <p class="type__text">single room</p>
-            </div>
-            <div class="bed__container">
-              <img class="bed__icon" src="./images/bed.svg" />
-              <p class="bed__text"><span class="bed__amount">1</span>queen</p>
-            </div>
-            <div class="bidet__container">
-              <img class="bidet__icon" src="./images/bidet.svg" />
-              <p class="bidet__text">bidet not included</p>
-            </div>
-          </div>
-          <div class="room__divider"></div>
-          <button class="book__btn">Book Now</button>
-        </div>
-        <div class="available__room">
-          <div class="title__container">
-            <h2 class="room__title">Room Number</h2>
-            <h3 class="room__number">4</h3>
-          </div>
-          <figure class="room__figure">
-            <img class="room__img" src="./images/test-room.jpg" />
-          </figure>
-          <div class="room__divider"></div>
-          <div class="details__container">
-            <div class="cost__container">
-              <img class="cost__icon" src="./images/dollar.svg" />
-              <p class="cost__text">$429.44 per night</p>
-            </div>
-            <div class="type__container">
-              <img class="type__icon" src="./images/room.svg" />
-              <p class="type__text">single room</p>
-            </div>
-            <div class="bed__container">
-              <img class="bed__icon" src="./images/bed.svg" />
-              <p class="bed__text"><span class="bed__amount">1</span>queen</p>
-            </div>
-            <div class="bidet__container">
-              <img class="bidet__icon" src="./images/bidet.svg" />
-              <p class="bidet__text">bidet not included</p>
-            </div>
-          </div>
-          <div class="room__divider"></div>
-          <button class="book__btn">Book Now</button>
-        </div> -->
       </section>
-      <section class="search__container">
-        <p>Hi there how's it going</p>
-        <div class="test"></div>
+      <section class="search__section">
+        <h1 class="search__title">Search</h1>
+        <div class="search__container">
+          <h2 class="search__instructions">
+            Select your arrival and departure dates
+          </h2>
+          <div class="dates__container">
+            <div class="arrival__conatiner">
+              <p>Arrival</p>
+              <input type="date" name="check-in date" id="arrivalDate" />
+            </div>
+            <div class="departure__conatiner">
+              <p>Departure</p>
+              <input type="date" name="check-out date" id="departureDate" />
+            </div>
+          </div>
+          <div class="roomtype__conatiner">
+            <p>Room Type</p>
+            <form data-id="roomTypes" class="roomtype__form">
+              <select id="roomTypes" name="roomTypes">
+                <option value="optional">optional</option>
+                <option value="single room">single room</option>
+                <option value="suite">suite</option>
+                <option value="junior suite">junior suite</option>
+                <option value="residential suite">residential suite</option>
+              </select>
+              <!-- <input type="submit" /> -->
+            </form>
+          </div>
+          <button class="search__btn" data-id="search">Search Now</button>
+        </div>
       </section>
     </section>
 
