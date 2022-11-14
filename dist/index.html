@@ -47,12 +47,49 @@
       data-page-type="reservations"
       class="page__layout reservations__page toggleDisplay"
     >
-    <div class="booking__modal">
-      <div class="booking__details">
-        <button class="close__btn">&times;</button>
-        <p>trying to figure this out</p>
+      <div data-id="bookingModal" class="booking__modal">
+        <div data-id="bookingModalDetails" class="booking__details">
+          <div class="booking__header">
+            <h1 class="booking__logo">THE POPPY</h1>
+            <button data-id="closeModalBtn" class="close__btn">&times;</button>
+          </div>
+          <div class="room__divider"></div>
+          <p class="booking__number">
+            Room No.<span class="booking__span"> 308</span>
+          </p>
+          <div class="room__divider"></div>
+          <div class="modal__details__container">
+            <div class="cost__container">
+              <img class="cost__icon" src="./images/dollar.svg" />
+              <p class="cost__text">$456.90 per night</p>
+            </div>
+            <div class="type__container">
+              <img class="type__icon" src="./images/room.svg" />
+              <p class="type__text">junior suite</p>
+            </div>
+            <div class="bed__container">
+              <img class="bed__icon" src="./images/bed.svg" />
+              <p class="bed__text"><span class="bed__amount">3</span>king</p>
+            </div>
+            <div class="bidet__container">
+              <img class="bidet__icon" src="./images/bidet.svg" />
+              <p class="bidet__text">bidet included</p>
+            </div>
+          </div>
+          <div class="room__divider"></div>
+          <div class="summary__container">
+            <div class="reservations__container">
+              <p class="reservations__date">Reservation Dates:</p>
+              <p class="reservations__range">11/16/2022 - 11/18/2022</p>
+            </div>
+            <div class="reservations__container">
+              <p class="reservations__total">Total Cost:</p>
+              <p class="reservations__cost">$478.89</p>
+            </div>
+          </div>
+          <button class="confirm__btn">Book</button>
+        </div>
       </div>
-    </div>
       <section data-id="results" class="results__container">
         <h1 class="available__title">Available</h1>
       </section>
@@ -64,11 +101,11 @@
           <div class="dates__container">
             <div class="arrival__conatiner">
               <p>Arrival</p>
-              <input type="date" name="check-in date" id="arrivalDate"/>
+              <input type="date" name="check-in date" id="arrivalDate" />
             </div>
             <div class="departure__conatiner">
               <p>Departure</p>
-              <input type="date" name="check-out date"  id="departureDate"/>
+              <input type="date" name="check-out date" id="departureDate" />
             </div>
           </div>
           <button data-id="search">Search Now</button>
