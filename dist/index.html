@@ -94,6 +94,7 @@
         <h1 class="available__title">Available</h1>
       </section>
       <section class="search__section">
+        <h1 class="search__title">Search</h1>
         <div class="search__container">
           <h2 class="search__instructions">
             Select your arrival and departure dates
@@ -108,7 +109,20 @@
               <input type="date" name="check-out date" id="departureDate" />
             </div>
           </div>
-          <button data-id="search">Search Now</button>
+          <div class="roomtype__conatiner">
+            <p>Room Type</p>
+            <form data-id="roomTypes" class="roomtype__form">
+              <select id="roomTypes" name="roomTypes">
+                <option value="optional">optional</option>
+                <option value="single room">single room</option>
+                <option value="suite">suite</option>
+                <option value="junior suite">junior suite</option>
+                <option value="residential suite">residential suite</option>
+              </select>
+              <!-- <input type="submit" /> -->
+            </form>
+          </div>
+          <button class="search__btn" data-id="search">Search Now</button>
         </div>
       </section>
     </section>
