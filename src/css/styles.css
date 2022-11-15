@@ -13,7 +13,14 @@ main {
 }
 
 label {
+  font-size: 24px;
   margin: 10px;
+}
+
+input {
+  font-family: Cormorant-Medium-Italic;
+  font-size: 22px;
+  text-align: center;
 }
 
 .toggleDisplay {
@@ -114,12 +121,12 @@ label {
   transform: translate(-50%, -50%);
   background-color: #ffffed;
   width: 45vh;
-  height: 62vh;
+  height: 65vh;
 }
 
 @media (min-width: 1500px) and (max-width: 1920px) {
   .login__details {
-    height: 50vh;
+    height: 54vh;
   }
 }
 
