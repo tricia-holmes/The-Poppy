@@ -262,10 +262,13 @@ const loadUpcomingBookings = () => {
     booking.dataset.id = `${upcomingBooking.id}`
     bookingImg.src = `../images/${getRandomImage()}`
     reservation.innerText = 'Reservation Number:'
+    reservation.tabIndex = 0
     reservationNumber.innerText = ` ${upcomingBooking.id}`
+    reservationNumber.tabIndex = 0
     bookingDate.innerText = 'Booking Date:'
+    bookingDate.tabIndex = 0
     date.innerText = `${formatBookingDisplayDate(upcomingBooking.date)}`
-
+    date.tabIndex = 0
     // create function for appending elements
     bookingFigure.appendChild(bookingImg)
     booking.appendChild(bookingFigure)
@@ -287,6 +290,7 @@ const loadPastBookings = () => {
 
     pastBooking.classList.add('pastBooking')
     pastDate.classList.add('pastDate')
+    pastDate.tabIndex = 0
 
     pastBooking.style.backgroundImage = `url(../images/${getRandomImage()})`
     pastDate.innerText = `${formatBookingDisplayDate(booking.date)}`
@@ -305,6 +309,7 @@ const loadTotalAmountSpent = () => {
   const total = store.customer.getTotalCost(store.hotel)
   const totalFormatted = formatForCurrency(total)
   customerToalSpentDisplay.innerText = `${totalFormatted}`
+  customerToalSpentDisplay.tabIndex = 0
 }
 
 const loadAvailableRooms = () => {
