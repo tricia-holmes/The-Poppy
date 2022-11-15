@@ -147,29 +147,35 @@ const makeReservation = (customer, dateRange, roomNumber) => {
 }
 
 //--------------Query Parameter------------------
-// // Retrieve by query parameter
 const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
 })
 const disableLogin = params.disableLogin
 const directToReservations = params.directToReservation
 if (disableLogin) {
-  loginSuccess()
-  hideLoginModal()
+  skipLogin()
 } else if (directToReservations) {
   loginSuccess()
   hideLoginModal()
-  store.currentPage === 'reservations'
   updateNavBtn()
 }
 
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
-dismissBtn.addEventListener('click', hideErrorMessage)
-successDismissBtn.addEventListener('click', hideSuccessMessage)
-loginDetails.addEventListener('click', loadLogin)
-userLogin.addEventListener('input', hideloginErrorMessage)
-passwordLogin.addEventListener('input', hideloginErrorMessage)
+
+const defineEventListeners = () => {
+  arrivalDateInput.addEventListener('input', setArrivalDate)
+  bookingModalDetails.addEventListener('click', toggleBookingModal)
+  departureDateInput.addEventListener('input', setDepatureDate)
+  dismissBtn.addEventListener('click', hideErrorMessage)
+  loginDetails.addEventListener('click', loadLogin)
+  navBtn.addEventListener('click', updateNavBtn)
+  passwordLogin.addEventListener('input', hideloginErrorMessage)
+  roomTypeInput.addEventListener('input', resetResultsContainer)
+  searchBtn.addEventListener('click', loadAvailableRooms)
+  successDismissBtn.addEventListener('click', hideSuccessMessage)
+  userLogin.addEventListener('input', hideloginErrorMessage)
+}
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -554,14 +560,14 @@ const getRandomImage = () => {
   return store.bookingImages[randomizeFromArray(store.bookingImages)]
 }
 
-const defineEventListeners = () => {
-  navBtn.addEventListener('click', updateNavBtn)
-  arrivalDateInput.addEventListener('input', setArrivalDate)
-  departureDateInput.addEventListener('input', setDepatureDate)
-  searchBtn.addEventListener('click', loadAvailableRooms)
-  bookingModalDetails.addEventListener('click', toggleBookingModal)
-  roomTypeInput.addEventListener('input', resetResultsContainer)
-}
+// const defineEventListeners = () => {
+//   navBtn.addEventListener('click', updateNavBtn)
+//   arrivalDateInput.addEventListener('input', setArrivalDate)
+//   departureDateInput.addEventListener('input', setDepatureDate)
+//   searchBtn.addEventListener('click', loadAvailableRooms)
+//   bookingModalDetails.addEventListener('click', toggleBookingModal)
+//   roomTypeInput.addEventListener('input', resetResultsContainer)
+// }
 
 function hideErrorMessage() {
   errorBookingPopUp.classList.remove('error__modal-toggle')
@@ -695,4 +701,9 @@ const showApology = () => {
 
 function resetResultsContainer() {
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+}
+
+function skipLogin() {
+  loginSuccess()
+  hideLoginModal()
 }
