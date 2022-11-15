@@ -9,11 +9,15 @@
   <body>
     <header class="page__navbar">
       <h1 class="navbar__logo">The Poppy</h1>
-      <button data-id="navbar" class="navbar__btn">Make Reservations</button>
+      <button data-id="navbar" class="navbar__btn">login</button>
     </header>
+    <section data-page-type="login" class="page__layout login">
+      <p>Testing this out</p>
+    </section>
+
     <section
       data-page-type="user-dashboard"
-      class="page__layout user__dashboard"
+      class="page__layout user__dashboard toggleDisplay"
     >
       <div data-id="errorDashModal" class="error__modal">
         <div data-id="errorDashMessage" class="error__details">
@@ -81,10 +85,6 @@
         <video autoplay muted loop class="results__video">
           <source src="./images/chandelier.mp4" type="video/mp4" />
         </video>
-        <!-- <p>Hello?</p>
-        <div class="results__instructions">
-          See what we have to offer! Try searching for the room of your dreams.
-        </div> -->
         <section data-id="results" class="results__container">
           <h1 class="available__title">Available</h1>
         </section>

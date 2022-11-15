@@ -42,6 +42,8 @@ const userDashboardSection = document.querySelector(
 const reservationsPageSection = document.querySelector(
   '[data-page-type = reservations]'
 )
+
+const loginPageSection = document.querySelector('[data-page-type = login]')
 const resultsContainer = document.querySelector('[data-id = results]')
 const arrivalDateInput = document.querySelector('#arrivalDate')
 const searchError = document.querySelector('[data-id = searchError]')
@@ -67,7 +69,7 @@ const successDismissBtn = document.querySelector(
 
 //--------------Global Variables------------------
 const store = {
-  currentPage: 'user dashboard',
+  currentPage: 'login',
   currentDate: new Date(
     `${new Date().getFullYear()}/${
       new Date().getMonth() + 1
@@ -327,11 +329,18 @@ const updateNavBtn = () => {
     setCurrentPage('reservations')
     toggleHtmlElement(userDashboardSection)
     toggleHtmlElement(reservationsPageSection)
+    // toggleHtmlElement(loginPageSection)
   } else if (store.currentPage === 'reservations') {
     changeElementInnerText(navBtn, 'Make Reservations')
     setCurrentPage('user dashboard')
     toggleHtmlElement(userDashboardSection)
     toggleHtmlElement(reservationsPageSection)
+    // toggleHtmlElement(loginPageSection)
+  } else if (store.currentPage === 'login'){
+    changeElementInnerText(navBtn, 'user dashboard')
+    setCurrentPage('user dashboard')
+    toggleHtmlElement(userDashboardSection)
+    toggleHtmlElement(loginPageSection)
   }
 }
 

@@ -59,16 +59,19 @@ main {
   transform: scale(0.98);
 }
 
+/* Login Page */
+.login {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
 /* User Dashboard */
 
 .user__dashboard {
   position: absolute;
   display: flex;
   flex-direction: column;
-  /* flex-wrap: wrap; */
-  /* align-items: center; */
-  /* overflow: hidden; */
-  /* justify-content: space-between; */
 }
 
 .toprow__container {
