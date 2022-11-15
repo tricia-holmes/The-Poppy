@@ -21,8 +21,6 @@ import './images/bidet.svg'
 import './images/crying.png'
 import './images/champagne.png'
 import './images/poppy.png'
-import './images/rose.png'
-import './images/iris.png'
 import './images/chandelier.mp4'
 import './images/pool.mp4'
 import './images/flowers.mp4'
@@ -349,23 +347,23 @@ const loadAvailableRooms = () => {
     <div class="room__divider"></div>
     <div class="details__container">
       <div class="cost__container">
-        <img class="cost__icon" src="./images/dollar.svg" />
+        <img class="cost__icon" src="./images/dollar.svg" alt="dollarbill icon"/>
         <p  class="cost__text">${formatForCurrency(
           availableRoom.costPerNight
         )} per night</p>
       </div>
       <div class="type__container">
-        <img class="type__icon" src="./images/room.svg" />
+        <img class="type__icon" src="./images/room.svg" alt="icon of a room to represent hotel room type"/>
         <p  class="type__text">${availableRoom.roomType}</p>
       </div>
       <div class="bed__container">
-        <img class="bed__icon" src="./images/bed.svg" />
+        <img class="bed__icon" src="./images/bed.svg" alt="icon of a bed"/>
         <p  class="bed__text"><span class="bed__amount">${
           availableRoom.numBeds
         }</span>${availableRoom.bedSize}</p>
       </div>
       <div class="bidet__container">
-        <img class="bidet__icon" src="./images/bidet.svg" />
+        <img class="bidet__icon" src="./images/bidet.svg" alt="icon of a bidet"/>
         <p  class="bidet__text">${checkForBidet(availableRoom)}</p>
       </div>
     </div>
@@ -471,21 +469,21 @@ const findBookingModalDetails = (event) => {
 <div class="room__divider"></div>
 <div class="modal__details__container">
   <div class="cost__container">
-    <img class="cost__icon" src="./images/dollar.svg" />
+    <img class="cost__icon" src="./images/dollar.svg" alt="dollarbill icon"/>
     <p class="cost__text">$${roomToBook.costPerNight} per night</p>
   </div>
   <div class="type__container">
-    <img class="type__icon" src="./images/room.svg" />
+    <img class="type__icon" src="./images/room.svg" alt="icon of a room to represent hotel room type"/>
     <p  class="type__text">${roomToBook.roomType}</p>
   </div>
   <div class="bed__container">
-    <img class="bed__icon" src="./images/bed.svg" />
+    <img class="bed__icon" src="./images/bed.svg" alt="icon of a bed"/>
     <p class="bed__text"><span class="bed__amount">${
       roomToBook.numBeds
     }</span>${roomToBook.bedSize}</p>
   </div>
   <div class="bidet__container">
-    <img class="bidet__icon" src="./images/bidet.svg" />
+    <img class="bidet__icon" src="./images/bidet.svg" alt="icon of a bidet"/>
     <p class="bidet__text">${checkForBidet(roomToBook)}</p>
   </div>
 </div>

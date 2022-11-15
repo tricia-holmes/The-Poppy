@@ -14,7 +14,7 @@ describe('Customer', () => {
   let hotel, customer1, customer2, customer3, customer4, newBooking, currentDate
 
   beforeEach(() => {
-    hotel = Hotel.fromData(roomSampleData, bookingSampleData)
+    hotel = Hotel.fromData(roomSampleData, bookingSampleData, customerSampleData)
     customer1 = Customer.fromCustomerData(
       customerSampleData[0],
       bookingSampleData

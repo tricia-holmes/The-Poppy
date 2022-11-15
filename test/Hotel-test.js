@@ -15,7 +15,7 @@ describe('Hotel', () => {
   let hotel, emptyHotel, customer, newBooking
 
   beforeEach(() => {
-    hotel = Hotel.fromData(roomSampleData, bookingSampleData)
+    hotel = Hotel.fromData(roomSampleData, bookingSampleData, customerSampleData)
     emptyHotel = new Hotel()
     customer = Customer.fromCustomerData(
       customerSampleData[2],
@@ -158,15 +158,15 @@ describe('Hotel', () => {
   })
 
   it('should be able to check if a selected date is vaild and not past due', () => {
-    expect(hotel.isValidDate(new Date('2025/12/05'))).to.equal(true)
+    expect(hotel.isValidDate(new Date('2025/12/05'), new Date(), new Date('2025/12/09'))).to.equal(true)
   })
 
   it('should be able to check if a selected date is not vaild and past due', () => {
-    expect(hotel.isValidDate(new Date('2020/12/05'))).to.equal(false)
+    expect(hotel.isValidDate(new Date('2022/12/05'), new Date(), new Date('2021/12/09'))).to.equal(false)
   })
 
   it('should be able to show what rooms are available for a given date', () => {
-    expect(hotel.showAvailableRooms('2023/12/16')).to.deep.equal([
+    expect(hotel.showAvailableRooms(new Date('2023/12/16'), new Date(), new Date('2023/12/16'))).to.deep.equal([
       {
         number: 19,
         roomType: 'single room',
@@ -212,17 +212,17 @@ describe('Hotel', () => {
   })
 
   it('should show no available rooms for past due dates', () => {
-    expect(hotel.showAvailableRooms('2021/11/07')).to.deep.equal(
+    expect(hotel.showAvailableRooms(new Date('2021/11/07'), new Date(), new Date('2021/11/07'))).to.deep.equal(
       'Sorry that date has already past! Please select another!'
     )
   })
 
   it('should show no rooms available when the hotel has no rooms created', () => {
-    expect(emptyHotel.showAvailableRooms('2023/11/07')).to.deep.equal([])
+    expect(emptyHotel.showAvailableRooms(new Date('2023/11/07'), new Date(), new Date('2023/11/07'))).to.deep.equal([])
   })
 
   it('should be able to add bookings for customers and reserve those rooms', () => {
-    hotel.addBooking(19, newBooking, customer)
+    hotel.addBooking(newBooking, customer)
     const selectedRoom = hotel.rooms.find(
       (room) => room.number === newBooking.roomNumber
     )
