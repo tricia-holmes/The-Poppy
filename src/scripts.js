@@ -149,9 +149,15 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
 })
 const disableLogin = params.disableLogin
+const directToReservations = params.directToReservation
 if (disableLogin) {
   loginSuccess()
   hideLoginModal()
+} else if (directToReservations) {
+  loginSuccess()
+  hideLoginModal()
+  store.currentPage === 'reservations'
+  updateNavBtn()
 }
 
 //--------------Event Listeners------------------
@@ -405,7 +411,7 @@ const setDepatureDate = () => {
   store.departureDate = formattedSelectedDate
 }
 
-const updateNavBtn = () => {
+function updateNavBtn() {
   if (store.currentPage === 'user dashboard') {
     changeElementInnerText(navBtn, 'Dashboard')
     setCurrentPage('reservations')
