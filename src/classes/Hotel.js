@@ -58,7 +58,6 @@ class Hotel {
     const selectedRoom = this.rooms.find(
       (room) => room.number === newBooking.roomNumber
     )
-
     selectedRoom.book(newBooking)
     customer.makeBooking(newBooking)
     this.bookings.push(newBooking)

@@ -83,7 +83,7 @@ describe('Room', () => {
   })
 
   it('should have a way to tell if a room is not available for a given date range', () => {
-    expect(room2.isAvailable(new Date('2022/11/10'))).to.deep.equal(false)
+    expect(room2.isAvailable(new Date('2022/11/10'), new Date('2022/11/10'))).to.deep.equal(false)
   })
 
   it('should be able to add a new booking', () => {
