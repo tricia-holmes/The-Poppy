@@ -234,7 +234,7 @@ function hideloginErrorMessage() {
 }
 
 const loadUpcomingBookings = () => {
-  upcomingBookingsContainer.innerHTML = ``
+  upcomingBookingsContainer.innerHTML = `<h2 class="currentBookings__title">UPCOMING STAYS</h2>`
   const upcomingBookings = store.customer.showUpcomingBookings(
     store.currentDate
   )
