@@ -1,11 +1,8 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
 import { fetchGetAll, createPostRequests, postAll } from './apiCalls'
 import Customer from './classes/Customer'
 import Hotel from './classes/Hotel'
 import Booking from './classes/Booking'
 
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/fonts.css'
 import './css/variables.css'
 import './css/styles.css'
@@ -30,6 +27,7 @@ import './images/chandelier.mp4'
 import './images/pool.mp4'
 import './images/flowers.mp4'
 import './images/tablescape.mp4'
+import './images/water.mp4'
 
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
@@ -77,6 +75,7 @@ const successDismissBtn = document.querySelector(
 )
 
 const loginModal = document.querySelector('[data-id = loginModal]')
+const heroVideo = document.querySelector('.hero__video')
 
 //--------------Global Variables------------------
 const store = {
@@ -116,40 +115,29 @@ const InitializeCustomerApp = () => {
       loadTotalAmountSpent()
       loadUpcomingBookings()
       loadPastBookings()
-      console.log('HOTEL', store.hotel)
     })
     .catch((err) => {
       showErrorMessage(errorDashPopUp)
       console.error(err)
-    }) // need to replace with DOM function
+    })
 }
-
-// if I do manager iteration -> create a InitializeManagerApp
-// this will use `fetchGetAll` and will use DOM fns that load the app for manager
 
 //--------------Make Reservation------------------
 const makeReservation = (customer, dateRange, roomNumber) => {
   const requests = createPostRequests(customer, dateRange, roomNumber)
   postAll(requests)
     .then((data) => {
-      console.log(data)
       data.forEach((data) => {
         store.hotel.addBooking(new Booking(data.newBooking), customer)
-        console.log(
-          'ROOM',
-          store.hotel.findRoomByNumber(data.newBooking.roomNumber)
-        )
       })
       loadAvailableRooms()
       loadUpcomingBookings()
       loadTotalAmountSpent()
       showSuccessMessage(successBookingPopUp)
       resetCalendarInputs()
-      resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
-      console.log('WHAT AM I?', customer.bookings)
+      resetResultsContainer()
     })
     .catch((err) => {
-      // toggleHtmlElement(bookingModal)
       showErrorMessage(errorBookingPopUp)
       console.error(err)
     })
@@ -201,7 +189,6 @@ function loadLogin(event) {
 
 function checkLoginCredentials() {
   const foundUser = store.hotel.findCustomerByUsername(userLogin.value)
-  console.log('FIND', foundUser)
   if (foundUser && checkPassword()) {
     store.customer = foundUser
     loadCustomerProfile()
@@ -210,7 +197,6 @@ function checkLoginCredentials() {
     loadPastBookings()
     loginSuccess()
     hideLoginModal()
-    console.log('woo!')
   } else {
     showLoginErrorMessage()
     setTimeout(() => {
@@ -295,7 +281,6 @@ const loadUpcomingBookings = () => {
 
 const loadPastBookings = () => {
   const pastBookings = store.customer.showPastBookings(store.currentDate)
-  console.log('PAST', pastBookings)
 
   pastBookings.forEach((booking) => {
     const pastBooking = document.createElement('div')
@@ -326,7 +311,7 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
-  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  resetResultsContainer()
   if (!store.arrivialDate || !store.currentDate || !store.departureDate) {
     return displaySearchError('Please select a date before searching.')
   }
@@ -343,14 +328,13 @@ const loadAvailableRooms = () => {
     displaySearchError(rooms)
   } else {
     const availableRooms = checkRoomType(roomTypeInput.value, rooms)
-    console.log('ROOMS', availableRooms)
     availableRooms.forEach((availableRoom) => {
       const room = document.createElement('div')
       room.dataset.id = `${availableRoom.number}`
       room.classList.add('available__room')
       room.innerHTML = `<div class="title__container">
-      <h2 class="room__title">Room Number</h2>
-      <h3 class="room__number">${availableRoom.number}</h3>
+      <h2 tabindex="0" class="room__title">Room Number</h2>
+      <h3 tabindex="0" class="room__number">${availableRoom.number}</h3>
     </div>
     <figure class="room__figure">
       <img class="room__img" src="./images/test-room.jpg" />
@@ -359,23 +343,23 @@ const loadAvailableRooms = () => {
     <div class="details__container">
       <div class="cost__container">
         <img class="cost__icon" src="./images/dollar.svg" />
-        <p class="cost__text">${formatForCurrency(
+        <p tabindex="0" class="cost__text">${formatForCurrency(
           availableRoom.costPerNight
         )} per night</p>
       </div>
       <div class="type__container">
         <img class="type__icon" src="./images/room.svg" />
-        <p class="type__text">${availableRoom.roomType}</p>
+        <p tabindex="0" class="type__text">${availableRoom.roomType}</p>
       </div>
       <div class="bed__container">
         <img class="bed__icon" src="./images/bed.svg" />
-        <p class="bed__text"><span class="bed__amount">${
+        <p tabindex="0" class="bed__text"><span class="bed__amount">${
           availableRoom.numBeds
         }</span>${availableRoom.bedSize}</p>
       </div>
       <div class="bidet__container">
         <img class="bidet__icon" src="./images/bidet.svg" />
-        <p class="bidet__text">${checkForBidet(availableRoom)}</p>
+        <p tabindex="0" class="bidet__text">${checkForBidet(availableRoom)}</p>
       </div>
     </div>
     <div class="room__divider"></div>`
@@ -385,7 +369,12 @@ const loadAvailableRooms = () => {
       bookBtn.innerText = 'Book Now'
       bookBtn.dataset.id = `${availableRoom.number}`
       bookBtn.addEventListener('click', loadBookingModal)
-
+      bookBtn.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          loadBookingModal(e)
+        }
+      })
+      bookBtn.tabIndex = 0
       room.appendChild(bookBtn)
       resultsContainer.appendChild(room)
     })
@@ -397,23 +386,21 @@ const setArrivalDate = () => {
     hideSearchError()
   }
 
-  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  resetResultsContainer()
   departureDateInput.value = arrivalDateInput.value
   const formattedSelectedDate = new Date(
     arrivalDateInput.value.split('-').join('/')
   )
   store.arrivialDate = formattedSelectedDate
   store.departureDate = formattedSelectedDate
-  console.log('ARRIVE', formattedSelectedDate)
 }
 
 const setDepatureDate = () => {
-  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  resetResultsContainer()
   const formattedSelectedDate = new Date(
     departureDateInput.value.split('-').join('/')
   )
   store.departureDate = formattedSelectedDate
-  console.log('DEPART', formattedSelectedDate)
 }
 
 const updateNavBtn = () => {
@@ -422,13 +409,11 @@ const updateNavBtn = () => {
     setCurrentPage('reservations')
     toggleHtmlElement(userDashboardSection)
     toggleHtmlElement(reservationsPageSection)
-    // toggleHtmlElement(loginPageSection)
   } else if (store.currentPage === 'reservations') {
     changeElementInnerText(navBtn, 'Make Reservations')
     setCurrentPage('user dashboard')
     toggleHtmlElement(userDashboardSection)
     toggleHtmlElement(reservationsPageSection)
-    // toggleHtmlElement(loginPageSection)
   } else if (store.currentPage === 'login') {
     showLoginModal()
   }
@@ -438,6 +423,7 @@ function loginSuccess() {
   changeElementInnerText(navBtn, 'Make Reservations')
   setCurrentPage('user dashboard')
   toggleHtmlElement(userDashboardSection)
+  heroVideo.src = './images/water.mp4'
 }
 
 const checkForBidet = (room) => {
@@ -449,24 +435,16 @@ const checkForBidet = (room) => {
 }
 
 const loadBookingModal = (event) => {
-  console.log('HELLO')
   toggleBookingModal(event)
   findBookingModalDetails(event)
 }
 
 const toggleBookingModal = (event) => {
-  console.log(event.target.className)
-  // findBookingModalDetails(event)
-
   if (event.target.className === 'book__btn') {
     bookingModal.classList.add('booking__modal-toggle')
   } else if (event.target.className === 'close__btn') {
     bookingModal.classList.remove('booking__modal-toggle')
   }
-
-  console.log('BYE')
-
-  // console.log('MODAL', store.hotel.findRoomByNumber(roomNumber))
 }
 
 const findBookingModalDetails = (event) => {
@@ -477,42 +455,42 @@ const findBookingModalDetails = (event) => {
   bookingModalDetails.innerHTML = `
   <div class="booking__header">
   <h1 class="booking__logo">THE POPPY</h1>
-  <button data-id="closeModalBtn" class="close__btn">&times;</button>
+  <button tabIndex = 0 data-id="closeModalBtn" class="close__btn">&times;</button>
 </div>
 <div class="room__divider"></div>
-<p class="booking__number">
+<p tabIndex = 0 class="booking__number">
   Room No.<span class="booking__span"> ${roomToBook.number}</span>
 </p>
 <div class="room__divider"></div>
 <div class="modal__details__container">
   <div class="cost__container">
     <img class="cost__icon" src="./images/dollar.svg" />
-    <p class="cost__text">$${roomToBook.costPerNight} per night</p>
+    <p tabIndex = 0 class="cost__text">$${roomToBook.costPerNight} per night</p>
   </div>
   <div class="type__container">
     <img class="type__icon" src="./images/room.svg" />
-    <p class="type__text">${roomToBook.roomType}</p>
+    <p tabIndex = 0 class="type__text">${roomToBook.roomType}</p>
   </div>
   <div class="bed__container">
     <img class="bed__icon" src="./images/bed.svg" />
-    <p class="bed__text"><span class="bed__amount">${
+    <p tabIndex = 0 class="bed__text"><span class="bed__amount">${
       roomToBook.numBeds
     }</span>${roomToBook.bedSize}</p>
   </div>
   <div class="bidet__container">
     <img class="bidet__icon" src="./images/bidet.svg" />
-    <p class="bidet__text">${checkForBidet(roomToBook)}</p>
+    <p tabIndex = 0 class="bidet__text">${checkForBidet(roomToBook)}</p>
   </div>
 </div>
 <div class="room__divider"></div>
 <div class="summary__container">
   <div class="reservations__container">
-    <p class="reservations__date">Reservation Dates:</p>
-    <p class="reservations__range">${formatForReservationDate()}</p>
+    <p tabIndex = 0 class="reservations__date">Reservation Dates:</p>
+    <p tabIndex = 0 class="reservations__range">${formatForReservationDate()}</p>
   </div>
   <div class="reservations__container">
-    <p class="reservations__total">Total Cost:</p>
-    <p class="reservations__cost">${formatForCurrency(
+    <p tabIndex = 0 class="reservations__total">Total Cost:</p>
+    <p tabIndex = 0 class="reservations__cost">${formatForCurrency(
       roomToBook.costPerNight * store.nightsPerStay
     )}</p>
   </div>
@@ -522,7 +500,13 @@ const findBookingModalDetails = (event) => {
   confirmBtn.classList.add('confirm__btn')
   confirmBtn.innerText = 'Book'
   confirmBtn.dataset.id = `${roomToBook.number}`
+  confirmBtn.tabIndex = 0
   confirmBtn.addEventListener('click', setupReservation)
+  confirmBtn.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      setupReservation(e)
+    }
+  })
 
   bookingModalDetails.appendChild(confirmBtn)
 }
@@ -550,14 +534,11 @@ const defineEventListeners = () => {
   departureDateInput.addEventListener('input', setDepatureDate)
   searchBtn.addEventListener('click', loadAvailableRooms)
   bookingModalDetails.addEventListener('click', toggleBookingModal)
-  roomTypeInput.addEventListener('input', resetSearchResults)
+  roomTypeInput.addEventListener('input', resetResultsContainer)
 }
 
 function hideErrorMessage() {
-  // if (event.target.className === 'disMiss_Btn') {
   errorBookingPopUp.classList.remove('error__modal-toggle')
-  // toggleHtmlElement(bookingModal)
-  // }
 }
 
 function showErrorMessage(element) {
@@ -566,14 +547,10 @@ function showErrorMessage(element) {
   if (bookingModal.classList.contains('booking__modal-toggle')) {
     bookingModal.classList.remove('booking__modal-toggle')
   }
-  // toggleHtmlElement(bookingModal)
 }
 
 function hideSuccessMessage() {
-  // if (event.target.className === 'disMiss_Btn') {
   successBookingPopUp.classList.remove('success__modal-toggle')
-  // toggleHtmlElement(bookingModal)
-  // }
 }
 
 function showSuccessMessage(element) {
@@ -585,17 +562,11 @@ function showSuccessMessage(element) {
 }
 
 function showLoginModal() {
-  // if (event.target.className === 'disMiss_Btn') {
   loginModal.classList.add('login__modal-toggle')
-  // toggleHtmlElement(bookingModal)
-  // }
 }
 
 function hideLoginModal() {
-  // if (event.target.className === 'disMiss_Btn') {
   loginModal.classList.remove('login__modal-toggle')
-  // toggleHtmlElement(bookingModal)
-  // }
 }
 
 function toggleHtmlElement(element) {
@@ -609,7 +580,7 @@ function setCurrentPage(currentPage) {
 function changeElementInnerText(element, text) {
   element.innerText = text
   resetCalendarInputs()
-  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+  resetResultsContainer()
 
   if (!searchError.classList.contains('hide')) {
     hideSearchError()
@@ -644,14 +615,9 @@ const formatForReservationDate = () => {
   }
 }
 
-const resetSearchResults = () => {
-  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
-}
-
 const setupReservation = (event) => {
   const roomNumber = Number(event.currentTarget.dataset.id)
 
-  console.log('TELL EM', roomNumber)
   makeReservation(store.customer, store.allDates, roomNumber)
 }
 
@@ -666,15 +632,12 @@ const getDateRange = () => {
 
   const date = new Date(store.arrivialDate)
   const endDate = new Date(store.departureDate)
-  // const allDates = []
 
   while (date.getTime() < endDate.getTime()) {
     store.allDates.push(formatBookingDisplayDate(date))
     date.setDate(date.getDate() + 1)
     store.nightsPerStay++
   }
-  console.log(store.allDates)
-  console.log(store.nightsPerStay)
 }
 
 function resetCalendarInputs() {
@@ -690,6 +653,10 @@ const displaySearchError = (text) => {
   searchError.classList.remove('hide')
 }
 
-const hideSearchError = (text) => {
+const hideSearchError = () => {
   searchError.classList.add('hide')
+}
+
+function resetResultsContainer() {
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
 }

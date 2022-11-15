@@ -16,7 +16,7 @@
         <video autoplay muted loop class="hero__video">
           <source src="./images/tablescape.mp4" type="video/mp4" />
         </video>
-      </section>  
+      </section>
       <div data-id="loginModal" class="login__modal">
         <div data-id="loginMessage" class="login__details">
           <div class="booking__header">
@@ -103,8 +103,12 @@
       data-page-type="reservations"
       class="page__layout reservations__page toggleDisplay"
     >
-      <div data-id="bookingModal" class="booking__modal">
-        <div data-id="bookingModalDetails" class="booking__details"></div>
+      <div tabindex="-1" data-id="bookingModal" class="booking__modal">
+        <div
+          tabindex="-1"
+          data-id="bookingModalDetails"
+          class="booking__details"
+        ></div>
       </div>
       <div data-id="errorBookingModal" class="error__modal">
         <div data-id="errorBookingMessage" class="error__details">
@@ -155,14 +159,17 @@
           <div class="roomtype__conatiner">
             <p>Room Type</p>
             <form data-id="roomTypes" class="roomtype__form">
-              <select class="roomtype__dropdown" id="roomTypes" name="roomTypes">
+              <select
+                class="roomtype__dropdown"
+                id="roomTypes"
+                name="roomTypes"
+              >
                 <option value="optional">optional</option>
                 <option value="single room">single room</option>
                 <option value="suite">suite</option>
                 <option value="junior suite">junior suite</option>
                 <option value="residential suite">residential suite</option>
               </select>
-              <!-- <input type="submit" /> -->
             </form>
           </div>
           <button class="search__btn" data-id="search">Search Now</button>

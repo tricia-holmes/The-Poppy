@@ -8,7 +8,6 @@ main {
   width: 100vw;
   box-sizing: border-box;
   overflow: hidden;
-  /* user-select: none; */
   background: honeydew;
 }
 
@@ -32,7 +31,6 @@ input {
 }
 
 /* Page Layout */
-
 .page__layout {
   position: absolute;
   left: 0px;
@@ -42,7 +40,6 @@ input {
 }
 
 /* Nav Bar */
-
 .page__navbar {
   position: fixed;
   display: flex;
@@ -96,7 +93,6 @@ input {
   position: relative;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   overflow: hidden;
   width: 100%;
@@ -184,6 +180,8 @@ input {
   transition: all 0.3s ease-in-out;
   z-index: 100;
 }
+
+/* User Dashboard */
 
 .user__dashboard {
   position: absolute;
@@ -345,9 +343,7 @@ input {
   position: relative;
   display: flex;
   flex-direction: row;
-  /* justify-content: space-evenly; */
   align-items: center;
-  /* flex-wrap: wrap; */
   overflow-x: auto;
   overflow-y: hidden;
   height: 100%;
@@ -502,7 +498,6 @@ input {
   align-items: center;
   position: relative;
   flex: 0 0 auto;
-  /* margin-top: 15px; */
   margin-bottom: 14px;
   height: 538px;
   width: 480px;
@@ -656,7 +651,6 @@ input {
 }
 
 /* Search */
-
 .search__container {
   display: flex;
   position: relative;
@@ -724,7 +718,7 @@ input {
 
 .roomtype__dropdown {
   font-family: Cormorant-Medium-Italic;
-  font-size: 22px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -752,7 +746,6 @@ input {
 }
 
 /* Booking Modal */
-
 .booking__modal {
   position: fixed;
   text-align: center;
@@ -776,7 +769,6 @@ input {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffed;
-  /* padding: 20px; */
   width: 60vh;
   height: 75vh;
 }
@@ -804,7 +796,6 @@ input {
 
 .close__btn {
   border: none;
-  /* margin-bottom: 8px; */
   margin-right: 25px;
   font-size: 36px;
   top: -10px;
@@ -1006,7 +997,6 @@ input {
 
 .success__icon {
   width: 150px;
-  /* margin-bottom: 38px; */
 }
 
 .success__greeting {
