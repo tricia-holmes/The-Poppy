@@ -24,7 +24,7 @@
             <button data-id="closeLoginBtn" class="close__btn">&times;</button>
           </div>
           <div class="room__divider"></div>
-          <img src="./images/poppy.png" class="poppy_icon"/>
+          <img src="./images/poppy.png" class="poppy_icon" />
           <form data-id="loginForm" class="login__form">
             <label for="user">username</label>
             <input type="text" id="user" placeholder="Your username.." />
@@ -35,15 +35,12 @@
               placeholder="Your password.."
             />
           </form>
+          <h3 data-id="loginError" class="login__error hide">
+            Incorrect login credentials. Plesse try again.
+          </h3>
           <button class="login__btn">Login</button>
         </div>
       </div>
-    </section>
-
-    <section
-      data-page-type="user-dashboard"
-      class="page__layout user__dashboard toggleDisplay"
-    >
       <div data-id="errorDashModal" class="error__modal">
         <div data-id="errorDashMessage" class="error__details">
           <p class="error__greeting">Oh no!</p>
@@ -52,6 +49,12 @@
           <p class="error__text">Please come back when we get it together.</p>
         </div>
       </div>
+    </section>
+
+    <section
+      data-page-type="user-dashboard"
+      class="page__layout user__dashboard toggleDisplay"
+    >
       <div class="divider"></div>
       <section class="toprow__container">
         <section

@@ -121,7 +121,7 @@ input {
   transform: translate(-50%, -50%);
   background-color: #ffffed;
   width: 45vh;
-  height: 65vh;
+  height: 72vh;
 }
 
 @media (min-width: 1500px) and (max-width: 1920px) {
@@ -143,6 +143,14 @@ input {
 
 #user {
   margin-bottom: 10px;
+}
+
+.login__error {
+  position: absolute;
+  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 26px;
+  bottom: 80px;
+  color: #e15b5e;
 }
 
 .login__btn {
@@ -694,7 +702,13 @@ input {
   background-color: #ffffed;
   /* padding: 20px; */
   width: 60vh;
-  height: 66vh;
+  height: 75vh;
+}
+
+@media (min-width: 1500px) and (max-width: 1920px) {
+  .booking__details {
+    height: 66vh;
+  }
 }
 
 .booking__header {
@@ -846,8 +860,15 @@ input {
   transform: translate(-50%, -50%);
   background-color: #e15b5e;
   width: 60vh;
-  height: 66vh;
+  height: 72vh;
 }
+
+@media (min-width: 1500px) and (max-width: 1920px) {
+  .error__details {
+    height: 56vh;
+  }
+}
+
 
 .error__icon {
   width: 150px;
@@ -899,7 +920,13 @@ input {
   transform: translate(-50%, -50%);
   background-color: #5be1a9;
   width: 60vh;
-  height: 66vh;
+  height: 72vh;
+}
+
+@media (min-width: 1500px) and (max-width: 1920px) {
+  .success__details {
+    height: 66vh;
+  }
 }
 
 .success__icon {
