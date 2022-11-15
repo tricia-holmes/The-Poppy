@@ -32,53 +32,48 @@ import './images/tablescape.mp4'
 import './images/water.mp4'
 
 //--------------Query Selectors------------------
-const customerNameDisplay = document.querySelector('[data-id = customerName]')
-const customerIdDisplay = document.querySelector('[data-id = customerId]')
-const customerToalSpentDisplay = document.querySelector('[data-id = totalCost]')
-const upcomingBookingsContainer = document.querySelector(
-  '[data-id = UpcomingBookings]'
-)
-const pastBookingsContainer = document.querySelector('[data-id = pastBookings]')
-const navBtn = document.querySelector('[data-id = navbar]')
-const userDashboardSection = document.querySelector(
-  '[data-page-type = user-dashboard]'
-)
-const reservationsPageSection = document.querySelector(
-  '[data-page-type = reservations]'
-)
-
-const loginPageSection = document.querySelector('[data-page-type = login]')
-const loginDetails = document.querySelector('.login__details')
-const loginErrorMessage = document.querySelector('[data-id=loginError]')
-const userLogin = document.querySelector('#user')
-const passwordLogin = document.querySelector('#password')
-const closeLoginBtn = document.querySelector('[data-page-type = closeLoginBtn]')
-const resultsContainer = document.querySelector('[data-id = results]')
 const arrivalDateInput = document.querySelector('#arrivalDate')
-const searchError = document.querySelector('[data-id = searchError]')
-const searchBtn = document.querySelector('[data-id = search]')
-const departureDateInput = document.querySelector('#departureDate')
-const roomTypeInput = document.querySelector('#roomTypes')
+const apologyMessage = document.querySelector('[data-id = apologyMessage]')
 const bookingModal = document.querySelector('[data-id = bookingModal]')
 const bookingModalDetails = document.querySelector(
   '[data-id = bookingModalDetails]'
 )
-
+const customerIdDisplay = document.querySelector('[data-id = customerId]')
+const customerNameDisplay = document.querySelector('[data-id = customerName]')
+const customerToalSpentDisplay = document.querySelector('[data-id = totalCost]')
+const departureDateInput = document.querySelector('#departureDate')
+const dismissBtn = document.querySelector('.dismiss__btn')
 const errorBookingPopUp = document.querySelector(
   '[data-id = errorBookingModal]'
 )
 const errorDashPopUp = document.querySelector('[data-id = errorDashModal]')
+const heroVideo = document.querySelector('.hero__video')
+const loginDetails = document.querySelector('.login__details')
+const loginErrorMessage = document.querySelector('[data-id=loginError]')
+const loginModal = document.querySelector('[data-id = loginModal]')
+const navBtn = document.querySelector('[data-id = navbar]')
+const passwordLogin = document.querySelector('#password')
+const pastBookingsContainer = document.querySelector('[data-id = pastBookings]')
+const reservationsPageSection = document.querySelector(
+  '[data-page-type = reservations]'
+)
+const resultsContainer = document.querySelector('[data-id = results]')
+const roomTypeInput = document.querySelector('#roomTypes')
+const searchBtn = document.querySelector('[data-id = search]')
+const searchError = document.querySelector('[data-id = searchError]')
 const successBookingPopUp = document.querySelector(
   '[data-id = successBookingModal'
 )
-const dismissBtn = document.querySelector('.dismiss__btn')
 const successDismissBtn = document.querySelector(
   '[data-id = successDismissBtn]'
 )
-
-const loginModal = document.querySelector('[data-id = loginModal]')
-const heroVideo = document.querySelector('.hero__video')
-const apologyMessage = document.querySelector('[data-id = apologyMessage]')
+const upcomingBookingsContainer = document.querySelector(
+  '[data-id = UpcomingBookings]'
+)
+const userDashboardSection = document.querySelector(
+  '[data-page-type = user-dashboard]'
+)
+const userLogin = document.querySelector('#user')
 
 //--------------Global Variables------------------
 const store = {
@@ -325,6 +320,10 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
+  if (!apologyMessage.classList.contains('hide')) {
+    hideApology()
+  }
+
   resetResultsContainer()
   if (!store.arrivialDate || !store.currentDate || !store.departureDate) {
     return displaySearchError('Please select a date before searching.')

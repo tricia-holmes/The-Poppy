@@ -917,9 +917,10 @@ input {
   transition: all 0.3s ease-in-out;
 }
 
+.dismiss__btn:hover,
 .confirm__btn:hover {
   background-color: #000000;
-  color: #fe398c;
+  color: #efc0ba;
 }
 
 /* Error Message */
