@@ -23,6 +23,9 @@ import './images/bed.svg'
 import './images/bidet.svg'
 import './images/crying.png'
 import './images/champagne.png'
+import './images/chandelier.mp4'
+import './images/pool.mp4'
+import './images/flowers.mp4'
 
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
@@ -228,14 +231,12 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
-  getDateRange()
-  console.log(roomTypeInput.value)
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
-  console.log(store.currentDate)
-
   if (!store.arrivialDate || !store.currentDate || !store.departureDate) {
-    displaySearchError('Please select a date before searching.')
+    return displaySearchError('Please select a date before searching.')
   }
+
+  getDateRange()
 
   const rooms = store.hotel.showAvailableRooms(
     store.arrivialDate,
@@ -487,6 +488,12 @@ const setCurrentPage = (currentPage) => {
 
 const changeElementInnerText = (element, text) => {
   element.innerText = text
+  resetCalendarInputs()
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+
+  if (!searchError.classList.contains('hide')) {
+    hideSearchError()
+  }
 }
 
 const formatForCurrency = (amount) => {
@@ -555,6 +562,7 @@ const resetCalendarInputs = () => {
   store.departureDate = ''
   arrivalDateInput.value = ''
   departureDateInput.value = ''
+  roomTypeInput.value = 'optional'
 }
 
 const displaySearchError = (text) => {
