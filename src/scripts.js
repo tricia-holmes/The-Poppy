@@ -24,6 +24,8 @@ import './images/bidet.svg'
 import './images/crying.png'
 import './images/champagne.png'
 import './images/poppy.png'
+import './images/rose.png'
+import './images/iris.png'
 import './images/chandelier.mp4'
 import './images/pool.mp4'
 import './images/flowers.mp4'
@@ -248,6 +250,8 @@ const loadUpcomingBookings = () => {
     const reservationNumber = document.createElement('span')
     const bookingDate = document.createElement('p')
     const date = document.createElement('span')
+    const roomNumber = document.createElement('p')
+    const number = document.createElement('span')
 
     // create function for creating css classes
     booking.classList.add('booking')
@@ -257,6 +261,8 @@ const loadUpcomingBookings = () => {
     reservationNumber.classList.add('placeholder')
     bookingDate.classList.add('booking__label')
     date.classList.add('placeholder')
+    roomNumber.classList.add('booking__label')
+    number.classList.add('placeholder')
 
     // create function for inputting data
     booking.dataset.id = `${upcomingBooking.id}`
@@ -269,6 +275,10 @@ const loadUpcomingBookings = () => {
     bookingDate.tabIndex = 0
     date.innerText = `${formatBookingDisplayDate(upcomingBooking.date)}`
     date.tabIndex = 0
+    roomNumber.innerText = 'Room Number:'
+    roomNumber.tabIndex = 0
+    number.innerText = `${upcomingBooking.roomNumber}`
+    number.tabIndex = 0
     // create function for appending elements
     bookingFigure.appendChild(bookingImg)
     booking.appendChild(bookingFigure)
@@ -276,6 +286,8 @@ const loadUpcomingBookings = () => {
     booking.appendChild(reservation)
     bookingDate.appendChild(date)
     booking.appendChild(bookingDate)
+    roomNumber.appendChild(number)
+    booking.appendChild(roomNumber)
     upcomingBookingsContainer.appendChild(booking)
   })
 }

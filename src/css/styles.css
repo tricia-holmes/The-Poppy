@@ -175,7 +175,6 @@ input {
   position: absolute;
   display: flex;
   flex-direction: column;
-  /* background-color: #CBBDAE; */
 }
 
 .toprow__container {
@@ -185,13 +184,13 @@ input {
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 55%;
+  height: 50%;
   z-index: 10;
 }
 
 .bottomrow__container {
   position: absolute;
-  bottom: 0;
+  bottom: 29px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -228,11 +227,13 @@ input {
 .currentBookings__title {
   position: absolute;
   z-index: 100;
-  top: -28px;
+  top: 5px;
   left: 15px;
   margin-bottom: 5px;
+  width: 355px;
   font-family: 'Cormorant-Semi-Bold-Italic';
-  color: beige;
+  color: #2b2a2a;
+  background-color: beige;
 }
 
 .booking {
@@ -264,16 +265,16 @@ input {
 }
 
 .booking__label {
-  font-family: Cormorant-Semi-Bold-Italic;
-  font-size: 24px;
+  font-size: 20px;
   margin: 0;
-  line-height: 2;
+  line-height: 1.75;
 }
 
 .placeholder {
-  color: blueviolet;
-  font-family: var(--font-family);
-  font-size: 20px;
+  color: #161616;
+  font-family: monospace;
+  font-size: 18px;
+  margin-left: 5px;
 }
 .booking__figure {
   height: 250px;
@@ -290,7 +291,7 @@ input {
 }
 
 .customer__container {
-  background-color: aquamarine;
+  background-color: #2b2a2a;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -305,18 +306,28 @@ input {
   border-bottom: 1px solid #000000;
 }
 
+.customer__icon {
+  height: 90px;
+}
+
 .customer__placeholder {
-  font-size: 28px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Cormorant-Semi-Bold-Italic;
+  color: #efc0ba;
+  font-size: 34px;
 }
 
 .customer__info {
-  font-size: 28px;
-  color: rgb(7, 57, 131);
-  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 38px;
+  color: beige;
+  font-family: Cormorant-Regular;
 }
 
 .pastBookings__container {
-  background-color: lightgoldenrodyellow;
+  background-color: #efc0ba;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -331,6 +342,19 @@ input {
   border-top: 1px solid #000000;
 }
 
+.pastBookings__title {
+  position: absolute;
+  z-index: 100;
+  top: -28px;
+  left: 15px;
+  margin-bottom: 5px;
+  font-family: 'Cormorant-Semi-Bold-Italic';
+  color: beige;
+  background-color: #2b2a2a;
+  width: 242px;
+}
+
+
 .pastBooking {
   display: flex;
   flex: 0 0 auto;
@@ -341,7 +365,7 @@ input {
   background-position: top;
   background-size: cover;
   background-blend-mode: overlay;
-  background-color: rgb(126 0 255 / 34%);
+  background-color: #0000006e;
   color: white;
   width: 325px;
   height: 220px;
@@ -351,7 +375,7 @@ input {
 }
 
 .totalCost__container {
-  background-color: lightcoral;
+  background-color: #2b2a2a;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -363,6 +387,31 @@ input {
   border-left: 1px solid #000000;
   border-top: 1px solid #000000;
 }
+
+.totalCost__title {
+  z-index: 100;
+  margin-bottom: 10px;
+  left: 15px;
+  font-family: 'Cormorant-Semi-Bold-Italic';
+  color: beige;
+  font-size: 32px;
+}
+
+.totalCost__placeholder {
+  width: 212px;
+  margin: 0;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Cormorant-Semi-Bold-Italic;
+  color: #efc0ba;
+  font-size: 36px;
+  height: 65px;
+  text-align: center;
+}
+
 
 /* Reservations Page */
 .reservations__page {
