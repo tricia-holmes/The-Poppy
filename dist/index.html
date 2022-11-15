@@ -12,7 +12,32 @@
       <button data-id="navbar" class="navbar__btn">login</button>
     </header>
     <section data-page-type="login" class="page__layout login">
-      <p>Testing this out</p>
+      <section class="hero__container">
+        <video autoplay muted loop class="hero__video">
+          <source src="./images/flowers.mp4" type="video/mp4" />
+        </video>
+      </section>
+      <div data-id="loginModal" class="login__modal">
+        <div data-id="loginMessage" class="login__details">
+          <div class="booking__header">
+            <h1 class="booking__logo">THE POPPY</h1>
+            <button data-id="closeModalBtn" class="close__btn">&times;</button>
+          </div>
+          <div class="room__divider"></div>
+          <img src="./images/poppy.png" class="poppy_icon"/>
+          <form data-id="loginForm" class="login__form">
+            <label for="user">username</label>
+            <input type="text" id="user" placeholder="Your username.." />
+            <label for="password">password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Your password.."
+            />
+          </form>
+          <button class="login__btn">Login</button>
+        </div>
+      </div>
     </section>
 
     <section

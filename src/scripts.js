@@ -23,6 +23,7 @@ import './images/bed.svg'
 import './images/bidet.svg'
 import './images/crying.png'
 import './images/champagne.png'
+import './images/poppy.png'
 import './images/chandelier.mp4'
 import './images/pool.mp4'
 import './images/flowers.mp4'
@@ -66,6 +67,8 @@ const dismissBtn = document.querySelector('.dismiss__btn')
 const successDismissBtn = document.querySelector(
   '[data-id = successDismissBtn]'
 )
+
+const loginModal = document.querySelector('[data-id = loginModal]')
 
 //--------------Global Variables------------------
 const store = {
@@ -337,12 +340,17 @@ const updateNavBtn = () => {
     toggleHtmlElement(reservationsPageSection)
     // toggleHtmlElement(loginPageSection)
   } else if (store.currentPage === 'login'){
-    changeElementInnerText(navBtn, 'user dashboard')
-    setCurrentPage('user dashboard')
-    toggleHtmlElement(userDashboardSection)
-    toggleHtmlElement(loginPageSection)
+    showLoginModal()
   }
 }
+
+// when LOGIN IS SUCCESSFUL
+//  changeElementInnerText(navBtn, 'user dashboard')
+// setCurrentPage('user dashboard')
+// toggleHtmlElement(userDashboardSection)
+// toggleHtmlElement(loginPageSection)
+
+
 
 const checkForBidet = (room) => {
   if (room.bidet) {
@@ -487,6 +495,14 @@ function showSuccessMessage(element) {
     bookingModal.classList.remove('booking__modal-toggle')
   }
 }
+
+function showLoginModal() {
+  // if (event.target.className === 'disMiss_Btn') {
+  loginModal.classList.add('login__modal-toggle')
+  // toggleHtmlElement(bookingModal)
+  // }
+}
+
 const toggleHtmlElement = (element) => {
   element.classList.toggle('toggleDisplay')
 }
