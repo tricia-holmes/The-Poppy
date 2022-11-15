@@ -440,6 +440,20 @@ input {
   height: 100%;
 }
 
+.search__label {
+  font-size: 32px;
+  margin-top: 13px;
+  margin-bottom: 18px;
+}
+
+.roomtype__conatiner {
+  margin-top: 50px;
+}
+
+.roomtype__form {
+  margin-top: 16px;
+}
+
 .results__container {
   position: relative;
   display: flex;

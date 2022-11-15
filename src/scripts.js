@@ -149,9 +149,15 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
 })
 const disableLogin = params.disableLogin
+const directToReservations = params.directToReservation
 if (disableLogin) {
   loginSuccess()
   hideLoginModal()
+} else if (directToReservations) {
+  loginSuccess()
+  hideLoginModal()
+  store.currentPage === 'reservations'
+  updateNavBtn()
 }
 
 //--------------Event Listeners------------------
@@ -252,8 +258,10 @@ const loadUpcomingBookings = () => {
     number.classList.add('placeholder')
 
     // create function for inputting data
+    const randomImg = getRandomImage()
     booking.dataset.id = `${upcomingBooking.id}`
-    bookingImg.src = `../images/${getRandomImage()}`
+    bookingImg.src = `../images/${randomImg}`
+    bookingImg.alt = `${randomImg}`
     reservation.innerText = 'Reservation Number:'
     reservation.tabIndex = 0
     reservationNumber.innerText = ` ${upcomingBooking.id}`
@@ -327,6 +335,7 @@ const loadAvailableRooms = () => {
   } else {
     const availableRooms = checkRoomType(roomTypeInput.value, rooms)
     availableRooms.forEach((availableRoom) => {
+      const randomImg = getRandomImage()
       const room = document.createElement('div')
       room.dataset.id = `${availableRoom.number}`
       room.classList.add('available__room')
@@ -335,7 +344,7 @@ const loadAvailableRooms = () => {
       <h3 class="room__number">${availableRoom.number}</h3>
     </div>
     <figure class="room__figure">
-      <img class="room__img" src="./images/test-room.jpg" />
+      <img class="room__img" src="./images/${randomImg}" alt="randomImg" />
     </figure>
     <div class="room__divider"></div>
     <div class="details__container">
@@ -401,7 +410,7 @@ const setDepatureDate = () => {
   store.departureDate = formattedSelectedDate
 }
 
-const updateNavBtn = () => {
+function updateNavBtn() {
   if (store.currentPage === 'user dashboard') {
     changeElementInnerText(navBtn, 'Dashboard')
     setCurrentPage('reservations')

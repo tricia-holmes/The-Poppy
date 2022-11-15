@@ -24,7 +24,11 @@
             <button data-id="closeLoginBtn" class="close__btn">&times;</button>
           </div>
           <div class="room__divider"></div>
-          <img src="./images/poppy.png" class="poppy_icon" />
+          <img
+            src="./images/poppy.png"
+            alt="an illustration of a poppy flower for the hotel logo"
+            class="poppy_icon"
+          />
           <form data-id="loginForm" class="login__form">
             <label for="user">username</label>
             <input type="text" id="user" placeholder="Your username.." />
@@ -44,7 +48,11 @@
       <div data-id="errorDashModal" class="error__modal">
         <div data-id="errorDashMessage" class="error__details">
           <p class="error__greeting">Oh no!</p>
-          <img src="./images/crying.png" class="error__icon" />
+          <img
+            src="./images/crying.png"
+            alt="sad crying emoji to show an error occured"
+            class="error__icon"
+          />
           <p class="error__text">Something went wrong. So sorry!</p>
           <p class="error__text">Please come back when we get it together.</p>
         </div>
@@ -105,7 +113,11 @@
       <div data-id="errorBookingModal" class="error__modal">
         <div data-id="errorBookingMessage" class="error__details">
           <p class="error__greeting">Oh no!</p>
-          <img src="./images/crying.png" class="error__icon" />
+          <img
+            src="./images/crying.png"
+            alt="sad crying emoji to show an error occured"
+            class="error__icon"
+          />
           <p class="error__text">Something went wrong. So sorry!</p>
           <p class="error__text">Please come back when we get it together.</p>
           <button class="dismiss__btn">Dismiss</button>
@@ -117,7 +129,11 @@
             Dismiss
           </button>
           <p class="success__greeting">Cheers!</p>
-          <img src="./images/champagne.png" class="success__icon" />
+          <img
+            src="./images/champagne.png"
+            alt="an open bottle of champagne to celebrate"
+            class="success__icon"
+          />
           <p class="success__text">Yay! Your reservations are all set!</p>
         </div>
       </div>
@@ -140,16 +156,16 @@
           </h3>
           <div class="dates__container">
             <div class="arrival__conatiner">
-              <p>Arrival</p>
+              <label class="search__label" for="arrivalDate">Arrival</label>
               <input type="date" name="check-in date" id="arrivalDate" />
             </div>
             <div class="departure__conatiner">
-              <p>Departure</p>
+              <label class="search__label" for="departureDate"">Departure</label>
               <input type="date" name="check-out date" id="departureDate" />
             </div>
           </div>
           <div class="roomtype__conatiner">
-            <p>Room Type</p>
+            <label class="search__label" for="room type">Room Type</label>
             <form data-id="roomTypes" class="roomtype__form">
               <select
                 class="roomtype__dropdown"
