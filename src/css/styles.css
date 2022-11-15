@@ -139,6 +139,7 @@ input {
 .login__form {
   display: flex;
   flex-direction: column;
+  margin-bottom: -6px;
 }
 
 #user {
@@ -146,9 +147,8 @@ input {
 }
 
 .login__error {
-  position: absolute;
   font-family: Cormorant-Semi-Bold-Italic;
-  font-size: 26px;
+  font-size: 24px;
   bottom: 80px;
   color: #e15b5e;
 }

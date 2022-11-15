@@ -152,6 +152,17 @@ const makeReservation = (customer, dateRange, roomNumber) => {
     })
 }
 
+//--------------Query Parameter------------------
+// // Retrieve by query parameter
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+})
+const disableLogin = params.disableLogin
+if (disableLogin) {
+  loginSuccess()
+  hideLoginModal()
+}
+
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
 dismissBtn.addEventListener('click', hideErrorMessage)
@@ -202,7 +213,7 @@ function checkLoginCredentials() {
     setTimeout(() => {
       userLogin.value = ''
       passwordLogin.value = ''
-    }, 2000);
+    }, 1000)
   }
 }
 
@@ -405,7 +416,7 @@ const updateNavBtn = () => {
   }
 }
 
-const loginSuccess = () => {
+function loginSuccess() {
   changeElementInnerText(navBtn, 'user dashboard')
   setCurrentPage('user dashboard')
   toggleHtmlElement(userDashboardSection)
@@ -569,15 +580,15 @@ function hideLoginModal() {
   // }
 }
 
-const toggleHtmlElement = (element) => {
+function toggleHtmlElement(element) {
   element.classList.toggle('toggleDisplay')
 }
 
-const setCurrentPage = (currentPage) => {
+function setCurrentPage(currentPage) {
   store.currentPage = currentPage
 }
 
-const changeElementInnerText = (element, text) => {
+function changeElementInnerText(element, text) {
   element.innerText = text
   resetCalendarInputs()
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
@@ -648,7 +659,7 @@ const getDateRange = () => {
   console.log(store.nightsPerStay)
 }
 
-const resetCalendarInputs = () => {
+function resetCalendarInputs() {
   store.arrivialDate = ''
   store.departureDate = ''
   arrivalDateInput.value = ''
