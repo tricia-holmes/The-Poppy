@@ -5,6 +5,7 @@ class Customer {
     this.id = customerData.id
     this.name = customerData.name
     this.bookings = bookings
+    this.username = `customer${customerData.id}`
   }
 
   static fromCustomerData(customerData, bookingData) {
