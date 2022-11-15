@@ -14,6 +14,11 @@ import './images/test-hotel3.jpg'
 import './images/test-hotel4.jpg'
 import './images/test-hotel5.jpg'
 import './images/test-room.jpg'
+import './images/lets-get-away.jpg'
+import './images/ornate-hallways-with-chandeliers.jpg'
+import './images/ornate-ceiling.jpg'
+import './images/beautiful-modern-staircase.jpg'
+import './images/moody-antique-hotel-room.jpg'
 import './images/dollar.svg'
 import './images/room.svg'
 import './images/bed.svg'
@@ -22,7 +27,6 @@ import './images/crying.png'
 import './images/champagne.png'
 import './images/poppy.png'
 import './images/chandelier.mp4'
-import './images/pool.mp4'
 import './images/flowers.mp4'
 import './images/tablescape.mp4'
 import './images/water.mp4'
@@ -91,6 +95,11 @@ const store = {
     'test-hotel3.jpg',
     'test-hotel4.jpg',
     'test-hotel4.jpg',
+    'lets-get-away.jpg',
+    'ornate-hallways-with-chandeliers.jpg',
+    'ornate-ceiling.jpg',
+    'beautiful-modern-staircase.jpg',
+    'moody-antique-hotel-room.jpg',
   ],
   arrivialDate: '',
   departureDate: '',
