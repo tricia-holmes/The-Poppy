@@ -269,14 +269,32 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  background-color: aqua;
   overflow-y: auto;
   overflow-x: hidden;
-  width: 50%;
+  width: 100%;
   height: 100vh;
   bottom: 0;
+  background-color: #00000037;
+}
+
+.video__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  overflow: hidden;
+  width: 50%;
+  height: 100%;
+}
+
+.results__video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  z-index: 0;
 }
 
 .available__title {
@@ -286,6 +304,15 @@ main {
   font-size: 100px;
   margin-top: 85px;
   margin-bottom: -24px;
+  z-index: 10;
+}
+
+.results__instructions {
+  position: relative;
+  background-color: #ffffed;
+  top: -30px;
+  margin-top: 85px;
+  width: 200px;
   z-index: 10;
 }
 
