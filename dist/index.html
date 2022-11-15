@@ -36,7 +36,7 @@
             />
           </form>
           <h3 data-id="loginError" class="login__error hide">
-            Incorrect login credentials. Plesse try again.
+            Incorrect login credentials. Please try again.
           </h3>
           <button class="login__btn">Login</button>
         </div>
@@ -64,23 +64,15 @@
         >
           <h2 class="currentBookings__title">UPCOMING STAYS</h2>
         </section>
-        <section tabindex="0" class="customer__container">
-          <img tabindex="0" class="customer__icon" src="./images/poppy.png" />
-          <p tabindex="0" class="customer__placeholder">
+        <section class="customer__container">
+          <img class="customer__icon" src="./images/poppy.png" />
+          <p class="customer__placeholder">
             customer name:
-            <span
-              tabindex="0"
-              data-id="customerName"
-              class="customer__info"
-            ></span>
+            <span data-id="customerName" class="customer__info"></span>
           </p>
-          <p tabindex="0" class="customer__placeholder">
+          <p class="customer__placeholder">
             user id:
-            <span
-              tabindex="0"
-              data-id="customerId"
-              class="customer__info"
-            ></span>
+            <span data-id="customerId" class="customer__info"></span>
           </p>
         </section>
       </section>
@@ -93,7 +85,7 @@
         >
           <h2 class="pastBookings__title">PAST STAYS</h2>
         </section>
-        <section tabindex="0" class="totalCost__container">
+        <section class="totalCost__container">
           <h2 class="totalCost__title">Total Amount Spent:</h2>
           <p data-id="totalCost" class="totalCost__placeholder"></p>
         </section>
@@ -103,9 +95,9 @@
       data-page-type="reservations"
       class="page__layout reservations__page toggleDisplay"
     >
-      <div tabindex="-1" data-id="bookingModal" class="booking__modal">
+      <div tabindex="0" data-id="bookingModal" class="booking__modal">
         <div
-          tabindex="-1"
+          tabindex="0"
           data-id="bookingModalDetails"
           class="booking__details"
         ></div>
