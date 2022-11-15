@@ -256,6 +256,7 @@ const loadUpcomingBookings = () => {
     const number = document.createElement('span')
 
     // create function for creating css classes
+    booking.tabIndex = 0
     booking.classList.add('booking')
     bookingFigure.classList.add('booking__figure')
     bookingImg.classList.add('booking__img')
@@ -272,17 +273,12 @@ const loadUpcomingBookings = () => {
     bookingImg.src = `../images/${randomImg}`
     bookingImg.alt = `${randomImg}`
     reservation.innerText = 'Reservation Number:'
-    reservation.tabIndex = 0
     reservationNumber.innerText = ` ${upcomingBooking.id}`
-    reservationNumber.tabIndex = 0
     bookingDate.innerText = 'Booking Date:'
-    bookingDate.tabIndex = 0
     date.innerText = `${formatBookingDisplayDate(upcomingBooking.date)}`
-    date.tabIndex = 0
     roomNumber.innerText = 'Room Number:'
-    roomNumber.tabIndex = 0
     number.innerText = `${upcomingBooking.roomNumber}`
-    number.tabIndex = 0
+
     // create function for appending elements
     bookingFigure.appendChild(bookingImg)
     booking.appendChild(bookingFigure)
@@ -303,9 +299,9 @@ const loadPastBookings = () => {
     const pastBooking = document.createElement('div')
     const pastDate = document.createElement('p')
 
+    pastBooking.tabIndex = 0
     pastBooking.classList.add('pastBooking')
     pastDate.classList.add('pastDate')
-    pastDate.tabIndex = 0
     pastBooking.style.backgroundImage = `url(../images/${getRandomImage()})`
     pastDate.innerText = `${formatBookingDisplayDate(booking.date)}`
 
@@ -342,11 +338,10 @@ const loadAvailableRooms = () => {
   )
 
   if (typeof rooms === 'string') {
-    displaySearchError(rooms)
+    return displaySearchError(rooms)
   }
 
   const availableRooms = checkRoomType(roomTypeInput.value, rooms)
-  console.log('AM I AVAILABLE', availableRooms)
 
   if (availableRooms.length === 0) {
     showElement(apologyMessage)
@@ -406,14 +401,8 @@ const loadAvailableRooms = () => {
 }
 
 const setArrivalDate = () => {
-  if (!searchError.classList.contains('hide')) {
-    hideElement(searchError)
-  }
-
-  if (!apologyMessage.classList.contains('hide')) {
-    hideElement(apologyMessage)
-  }
-
+  hideElement(searchError)
+  hideElement(apologyMessage)
   resetResultsContainer()
   departureDateInput.value = arrivalDateInput.value
   const formattedSelectedDate = new Date(
@@ -424,6 +413,8 @@ const setArrivalDate = () => {
 }
 
 const setDepatureDate = () => {
+  hideElement(searchError)
+  hideElement(apologyMessage)
   resetResultsContainer()
   const formattedSelectedDate = new Date(
     departureDateInput.value.split('-').join('/')
@@ -595,14 +586,8 @@ function changeElementInnerText(element, text) {
   element.innerText = text
   resetCalendarInputs()
   resetResultsContainer()
-
-  if (!searchError.classList.contains('hide')) {
-    hideElement(searchError)
-  }
-
-  if (!apologyMessage.classList.contains('hide')) {
-    hideElement(apologyMessage)
-  }
+  hideElement(searchError)
+  hideElement(apologyMessage)
 }
 
 const formatForCurrency = (amount) => {
@@ -652,16 +637,16 @@ function toggleHtmlElement(element) {
 
 const displaySearchError = (text) => {
   searchError.innerText = text
-  hideElement(searchError)
+  showElement(searchError)
 }
 
-const hideElement = (element) => {
+function hideElement(element) {
   if (!element.classList.contains('hide')) {
     element.classList.add('hide')
   }
 }
 
-const showElement = (element) => {
+function showElement(element) {
   if (element.classList.contains('hide')) {
     element.classList.remove('hide')
   }
