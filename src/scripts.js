@@ -252,8 +252,10 @@ const loadUpcomingBookings = () => {
     number.classList.add('placeholder')
 
     // create function for inputting data
+    const randomImg = getRandomImage()
     booking.dataset.id = `${upcomingBooking.id}`
-    bookingImg.src = `../images/${getRandomImage()}`
+    bookingImg.src = `../images/${randomImg}`
+    bookingImg.alt = `${randomImg}`
     reservation.innerText = 'Reservation Number:'
     reservation.tabIndex = 0
     reservationNumber.innerText = ` ${upcomingBooking.id}`
