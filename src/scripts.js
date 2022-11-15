@@ -45,6 +45,10 @@ const reservationsPageSection = document.querySelector(
 )
 
 const loginPageSection = document.querySelector('[data-page-type = login]')
+const loginDetails = document.querySelector('.login__details')
+const userLogin = document.querySelector('#user')
+const passwordLogin = document.querySelector('#password')
+const closeLoginBtn = document.querySelector('[data-page-type = closeLoginBtn]')
 const resultsContainer = document.querySelector('[data-id = results]')
 const arrivalDateInput = document.querySelector('#arrivalDate')
 const searchError = document.querySelector('[data-id = searchError]')
@@ -146,6 +150,7 @@ const makeReservation = (customer, dateRange, roomNumber) => {
 window.addEventListener('load', InitializeCustomerApp)
 dismissBtn.addEventListener('click', hideErrorMessage)
 successDismissBtn.addEventListener('click', hideSuccessMessage)
+loginDetails.addEventListener('click', loadLogin)
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -159,6 +164,26 @@ const createRandomCustomer = (customerSampleData, bookingSampleData) => {
 const createHotel = (roomSampleData, bookingSampleData) => {
   const hotel = Hotel.fromData(roomSampleData, bookingSampleData)
   return hotel
+}
+
+function loadLogin(event) {
+  if (event.target.className === 'close__btn') {
+    hideLoginModal()
+  } else if (event.target.className === 'login__btn') {
+    checkLoginCredentials()
+  }
+}
+
+function checkLoginCredentials() {
+  if (userLogin.value === 'customer20' && checkPassword()) {
+    loginSuccess()
+    hideLoginModal()
+    console.log('woo!')
+  }
+}
+
+const checkPassword = () => {
+  return passwordLogin.value === 'overlook2021'
 }
 
 const loadUpcomingBookings = () => {
@@ -339,18 +364,16 @@ const updateNavBtn = () => {
     toggleHtmlElement(userDashboardSection)
     toggleHtmlElement(reservationsPageSection)
     // toggleHtmlElement(loginPageSection)
-  } else if (store.currentPage === 'login'){
+  } else if (store.currentPage === 'login') {
     showLoginModal()
   }
 }
 
-// when LOGIN IS SUCCESSFUL
-//  changeElementInnerText(navBtn, 'user dashboard')
-// setCurrentPage('user dashboard')
-// toggleHtmlElement(userDashboardSection)
-// toggleHtmlElement(loginPageSection)
-
-
+const loginSuccess = () => {
+   changeElementInnerText(navBtn, 'user dashboard')
+  setCurrentPage('user dashboard')
+  toggleHtmlElement(userDashboardSection)
+}
 
 const checkForBidet = (room) => {
   if (room.bidet) {
@@ -499,6 +522,13 @@ function showSuccessMessage(element) {
 function showLoginModal() {
   // if (event.target.className === 'disMiss_Btn') {
   loginModal.classList.add('login__modal-toggle')
+  // toggleHtmlElement(bookingModal)
+  // }
+}
+
+function hideLoginModal() {
+  // if (event.target.className === 'disMiss_Btn') {
+  loginModal.classList.remove('login__modal-toggle')
   // toggleHtmlElement(bookingModal)
   // }
 }
