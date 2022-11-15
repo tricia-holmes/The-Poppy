@@ -297,7 +297,6 @@ const loadPastBookings = () => {
     pastBooking.classList.add('pastBooking')
     pastDate.classList.add('pastDate')
     pastDate.tabIndex = 0
-
     pastBooking.style.backgroundImage = `url(../images/${getRandomImage()})`
     pastDate.innerText = `${formatBookingDisplayDate(booking.date)}`
 
@@ -315,7 +314,6 @@ const loadTotalAmountSpent = () => {
   const total = store.customer.getTotalCost(store.hotel)
   const totalFormatted = formatForCurrency(total)
   customerToalSpentDisplay.innerText = `${totalFormatted}`
-  customerToalSpentDisplay.tabIndex = 0
 }
 
 const loadAvailableRooms = () => {
@@ -341,8 +339,8 @@ const loadAvailableRooms = () => {
       room.dataset.id = `${availableRoom.number}`
       room.classList.add('available__room')
       room.innerHTML = `<div class="title__container">
-      <h2 tabindex="0" class="room__title">Room Number</h2>
-      <h3 tabindex="0" class="room__number">${availableRoom.number}</h3>
+      <h2  class="room__title">Room Number</h2>
+      <h3 class="room__number">${availableRoom.number}</h3>
     </div>
     <figure class="room__figure">
       <img class="room__img" src="./images/test-room.jpg" />
@@ -351,23 +349,23 @@ const loadAvailableRooms = () => {
     <div class="details__container">
       <div class="cost__container">
         <img class="cost__icon" src="./images/dollar.svg" />
-        <p tabindex="0" class="cost__text">${formatForCurrency(
+        <p  class="cost__text">${formatForCurrency(
           availableRoom.costPerNight
         )} per night</p>
       </div>
       <div class="type__container">
         <img class="type__icon" src="./images/room.svg" />
-        <p tabindex="0" class="type__text">${availableRoom.roomType}</p>
+        <p  class="type__text">${availableRoom.roomType}</p>
       </div>
       <div class="bed__container">
         <img class="bed__icon" src="./images/bed.svg" />
-        <p tabindex="0" class="bed__text"><span class="bed__amount">${
+        <p  class="bed__text"><span class="bed__amount">${
           availableRoom.numBeds
         }</span>${availableRoom.bedSize}</p>
       </div>
       <div class="bidet__container">
         <img class="bidet__icon" src="./images/bidet.svg" />
-        <p tabindex="0" class="bidet__text">${checkForBidet(availableRoom)}</p>
+        <p  class="bidet__text">${checkForBidet(availableRoom)}</p>
       </div>
     </div>
     <div class="room__divider"></div>`
@@ -463,46 +461,47 @@ const findBookingModalDetails = (event) => {
   bookingModalDetails.innerHTML = `
   <div class="booking__header">
   <h1 class="booking__logo">THE POPPY</h1>
-  <button tabIndex = 0 data-id="closeModalBtn" class="close__btn">&times;</button>
+  <button data-id="closeModalBtn" class="close__btn">&times;</button>
 </div>
 <div class="room__divider"></div>
-<p tabIndex = 0 class="booking__number">
+<p class="booking__number">
   Room No.<span class="booking__span"> ${roomToBook.number}</span>
 </p>
 <div class="room__divider"></div>
 <div class="modal__details__container">
   <div class="cost__container">
     <img class="cost__icon" src="./images/dollar.svg" />
-    <p tabIndex = 0 class="cost__text">$${roomToBook.costPerNight} per night</p>
+    <p class="cost__text">$${roomToBook.costPerNight} per night</p>
   </div>
   <div class="type__container">
     <img class="type__icon" src="./images/room.svg" />
-    <p tabIndex = 0 class="type__text">${roomToBook.roomType}</p>
+    <p  class="type__text">${roomToBook.roomType}</p>
   </div>
   <div class="bed__container">
     <img class="bed__icon" src="./images/bed.svg" />
-    <p tabIndex = 0 class="bed__text"><span class="bed__amount">${
+    <p class="bed__text"><span class="bed__amount">${
       roomToBook.numBeds
     }</span>${roomToBook.bedSize}</p>
   </div>
   <div class="bidet__container">
     <img class="bidet__icon" src="./images/bidet.svg" />
-    <p tabIndex = 0 class="bidet__text">${checkForBidet(roomToBook)}</p>
+    <p class="bidet__text">${checkForBidet(roomToBook)}</p>
   </div>
 </div>
 <div class="room__divider"></div>
 <div class="summary__container">
   <div class="reservations__container">
-    <p tabIndex = 0 class="reservations__date">Reservation Dates:</p>
-    <p tabIndex = 0 class="reservations__range">${formatForReservationDate()}</p>
+    <p class="reservations__date">Reservation Dates:</p>
+    <p  class="reservations__range">${formatForReservationDate()}</p>
   </div>
   <div class="reservations__container">
-    <p tabIndex = 0 class="reservations__total">Total Cost:</p>
-    <p tabIndex = 0 class="reservations__cost">${formatForCurrency(
+    <p  class="reservations__total">Total Cost:</p>
+    <p class="reservations__cost">${formatForCurrency(
       roomToBook.costPerNight * store.nightsPerStay
     )}</p>
   </div>
 </div>`
+  bookingModalDetails.focus()
 
   const confirmBtn = document.createElement('btn')
   confirmBtn.classList.add('confirm__btn')
