@@ -335,6 +335,7 @@ const loadAvailableRooms = () => {
   } else {
     const availableRooms = checkRoomType(roomTypeInput.value, rooms)
     availableRooms.forEach((availableRoom) => {
+      const randomImg = getRandomImage()
       const room = document.createElement('div')
       room.dataset.id = `${availableRoom.number}`
       room.classList.add('available__room')
@@ -343,7 +344,7 @@ const loadAvailableRooms = () => {
       <h3 class="room__number">${availableRoom.number}</h3>
     </div>
     <figure class="room__figure">
-      <img class="room__img" src="./images/test-room.jpg" />
+      <img class="room__img" src="./images/${randomImg}" alt="randomImg" />
     </figure>
     <div class="room__divider"></div>
     <div class="details__container">
