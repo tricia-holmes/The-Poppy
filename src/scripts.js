@@ -22,6 +22,7 @@ import './images/room.svg'
 import './images/bed.svg'
 import './images/bidet.svg'
 import './images/crying.png'
+import './images/champagne.png'
 
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
@@ -48,9 +49,15 @@ const bookingModalDetails = document.querySelector(
   '[data-id = bookingModalDetails]'
 )
 
-const errorBookingPopUp = document.querySelector('[data-id = errorBookingModal]')
+const errorBookingPopUp = document.querySelector(
+  '[data-id = errorBookingModal]'
+)
 const errorDashPopUp = document.querySelector('[data-id = errorDashModal]')
+const successBookingPopUp = document.querySelector(
+  '[data-id = successBookingModal'
+)
 const dismissBtn = document.querySelector('.dismiss__btn')
+const successDismissBtn = document.querySelector('[data-id = successDismissBtn]')
 
 //--------------Global Variables------------------
 const store = {
@@ -112,6 +119,9 @@ const makeReservation = (customer, dateRange, roomNumber) => {
       loadAvailableRooms()
       loadUpcomingBookings()
       loadTotalAmountSpent()
+      showSuccessMessage(successBookingPopUp)
+      resetCalendarInputs()
+      resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
       console.log('WHAT AM I?', customer.bookings)
     })
     .catch((err) => {
@@ -124,6 +134,7 @@ const makeReservation = (customer, dateRange, roomNumber) => {
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
 dismissBtn.addEventListener('click', hideErrorMessage)
+successDismissBtn.addEventListener('click', hideSuccessMessage)
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -445,10 +456,20 @@ function showErrorMessage(element) {
   // toggleHtmlElement(bookingModal)
 }
 
-const showElement = (element) => {
-  element.style.display = 'none'
+function hideSuccessMessage() {
+  // if (event.target.className === 'disMiss_Btn') {
+  successBookingPopUp.classList.remove('success__modal-toggle')
+  // toggleHtmlElement(bookingModal)
+  // }
 }
 
+function showSuccessMessage(element) {
+  element.classList.add('success__modal-toggle')
+
+  if (bookingModal.classList.contains('booking__modal-toggle')) {
+    bookingModal.classList.remove('booking__modal-toggle')
+  }
+}
 const toggleHtmlElement = (element) => {
   element.classList.toggle('toggleDisplay')
 }
@@ -520,4 +541,11 @@ const getDateRange = () => {
   }
   console.log(store.allDates)
   console.log(store.nightsPerStay)
+}
+
+const resetCalendarInputs = () => {
+  store.arrivialDate = ''
+  store.departureDate = ''
+  arrivalDateInput.value = ''
+  departureDateInput.value = ''
 }
