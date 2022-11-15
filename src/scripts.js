@@ -78,6 +78,7 @@ const successDismissBtn = document.querySelector(
 
 const loginModal = document.querySelector('[data-id = loginModal]')
 const heroVideo = document.querySelector('.hero__video')
+const apologyMessage = document.querySelector('[data-id = apologyMessage]')
 
 //--------------Global Variables------------------
 const store = {
@@ -339,8 +340,15 @@ const loadAvailableRooms = () => {
 
   if (typeof rooms === 'string') {
     displaySearchError(rooms)
+  }
+
+  const availableRooms = checkRoomType(roomTypeInput.value, rooms)
+  console.log('AM I AVAILABLE', availableRooms)
+
+  if (availableRooms.length === 0) {
+    // alert('so sorry, nothing available!')
+    showApology(apologyMessage)
   } else {
-    const availableRooms = checkRoomType(roomTypeInput.value, rooms)
     availableRooms.forEach((availableRoom) => {
       const randomImg = getRandomImage()
       const room = document.createElement('div')
@@ -398,6 +406,10 @@ const loadAvailableRooms = () => {
 const setArrivalDate = () => {
   if (!searchError.classList.contains('hide')) {
     hideSearchError()
+  }
+
+  if (!apologyMessage.classList.contains('hide')) {
+    hideApology()
   }
 
   resetResultsContainer()
@@ -600,6 +612,10 @@ function changeElementInnerText(element, text) {
   if (!searchError.classList.contains('hide')) {
     hideSearchError()
   }
+
+  if (!apologyMessage.classList.contains('hide')) {
+    hideApology()
+  }
 }
 
 const formatForCurrency = (amount) => {
@@ -670,6 +686,12 @@ const displaySearchError = (text) => {
 
 const hideSearchError = () => {
   searchError.classList.add('hide')
+}
+const hideApology = () => {
+  apologyMessage.classList.add('hide')
+}
+const showApology = () => {
+  apologyMessage.classList.remove('hide')
 }
 
 function resetResultsContainer() {

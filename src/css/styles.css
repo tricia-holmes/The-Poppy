@@ -707,6 +707,15 @@ input {
   color: #e15b5e;
 }
 
+.apology__error {
+  position: absolute;
+  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 28px;
+  bottom: 75px;
+  color: #efc0ba;
+  word-wrap: break-word;
+}
+
 .dates__container {
   display: flex;
   flex-direction: row;
