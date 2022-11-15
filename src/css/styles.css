@@ -8,7 +8,7 @@ main {
   width: 100vw;
   box-sizing: border-box;
   overflow: hidden;
-  user-select: none;
+  /* user-select: none; */
   background: honeydew;
 }
 
