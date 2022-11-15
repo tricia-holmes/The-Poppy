@@ -46,6 +46,7 @@ const reservationsPageSection = document.querySelector(
 
 const loginPageSection = document.querySelector('[data-page-type = login]')
 const loginDetails = document.querySelector('.login__details')
+const loginErrorMessage = document.querySelector('[data-id=loginError]')
 const userLogin = document.querySelector('#user')
 const passwordLogin = document.querySelector('#password')
 const closeLoginBtn = document.querySelector('[data-page-type = closeLoginBtn]')
@@ -102,12 +103,17 @@ const InitializeCustomerApp = () => {
   fetchGetAll()
     .then((data) => {
       store.customer = createRandomCustomer(data.customerData, data.bookingData)
-      store.hotel = createHotel(data.roomData, data.bookingData)
+      store.hotel = createHotel(
+        data.roomData,
+        data.bookingData,
+        data.customerData
+      )
       defineEventListeners()
       loadCustomerProfile()
       loadTotalAmountSpent()
       loadUpcomingBookings()
       loadPastBookings()
+      console.log('HOTEL', store.hotel)
     })
     .catch((err) => {
       showErrorMessage(errorDashPopUp)
@@ -151,6 +157,8 @@ window.addEventListener('load', InitializeCustomerApp)
 dismissBtn.addEventListener('click', hideErrorMessage)
 successDismissBtn.addEventListener('click', hideSuccessMessage)
 loginDetails.addEventListener('click', loadLogin)
+userLogin.addEventListener('input', hideloginErrorMessage)
+passwordLogin.addEventListener('input', hideloginErrorMessage)
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -161,29 +169,57 @@ const createRandomCustomer = (customerSampleData, bookingSampleData) => {
   )
 }
 
-const createHotel = (roomSampleData, bookingSampleData) => {
-  const hotel = Hotel.fromData(roomSampleData, bookingSampleData)
+const createHotel = (roomData, bookingData, customerData) => {
+  const hotel = Hotel.fromData(roomData, bookingData, customerData)
   return hotel
 }
 
 function loadLogin(event) {
   if (event.target.className === 'close__btn') {
+    hideloginErrorMessage()
     hideLoginModal()
+    userLogin.value = ''
+    passwordLogin.value = ''
   } else if (event.target.className === 'login__btn') {
     checkLoginCredentials()
   }
 }
 
 function checkLoginCredentials() {
-  if (userLogin.value === 'customer20' && checkPassword()) {
+  const foundUser = store.hotel.findCustomerByUsername(userLogin.value)
+  console.log('FIND', foundUser)
+  if (foundUser && checkPassword()) {
+    store.customer = foundUser
+    loadCustomerProfile()
+    loadTotalAmountSpent()
+    loadUpcomingBookings()
+    loadPastBookings()
     loginSuccess()
     hideLoginModal()
     console.log('woo!')
+  } else {
+    showLoginErrorMessage()
+    setTimeout(() => {
+      userLogin.value = ''
+      passwordLogin.value = ''
+    }, 2000);
   }
 }
 
 const checkPassword = () => {
   return passwordLogin.value === 'overlook2021'
+}
+
+function showLoginErrorMessage() {
+  if (loginErrorMessage.classList.contains('hide')) {
+    loginErrorMessage.classList.remove('hide')
+  }
+}
+
+function hideloginErrorMessage() {
+  if (!loginErrorMessage.classList.contains('hide')) {
+    loginErrorMessage.classList.add('hide')
+  }
 }
 
 const loadUpcomingBookings = () => {
@@ -370,7 +406,7 @@ const updateNavBtn = () => {
 }
 
 const loginSuccess = () => {
-   changeElementInnerText(navBtn, 'user dashboard')
+  changeElementInnerText(navBtn, 'user dashboard')
   setCurrentPage('user dashboard')
   toggleHtmlElement(userDashboardSection)
 }
