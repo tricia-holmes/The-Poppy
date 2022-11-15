@@ -29,6 +29,12 @@
 }
 
 @font-face {
+  font-family: 'Cormorant-Medium-Italic';
+  src: url('../fonts/CormorantGaramond-MediumItalic.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
   font-family: 'Montserrat';
   src: url('../fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
   font-weight: 400;
