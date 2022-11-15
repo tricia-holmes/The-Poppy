@@ -15,6 +15,14 @@
       data-page-type="user-dashboard"
       class="page__layout user__dashboard"
     >
+      <div data-id="errorDashModal" class="error__modal">
+        <div data-id="errorDashMessage" class="error__details">
+          <p class="error__greeting">Oh no!</p>
+          <img src="./images/crying.png" class="error__icon" />
+          <p class="error__text">Something went wrong. So sorry!</p>
+          <p class="error__text">Please come back when we get it together.</p>
+        </div>
+      </div>
       <div class="divider"></div>
       <section class="toprow__container">
         <section
@@ -50,8 +58,36 @@
       <div data-id="bookingModal" class="booking__modal">
         <div data-id="bookingModalDetails" class="booking__details"></div>
       </div>
-      <section data-id="results" class="results__container">
-        <h1 class="available__title">Available</h1>
+      <div data-id="errorBookingModal" class="error__modal">
+        <div data-id="errorBookingMessage" class="error__details">
+          <p class="error__greeting">Oh no!</p>
+          <img src="./images/crying.png" class="error__icon" />
+          <p class="error__text">Something went wrong. So sorry!</p>
+          <p class="error__text">Please come back when we get it together.</p>
+          <button class="dismiss__btn">Dismiss</button>
+        </div>
+      </div>
+      <div data-id="successBookingModal" class="success__modal">
+        <div data-id="successBookingMessage" class="success__details">
+          <button data-id="successDismissBtn" class="dismiss__btn">
+            Dismiss
+          </button>
+          <p class="success__greeting">Cheers!</p>
+          <img src="./images/champagne.png" class="success__icon" />
+          <p class="success__text">Yay! Your reservations are all set!</p>
+        </div>
+      </div>
+      <section class="video__container">
+        <video autoplay muted loop class="results__video">
+          <source src="./images/chandelier.mp4" type="video/mp4" />
+        </video>
+        <!-- <p>Hello?</p>
+        <div class="results__instructions">
+          See what we have to offer! Try searching for the room of your dreams.
+        </div> -->
+        <section data-id="results" class="results__container">
+          <h1 class="available__title">Available</h1>
+        </section>
       </section>
       <section class="search__section">
         <h1 class="search__title">Search</h1>
@@ -59,6 +95,9 @@
           <h2 class="search__instructions">
             Select your arrival and departure dates
           </h2>
+          <h3 data-id="searchError" class="search__error hide">
+            Please select a date before you search.
+          </h3>
           <div class="dates__container">
             <div class="arrival__conatiner">
               <p>Arrival</p>

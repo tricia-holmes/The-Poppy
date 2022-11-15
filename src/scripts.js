@@ -21,6 +21,11 @@ import './images/dollar.svg'
 import './images/room.svg'
 import './images/bed.svg'
 import './images/bidet.svg'
+import './images/crying.png'
+import './images/champagne.png'
+import './images/chandelier.mp4'
+import './images/pool.mp4'
+import './images/flowers.mp4'
 
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
@@ -39,13 +44,25 @@ const reservationsPageSection = document.querySelector(
 )
 const resultsContainer = document.querySelector('[data-id = results]')
 const arrivalDateInput = document.querySelector('#arrivalDate')
+const searchError = document.querySelector('[data-id = searchError]')
 const searchBtn = document.querySelector('[data-id = search]')
 const departureDateInput = document.querySelector('#departureDate')
 const roomTypeInput = document.querySelector('#roomTypes')
 const bookingModal = document.querySelector('[data-id = bookingModal]')
-const closeModalBtn = document.querySelector('[data-id = closeModalBtn]')
 const bookingModalDetails = document.querySelector(
   '[data-id = bookingModalDetails]'
+)
+
+const errorBookingPopUp = document.querySelector(
+  '[data-id = errorBookingModal]'
+)
+const errorDashPopUp = document.querySelector('[data-id = errorDashModal]')
+const successBookingPopUp = document.querySelector(
+  '[data-id = successBookingModal'
+)
+const dismissBtn = document.querySelector('.dismiss__btn')
+const successDismissBtn = document.querySelector(
+  '[data-id = successDismissBtn]'
 )
 
 //--------------Global Variables------------------
@@ -83,7 +100,10 @@ const InitializeCustomerApp = () => {
       loadUpcomingBookings()
       loadPastBookings()
     })
-    .catch((err) => console.error(err)) // need to replace with DOM function
+    .catch((err) => {
+      showErrorMessage(errorDashPopUp)
+      console.error(err)
+    }) // need to replace with DOM function
 }
 
 // if I do manager iteration -> create a InitializeManagerApp
@@ -105,16 +125,22 @@ const makeReservation = (customer, dateRange, roomNumber) => {
       loadAvailableRooms()
       loadUpcomingBookings()
       loadTotalAmountSpent()
+      showSuccessMessage(successBookingPopUp)
+      resetCalendarInputs()
+      resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
       console.log('WHAT AM I?', customer.bookings)
     })
-    .catch((err) => console.error(err))
+    .catch((err) => {
+      // toggleHtmlElement(bookingModal)
+      showErrorMessage(errorBookingPopUp)
+      console.error(err)
+    })
 }
 
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
-// bookingModalDetails.addEventListener('click', (event) => {
-//     console.log(event.target)
-// })
+dismissBtn.addEventListener('click', hideErrorMessage)
+successDismissBtn.addEventListener('click', hideSuccessMessage)
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -205,14 +231,12 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
-  getDateRange()
-  console.log(roomTypeInput.value)
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
-  console.log(store.currentDate)
-
   if (!store.arrivialDate || !store.currentDate || !store.departureDate) {
-    return alert('not defined!')
+    return displaySearchError('Please select a date before searching.')
   }
+
+  getDateRange()
 
   const rooms = store.hotel.showAvailableRooms(
     store.arrivialDate,
@@ -221,7 +245,7 @@ const loadAvailableRooms = () => {
   )
 
   if (typeof rooms === 'string') {
-    alert(rooms)
+    displaySearchError(rooms)
   } else {
     const availableRooms = checkRoomType(roomTypeInput.value, rooms)
     console.log('ROOMS', availableRooms)
@@ -274,6 +298,10 @@ const loadAvailableRooms = () => {
 }
 
 const setArrivalDate = () => {
+  if (!searchError.classList.contains('hide')) {
+    hideSearchError()
+  }
+
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   departureDateInput.value = arrivalDateInput.value
   const formattedSelectedDate = new Date(
@@ -325,11 +353,10 @@ const toggleBookingModal = (event) => {
   console.log(event.target.className)
   // findBookingModalDetails(event)
 
-  if (
-    event.target.className === 'book__btn' ||
-    event.target.className === 'close__btn'
-  ) {
-    bookingModal.classList.toggle('booking__modal-toggle')
+  if (event.target.className === 'book__btn') {
+    bookingModal.classList.add('booking__modal-toggle')
+  } else if (event.target.className === 'close__btn') {
+    bookingModal.classList.remove('booking__modal-toggle')
   }
 
   console.log('BYE')
@@ -421,6 +448,36 @@ const defineEventListeners = () => {
   roomTypeInput.addEventListener('input', resetSearchResults)
 }
 
+function hideErrorMessage() {
+  // if (event.target.className === 'disMiss_Btn') {
+  errorBookingPopUp.classList.remove('error__modal-toggle')
+  // toggleHtmlElement(bookingModal)
+  // }
+}
+
+function showErrorMessage(element) {
+  element.classList.add('error__modal-toggle')
+
+  if (bookingModal.classList.contains('booking__modal-toggle')) {
+    bookingModal.classList.remove('booking__modal-toggle')
+  }
+  // toggleHtmlElement(bookingModal)
+}
+
+function hideSuccessMessage() {
+  // if (event.target.className === 'disMiss_Btn') {
+  successBookingPopUp.classList.remove('success__modal-toggle')
+  // toggleHtmlElement(bookingModal)
+  // }
+}
+
+function showSuccessMessage(element) {
+  element.classList.add('success__modal-toggle')
+
+  if (bookingModal.classList.contains('booking__modal-toggle')) {
+    bookingModal.classList.remove('booking__modal-toggle')
+  }
+}
 const toggleHtmlElement = (element) => {
   element.classList.toggle('toggleDisplay')
 }
@@ -431,6 +488,12 @@ const setCurrentPage = (currentPage) => {
 
 const changeElementInnerText = (element, text) => {
   element.innerText = text
+  resetCalendarInputs()
+  resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
+
+  if (!searchError.classList.contains('hide')) {
+    hideSearchError()
+  }
 }
 
 const formatForCurrency = (amount) => {
@@ -492,4 +555,21 @@ const getDateRange = () => {
   }
   console.log(store.allDates)
   console.log(store.nightsPerStay)
+}
+
+const resetCalendarInputs = () => {
+  store.arrivialDate = ''
+  store.departureDate = ''
+  arrivalDateInput.value = ''
+  departureDateInput.value = ''
+  roomTypeInput.value = 'optional'
+}
+
+const displaySearchError = (text) => {
+  searchError.innerText = text
+  searchError.classList.remove('hide')
+}
+
+const hideSearchError = (text) => {
+  searchError.classList.add('hide')
 }
