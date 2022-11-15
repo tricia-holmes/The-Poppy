@@ -29,6 +29,7 @@ import './images/iris.png'
 import './images/chandelier.mp4'
 import './images/pool.mp4'
 import './images/flowers.mp4'
+import './images/tablescape.mp4'
 
 //--------------Query Selectors------------------
 const customerNameDisplay = document.querySelector('[data-id = customerName]')
@@ -434,7 +435,7 @@ const updateNavBtn = () => {
 }
 
 function loginSuccess() {
-  changeElementInnerText(navBtn, 'user dashboard')
+  changeElementInnerText(navBtn, 'Make Reservations')
   setCurrentPage('user dashboard')
   toggleHtmlElement(userDashboardSection)
 }
