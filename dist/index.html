@@ -8,13 +8,39 @@
   </head>
   <body>
     <header class="page__navbar">
-      <h1 class="navbar__logo">The Poppy</h1>
-      <button data-id="navbar" class="navbar__btn">Make Reservations</button>
+      <h1 class="navbar__logo">THE POPPY</h1>
+      <button data-id="navbar" class="navbar__btn">login</button>
     </header>
-    <section
-      data-page-type="user-dashboard"
-      class="page__layout user__dashboard"
-    >
+    <section data-page-type="login" class="page__layout login">
+      <section class="hero__container">
+        <video autoplay muted loop class="hero__video">
+          <source src="./images/tablescape.mp4" type="video/mp4" />
+        </video>
+      </section>
+      <div data-id="loginModal" class="login__modal">
+        <div data-id="loginMessage" class="login__details">
+          <div class="booking__header">
+            <h1 class="booking__logo">THE POPPY</h1>
+            <button data-id="closeLoginBtn" class="close__btn">&times;</button>
+          </div>
+          <div class="room__divider"></div>
+          <img src="./images/poppy.png" class="poppy_icon" />
+          <form data-id="loginForm" class="login__form">
+            <label for="user">username</label>
+            <input type="text" id="user" placeholder="Your username.." />
+            <label for="password">password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Your password.."
+            />
+          </form>
+          <h3 data-id="loginError" class="login__error hide">
+            Incorrect login credentials. Please try again.
+          </h3>
+          <button class="login__btn">Login</button>
+        </div>
+      </div>
       <div data-id="errorDashModal" class="error__modal">
         <div data-id="errorDashMessage" class="error__details">
           <p class="error__greeting">Oh no!</p>
@@ -23,13 +49,23 @@
           <p class="error__text">Please come back when we get it together.</p>
         </div>
       </div>
+    </section>
+
+    <section
+      data-page-type="user-dashboard"
+      class="page__layout user__dashboard toggleDisplay"
+    >
       <div class="divider"></div>
       <section class="toprow__container">
         <section
+          tabindex="0"
           data-id="UpcomingBookings"
           class="currentBookings__container"
-        ></section>
+        >
+          <h2 class="currentBookings__title">UPCOMING STAYS</h2>
+        </section>
         <section class="customer__container">
+          <img class="customer__icon" src="./images/poppy.png" />
           <p class="customer__placeholder">
             customer name:
             <span data-id="customerName" class="customer__info"></span>
@@ -43,11 +79,15 @@
 
       <section class="bottomrow__container">
         <section
+          tabindex="0"
           data-id="pastBookings"
           class="pastBookings__container"
-        ></section>
+        >
+          <h2 class="pastBookings__title">PAST STAYS</h2>
+        </section>
         <section class="totalCost__container">
-          <p data-id="totalCost" class="customer__placeholder"></p>
+          <h2 class="totalCost__title">Total Amount Spent:</h2>
+          <p data-id="totalCost" class="totalCost__placeholder"></p>
         </section>
       </section>
     </section>
@@ -55,8 +95,12 @@
       data-page-type="reservations"
       class="page__layout reservations__page toggleDisplay"
     >
-      <div data-id="bookingModal" class="booking__modal">
-        <div data-id="bookingModalDetails" class="booking__details"></div>
+      <div tabindex="0" data-id="bookingModal" class="booking__modal">
+        <div
+          tabindex="0"
+          data-id="bookingModalDetails"
+          class="booking__details"
+        ></div>
       </div>
       <div data-id="errorBookingModal" class="error__modal">
         <div data-id="errorBookingMessage" class="error__details">
@@ -81,10 +125,6 @@
         <video autoplay muted loop class="results__video">
           <source src="./images/chandelier.mp4" type="video/mp4" />
         </video>
-        <!-- <p>Hello?</p>
-        <div class="results__instructions">
-          See what we have to offer! Try searching for the room of your dreams.
-        </div> -->
         <section data-id="results" class="results__container">
           <h1 class="available__title">Available</h1>
         </section>
@@ -111,14 +151,17 @@
           <div class="roomtype__conatiner">
             <p>Room Type</p>
             <form data-id="roomTypes" class="roomtype__form">
-              <select id="roomTypes" name="roomTypes">
+              <select
+                class="roomtype__dropdown"
+                id="roomTypes"
+                name="roomTypes"
+              >
                 <option value="optional">optional</option>
                 <option value="single room">single room</option>
                 <option value="suite">suite</option>
                 <option value="junior suite">junior suite</option>
                 <option value="residential suite">residential suite</option>
               </select>
-              <!-- <input type="submit" /> -->
             </form>
           </div>
           <button class="search__btn" data-id="search">Search Now</button>

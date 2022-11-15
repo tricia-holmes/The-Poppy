@@ -1,5 +1,4 @@
 //--------------GET Fetch Calls-------------------
-
 const fetchGetData = (url) => {
   return fetch(url).then((response) => {
     if (!response.ok) {
@@ -25,18 +24,14 @@ const apiCallMap = {
   getBookingData: () => {
     return fetchGetData('http://localhost:3001/api/v1/bookings')
   },
-
-  // deleteABooking -> add this when delete fn is created
 }
 
-// this fn might need to change compared to a customer vs manager (manager -> get all, customer -> get one)
 const fetchGetAll = () => {
   return Promise.all([
     apiCallMap.getAllCustomerData(),
     apiCallMap.getRoomData(),
     apiCallMap.getBookingData(),
   ]).then((data) => {
-    // console.log('CUSTOMERS', data[0].customers)
     return {
       customerData: data[0].customers,
       roomData: data[1].rooms,
@@ -46,7 +41,6 @@ const fetchGetAll = () => {
 }
 
 //--------------POST Fetch Calls-------------------
-
 const bookingUrl = 'http://localhost:3001/api/v1/bookings'
 
 const createPostRequests = (customer, dateRange, roomNumber) => {

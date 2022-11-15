@@ -1,13 +1,15 @@
 import Booking from './Booking'
+import Customer from './Customer'
 import Room from './Room'
 
 class Hotel {
-  constructor(rooms = [], bookings = []) {
+  constructor(rooms = [], bookings = [], customers = []) {
     this.rooms = rooms
     this.bookings = bookings
+    this.customers = customers
   }
 
-  static fromData(roomsData, bookingData) {
+  static fromData(roomsData, bookingData, customerData) {
     const rooms = roomsData.map((room) => {
       return Room.fromRoomData(room, bookingData)
     })
@@ -16,15 +18,23 @@ class Hotel {
       return new Booking(booking)
     })
 
-    return new Hotel(rooms, bookings)
+    const customers = customerData.map((customer) => {
+      return Customer.fromCustomerData(customer, bookingData)
+    })
+
+    return new Hotel(rooms, bookings, customers)
+  }
+
+  findCustomerByUsername(username) {
+    return this.customers.find((customer) => customer.username === username)
   }
 
   findRoomByNumber(roomNumber) {
-    return this.rooms.find(room => room.number === roomNumber)
+    return this.rooms.find((room) => room.number === roomNumber)
   }
 
   filterRoomsByRoomType(type, availabelRooms) {
-    return availabelRooms.filter(room => room.roomType === type)
+    return availabelRooms.filter((room) => room.roomType === type)
   }
 
   isValidDate(arrivalDate, currentDate, depatureDate) {
@@ -45,7 +55,9 @@ class Hotel {
   }
 
   addBooking(newBooking, customer) {
-    const selectedRoom = this.rooms.find((room) => room.number === newBooking.roomNumber)
+    const selectedRoom = this.rooms.find(
+      (room) => room.number === newBooking.roomNumber
+    )
 
     selectedRoom.book(newBooking)
     customer.makeBooking(newBooking)

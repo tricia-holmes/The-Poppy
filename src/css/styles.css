@@ -8,8 +8,18 @@ main {
   width: 100vw;
   box-sizing: border-box;
   overflow: hidden;
-  user-select: none;
   background: honeydew;
+}
+
+label {
+  font-size: 24px;
+  margin: 10px;
+}
+
+input {
+  font-family: Cormorant-Medium-Italic;
+  font-size: 22px;
+  text-align: center;
 }
 
 .toggleDisplay {
@@ -21,7 +31,6 @@ main {
 }
 
 /* Page Layout */
-
 .page__layout {
   position: absolute;
   left: 0px;
@@ -31,32 +40,145 @@ main {
 }
 
 /* Nav Bar */
-
 .page__navbar {
   position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 60px;
-  background-color: rgb(255, 177, 216);
+  height: 75px;
+  color: #e3d7c7;
+  background-color: #161616;
   z-index: 100;
 }
 
 .navbar__logo {
   font-size: 30px;
+  font-family: 'Cormorant-Regular';
   margin-left: 20px;
+  letter-spacing: 15px;
 }
 
 .navbar__btn {
   cursor: pointer;
-  height: 20px;
-  width: 134px;
+  height: 56px;
+  width: 251px;
   margin-right: 20px;
+  border: none;
+  font-family: Cormorant-Regular;
+  font-size: 21px;
+  bottom: 0;
+  background-color: #161616;
+  color: beige;
+  z-index: 100;
+}
+
+.navbar__btn:hover {
+  background-color: #efc0ba;
+  color: #161616;
 }
 
 .navbar__btn:active {
   transform: scale(0.98);
+}
+
+/* Login Page */
+.login {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.login__modal {
+  position: fixed;
+  text-align: center;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: none;
+  opacity: 0;
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.1);
+}
+
+.login__modal-toggle {
+  z-index: 9999;
+  display: block;
+  transform: scale(1);
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.login__details {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  align-items: center;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffed;
+  width: 45vh;
+  height: 72vh;
+}
+
+@media (min-width: 1500px) and (max-width: 1920px) {
+  .login__details {
+    height: 54vh;
+  }
+}
+
+.poppy_icon {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -6px;
+}
+
+#user {
+  margin-bottom: 10px;
+}
+
+.login__error {
+  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 24px;
+  bottom: 80px;
+  color: #e15b5e;
+}
+
+.login__btn {
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  font-family: Cormorant-Bold;
+  letter-spacing: 10px;
+  font-size: 32px;
+  bottom: 0;
+  width: 100%;
+  height: 83px;
+  line-height: 70px;
+  background-color: #000000;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  z-index: 100;
 }
 
 /* User Dashboard */
@@ -65,26 +187,22 @@ main {
   position: absolute;
   display: flex;
   flex-direction: column;
-  /* flex-wrap: wrap; */
-  /* align-items: center; */
-  /* overflow: hidden; */
-  /* justify-content: space-between; */
 }
 
 .toprow__container {
   position: absolute;
-  top: 200px;
+  top: 145px;
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 55%;
+  height: 50%;
   z-index: 10;
 }
 
 .bottomrow__container {
   position: absolute;
-  bottom: 0;
+  bottom: 29px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -101,7 +219,7 @@ main {
 }
 
 .currentBookings__container {
-  background-color: rgb(225, 182, 255);
+  background-color: #153831;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -117,6 +235,19 @@ main {
   border-right: 1px solid #000000;
   border-bottom: 1px solid #000000;
 }
+
+.currentBookings__title {
+  position: absolute;
+  z-index: 100;
+  top: 5px;
+  left: 15px;
+  margin-bottom: 5px;
+  width: 355px;
+  font-family: 'Cormorant-Semi-Bold-Italic';
+  color: #2b2a2a;
+  background-color: beige;
+}
+
 .booking {
   background-color: #fff;
   font-size: 20px;
@@ -126,8 +257,9 @@ main {
   align-items: center;
   width: 400px;
   height: 400px;
-  margin-left: 5px;
+  margin-left: 10px;
   margin-right: 5px;
+  margin-top: 30px;
 }
 
 .booking:only-child {
@@ -145,16 +277,16 @@ main {
 }
 
 .booking__label {
-  font-family: Cormorant-Semi-Bold-Italic;
-  font-size: 24px;
+  font-size: 20px;
   margin: 0;
-  line-height: 2;
+  line-height: 1.75;
 }
 
 .placeholder {
-  color: blueviolet;
-  font-family: var(--font-family);
-  font-size: 20px;
+  color: #161616;
+  font-family: monospace;
+  font-size: 18px;
+  margin-left: 5px;
 }
 .booking__figure {
   height: 250px;
@@ -171,7 +303,7 @@ main {
 }
 
 .customer__container {
-  background-color: aquamarine;
+  background-color: #2b2a2a;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -186,30 +318,50 @@ main {
   border-bottom: 1px solid #000000;
 }
 
+.customer__icon {
+  height: 90px;
+}
+
 .customer__placeholder {
-  font-size: 28px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Cormorant-Semi-Bold-Italic;
+  color: #efc0ba;
+  font-size: 34px;
 }
 
 .customer__info {
-  font-size: 28px;
-  color: rgb(7, 57, 131);
-  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 38px;
+  color: beige;
+  font-family: Cormorant-Regular;
 }
 
 .pastBookings__container {
-  background-color: lightgoldenrodyellow;
+  background-color: #efc0ba;
   position: relative;
   display: flex;
   flex-direction: row;
-  /* justify-content: space-evenly; */
   align-items: center;
-  /* flex-wrap: wrap; */
   overflow-x: auto;
   overflow-y: hidden;
   height: 100%;
   width: 75%;
   border-right: 1px solid #000000;
   border-top: 1px solid #000000;
+}
+
+.pastBookings__title {
+  position: absolute;
+  z-index: 100;
+  top: -28px;
+  left: 15px;
+  margin-bottom: 5px;
+  font-family: 'Cormorant-Semi-Bold-Italic';
+  color: beige;
+  background-color: #2b2a2a;
+  width: 242px;
 }
 
 .pastBooking {
@@ -222,7 +374,7 @@ main {
   background-position: top;
   background-size: cover;
   background-blend-mode: overlay;
-  background-color: rgb(126 0 255 / 34%);
+  background-color: #0000006e;
   color: white;
   width: 325px;
   height: 220px;
@@ -232,7 +384,7 @@ main {
 }
 
 .totalCost__container {
-  background-color: lightcoral;
+  background-color: #2b2a2a;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -245,6 +397,30 @@ main {
   border-top: 1px solid #000000;
 }
 
+.totalCost__title {
+  z-index: 100;
+  margin-bottom: 10px;
+  left: 15px;
+  font-family: 'Cormorant-Semi-Bold-Italic';
+  color: beige;
+  font-size: 32px;
+}
+
+.totalCost__placeholder {
+  width: 212px;
+  margin: 0;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Cormorant-Semi-Bold-Italic;
+  color: #efc0ba;
+  font-size: 36px;
+  height: 65px;
+  text-align: center;
+}
+
 /* Reservations Page */
 .reservations__page {
   position: absolute;
@@ -254,11 +430,10 @@ main {
 }
 
 .search__section {
-  background-color: #fe398c;
+  background-color: #2b2a2a;
   position: relative;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   overflow: hidden;
   width: 50%;
@@ -282,13 +457,13 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   overflow: hidden;
   width: 50%;
   height: 100%;
 }
 
+.hero__video,
 .results__video {
   width: 100%;
   height: 100%;
@@ -301,10 +476,11 @@ main {
   position: relative;
   top: -30px;
   font-family: Cormorant-Semi-Bold-Italic;
-  font-size: 100px;
-  margin-top: 85px;
-  margin-bottom: -24px;
+  font-size: 90px;
+  margin-bottom: 7px;
   z-index: 10;
+  width: 409px;
+  text-align: center;
 }
 
 .results__instructions {
@@ -322,7 +498,6 @@ main {
   align-items: center;
   position: relative;
   flex: 0 0 auto;
-  /* margin-top: 15px; */
   margin-bottom: 14px;
   height: 538px;
   width: 480px;
@@ -447,7 +622,7 @@ main {
 }
 
 .book__btn {
-  all: unset;
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -476,7 +651,6 @@ main {
 }
 
 /* Search */
-
 .search__container {
   display: flex;
   position: relative;
@@ -491,12 +665,12 @@ main {
 
 .search__title {
   position: relative;
-  top: -30px;
   font-family: Cormorant-Semi-Bold-Italic;
-  font-size: 100px;
-  margin-top: 85px;
-  margin-bottom: 58px;
+  font-size: 90px;
+  margin-top: 105px;
+  margin-bottom: 1px;
   z-index: 10;
+  color: #fff;
 }
 
 .search__instructions {
@@ -542,8 +716,14 @@ main {
   align-items: center;
 }
 
+.roomtype__dropdown {
+  font-family: Cormorant-Medium-Italic;
+  font-size: 20px;
+  text-align: center;
+}
+
 .search__btn {
-  all: unset;
+  border: none;
   position: absolute;
   cursor: pointer;
   display: flex;
@@ -562,15 +742,10 @@ main {
 }
 
 .search__btn:hover {
-  color: rgb(158, 216, 255);
+  color: #efc0ba;
 }
 
-/* .search__btn:active {
-  bottom: 4px;
-} */
-
 /* Booking Modal */
-
 .booking__modal {
   position: fixed;
   text-align: center;
@@ -594,9 +769,14 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffed;
-  /* padding: 20px; */
   width: 60vh;
-  height: 66vh;
+  height: 75vh;
+}
+
+@media (min-width: 1500px) and (max-width: 1920px) {
+  .booking__details {
+    height: 66vh;
+  }
 }
 
 .booking__header {
@@ -615,14 +795,14 @@ main {
 }
 
 .close__btn {
-  all: unset;
-  margin-bottom: 8px;
+  border: none;
   margin-right: 25px;
-  font-size: 38px;
+  font-size: 36px;
   top: -10px;
   line-height: 1.5;
   text-align: center;
   cursor: pointer;
+  background-color: transparent;
   color: lightgray;
   z-index: 100;
 }
@@ -690,17 +870,19 @@ main {
   font-size: 20px;
   margin-top: 18px;
 }
+
 .dismiss__btn,
 .confirm__btn {
-  all: unset;
+  border: none;
   cursor: pointer;
   position: absolute;
-  /* font-family: Cormorant-Bold; */
+  font-family: Cormorant-Bold;
   letter-spacing: 10px;
   bottom: 0;
   width: 100%;
   height: 83px;
   line-height: 70px;
+  font-size: 28px;
   background-color: #000000;
   color: #fff;
   transition: all 0.3s ease-in-out;
@@ -745,7 +927,13 @@ main {
   transform: translate(-50%, -50%);
   background-color: #e15b5e;
   width: 60vh;
-  height: 66vh;
+  height: 72vh;
+}
+
+@media (min-width: 1500px) and (max-width: 1920px) {
+  .error__details {
+    height: 56vh;
+  }
 }
 
 .error__icon {
@@ -798,12 +986,17 @@ main {
   transform: translate(-50%, -50%);
   background-color: #5be1a9;
   width: 60vh;
-  height: 66vh;
+  height: 72vh;
+}
+
+@media (min-width: 1500px) and (max-width: 1920px) {
+  .success__details {
+    height: 66vh;
+  }
 }
 
 .success__icon {
   width: 150px;
-  /* margin-bottom: 38px; */
 }
 
 .success__greeting {
