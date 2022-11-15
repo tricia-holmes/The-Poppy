@@ -688,7 +688,7 @@ main {
 }
 
 .error__modal-toggle {
-  z-index: 20;
+  z-index: 9999;
   display: block;
   transform: scale(1);
   opacity: 1;
@@ -712,5 +712,17 @@ main {
 }
 
 .error__icon {
-  width: 100px;
+  width: 150px;
+  margin-bottom: 38px;
+}
+
+.error__greeting {
+  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 50px;
+}
+
+.error__text {
+  font-family: Cormorant-Semi-Bold;
+  font-size: 32px;
+  margin: 0;
 }

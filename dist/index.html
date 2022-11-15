@@ -15,6 +15,14 @@
       data-page-type="user-dashboard"
       class="page__layout user__dashboard"
     >
+      <div data-id="errorDashModal" class="error__modal">
+        <div data-id="errorDashMessage" class="error__details">
+          <p class="error__greeting">Oh no!</p>
+          <img src="./images/crying.png" class="error__icon" />
+          <p class="error__text">Something went wrong. So sorry!</p>
+          <p class="error__text">Please come back when we get it together.</p>
+        </div>
+      </div>
       <div class="divider"></div>
       <section class="toprow__container">
         <section
@@ -50,11 +58,12 @@
       <div data-id="bookingModal" class="booking__modal">
         <div data-id="bookingModalDetails" class="booking__details"></div>
       </div>
-      <div data-id="errorModal" class="error__modal">
-        <div data-id="errorMessage" class="error__details">
-          <p>Oh no!</p>
+      <div data-id="errorBookingModal" class="error__modal">
+        <div data-id="errorBookingMessage" class="error__details">
+          <p class="error__greeting">Oh no!</p>
           <img src="./images/crying.png" class="error__icon" />
-          <p>Something went wrong. Please come back when we get it together.</p>
+          <p class="error__text">Something went wrong. So sorry!</p>
+          <p class="error__text">Please come back when we get it together.</p>
           <button class="dismiss__btn">Dismiss</button>
         </div>
       </div>

@@ -48,7 +48,8 @@ const bookingModalDetails = document.querySelector(
   '[data-id = bookingModalDetails]'
 )
 
-const errorMessagePopUp = document.querySelector('[data-id = errorModal]')
+const errorBookingPopUp = document.querySelector('[data-id = errorBookingModal]')
+const errorDashPopUp = document.querySelector('[data-id = errorDashModal]')
 const dismissBtn = document.querySelector('.dismiss__btn')
 
 //--------------Global Variables------------------
@@ -86,7 +87,10 @@ const InitializeCustomerApp = () => {
       loadUpcomingBookings()
       loadPastBookings()
     })
-    .catch((err) => console.error(err)) // need to replace with DOM function
+    .catch((err) => {
+      showErrorMessage(errorDashPopUp)
+      console.error(err)
+    }) // need to replace with DOM function
 }
 
 // if I do manager iteration -> create a InitializeManagerApp
@@ -96,7 +100,7 @@ const InitializeCustomerApp = () => {
 const makeReservation = (customer, dateRange, roomNumber) => {
   const requests = createPostRequests(customer, dateRange, roomNumber)
   postAll(requests)
-    .then(() => {
+    .then((data) => {
       console.log(data)
       data.forEach((data) => {
         store.hotel.addBooking(new Booking(data.newBooking), customer)
@@ -112,16 +116,14 @@ const makeReservation = (customer, dateRange, roomNumber) => {
     })
     .catch((err) => {
       // toggleHtmlElement(bookingModal)
-      showErrorMessage(errorMessagePopUp)
+      showErrorMessage(errorBookingPopUp)
       console.error(err)
     })
 }
 
 //--------------Event Listeners------------------
 window.addEventListener('load', InitializeCustomerApp)
-// bookingModalDetails.addEventListener('click', (event) => {
-//     console.log(event.target)
-// })
+dismissBtn.addEventListener('click', hideErrorMessage)
 
 //--------------Event Handlers------------------
 const createRandomCustomer = (customerSampleData, bookingSampleData) => {
@@ -425,19 +427,21 @@ const defineEventListeners = () => {
   searchBtn.addEventListener('click', loadAvailableRooms)
   bookingModalDetails.addEventListener('click', toggleBookingModal)
   roomTypeInput.addEventListener('input', resetSearchResults)
-  dismissBtn.addEventListener('click', hideErrorMessage)
 }
 
-const hideErrorMessage = () => {
+function hideErrorMessage() {
   // if (event.target.className === 'disMiss_Btn') {
-  errorMessagePopUp.classList.remove('error__modal-toggle')
+  errorBookingPopUp.classList.remove('error__modal-toggle')
   // toggleHtmlElement(bookingModal)
   // }
 }
 
-const showErrorMessage = () => {
-  errorMessagePopUp.classList.add('error__modal-toggle')
-  bookingModal.classList.remove('booking__modal-toggle')
+function showErrorMessage(element) {
+  element.classList.add('error__modal-toggle')
+
+  if (bookingModal.classList.contains('booking__modal-toggle')) {
+    bookingModal.classList.remove('booking__modal-toggle')
+  }
   // toggleHtmlElement(bookingModal)
 }
 
