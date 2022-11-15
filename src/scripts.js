@@ -244,7 +244,7 @@ const loadAvailableRooms = () => {
   )
 
   if (typeof rooms === 'string') {
-    alert(rooms)
+    displaySearchError(rooms)
   } else {
     const availableRooms = checkRoomType(roomTypeInput.value, rooms)
     console.log('ROOMS', availableRooms)
