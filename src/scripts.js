@@ -41,6 +41,7 @@ const reservationsPageSection = document.querySelector(
 )
 const resultsContainer = document.querySelector('[data-id = results]')
 const arrivalDateInput = document.querySelector('#arrivalDate')
+const searchError = document.querySelector('[data-id = searchError]')
 const searchBtn = document.querySelector('[data-id = search]')
 const departureDateInput = document.querySelector('#departureDate')
 const roomTypeInput = document.querySelector('#roomTypes')
@@ -57,7 +58,9 @@ const successBookingPopUp = document.querySelector(
   '[data-id = successBookingModal'
 )
 const dismissBtn = document.querySelector('.dismiss__btn')
-const successDismissBtn = document.querySelector('[data-id = successDismissBtn]')
+const successDismissBtn = document.querySelector(
+  '[data-id = successDismissBtn]'
+)
 
 //--------------Global Variables------------------
 const store = {
@@ -231,7 +234,7 @@ const loadAvailableRooms = () => {
   console.log(store.currentDate)
 
   if (!store.arrivialDate || !store.currentDate || !store.departureDate) {
-    return alert('not defined!')
+    displaySearchError('Please select a date before searching.')
   }
 
   const rooms = store.hotel.showAvailableRooms(
@@ -294,6 +297,10 @@ const loadAvailableRooms = () => {
 }
 
 const setArrivalDate = () => {
+  if (!searchError.classList.contains('hide')) {
+    hideSearchError()
+  }
+
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
   departureDateInput.value = arrivalDateInput.value
   const formattedSelectedDate = new Date(
@@ -548,4 +555,13 @@ const resetCalendarInputs = () => {
   store.departureDate = ''
   arrivalDateInput.value = ''
   departureDateInput.value = ''
+}
+
+const displaySearchError = (text) => {
+  searchError.innerText = text
+  searchError.classList.remove('hide')
+}
+
+const hideSearchError = (text) => {
+  searchError.classList.add('hide')
 }
