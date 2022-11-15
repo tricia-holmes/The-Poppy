@@ -326,9 +326,7 @@ const loadTotalAmountSpent = () => {
 }
 
 const loadAvailableRooms = () => {
-  if (!apologyMessage.classList.contains('hide')) {
-    hideApology()
-  }
+  hideElement(apologyMessage)
 
   resetResultsContainer()
   if (!store.arrivialDate || !store.currentDate || !store.departureDate) {
@@ -351,8 +349,7 @@ const loadAvailableRooms = () => {
   console.log('AM I AVAILABLE', availableRooms)
 
   if (availableRooms.length === 0) {
-    // alert('so sorry, nothing available!')
-    showApology(apologyMessage)
+    showElement(apologyMessage)
   } else {
     availableRooms.forEach((availableRoom) => {
       const randomImg = getRandomImage()
@@ -410,11 +407,11 @@ const loadAvailableRooms = () => {
 
 const setArrivalDate = () => {
   if (!searchError.classList.contains('hide')) {
-    hideSearchError()
+    hideElement(searchError)
   }
 
   if (!apologyMessage.classList.contains('hide')) {
-    hideApology()
+    hideElement(apologyMessage)
   }
 
   resetResultsContainer()
@@ -551,6 +548,36 @@ const checkRoomType = (roomTypeInput, availabelRooms) => {
   }
 }
 
+const setupReservation = (event) => {
+  const roomNumber = Number(event.currentTarget.dataset.id)
+
+  makeReservation(store.customer, store.allDates, roomNumber)
+}
+
+const getDateRange = () => {
+  store.allDates = []
+  store.nightsPerStay = 0
+
+  if (store.arrivialDate === store.departureDate) {
+    store.nightsPerStay++
+    store.allDates.push(store.arrivialDate)
+  }
+
+  const date = new Date(store.arrivialDate)
+  const endDate = new Date(store.departureDate)
+
+  while (date.getTime() < endDate.getTime()) {
+    store.allDates.push(formatBookingDisplayDate(date))
+    date.setDate(date.getDate() + 1)
+    store.nightsPerStay++
+  }
+}
+
+function skipLogin() {
+  loginSuccess()
+  hideLoginModal()
+}
+
 //--------------Util Functions-------------------
 const randomizeFromArray = (array) => {
   return Math.floor(Math.random() * array.length)
@@ -558,51 +585,6 @@ const randomizeFromArray = (array) => {
 
 const getRandomImage = () => {
   return store.bookingImages[randomizeFromArray(store.bookingImages)]
-}
-
-// const defineEventListeners = () => {
-//   navBtn.addEventListener('click', updateNavBtn)
-//   arrivalDateInput.addEventListener('input', setArrivalDate)
-//   departureDateInput.addEventListener('input', setDepatureDate)
-//   searchBtn.addEventListener('click', loadAvailableRooms)
-//   bookingModalDetails.addEventListener('click', toggleBookingModal)
-//   roomTypeInput.addEventListener('input', resetResultsContainer)
-// }
-
-function hideErrorMessage() {
-  errorBookingPopUp.classList.remove('error__modal-toggle')
-}
-
-function showErrorMessage(element) {
-  element.classList.add('error__modal-toggle')
-
-  if (bookingModal.classList.contains('booking__modal-toggle')) {
-    bookingModal.classList.remove('booking__modal-toggle')
-  }
-}
-
-function hideSuccessMessage() {
-  successBookingPopUp.classList.remove('success__modal-toggle')
-}
-
-function showSuccessMessage(element) {
-  element.classList.add('success__modal-toggle')
-
-  if (bookingModal.classList.contains('booking__modal-toggle')) {
-    bookingModal.classList.remove('booking__modal-toggle')
-  }
-}
-
-function showLoginModal() {
-  loginModal.classList.add('login__modal-toggle')
-}
-
-function hideLoginModal() {
-  loginModal.classList.remove('login__modal-toggle')
-}
-
-function toggleHtmlElement(element) {
-  element.classList.toggle('toggleDisplay')
 }
 
 function setCurrentPage(currentPage) {
@@ -615,11 +597,11 @@ function changeElementInnerText(element, text) {
   resetResultsContainer()
 
   if (!searchError.classList.contains('hide')) {
-    hideSearchError()
+    hideElement(searchError)
   }
 
   if (!apologyMessage.classList.contains('hide')) {
-    hideApology()
+    hideElement(apologyMessage)
   }
 }
 
@@ -651,31 +633,6 @@ const formatForReservationDate = () => {
   }
 }
 
-const setupReservation = (event) => {
-  const roomNumber = Number(event.currentTarget.dataset.id)
-
-  makeReservation(store.customer, store.allDates, roomNumber)
-}
-
-const getDateRange = () => {
-  store.allDates = []
-  store.nightsPerStay = 0
-
-  if (store.arrivialDate === store.departureDate) {
-    store.nightsPerStay++
-    store.allDates.push(store.arrivialDate)
-  }
-
-  const date = new Date(store.arrivialDate)
-  const endDate = new Date(store.departureDate)
-
-  while (date.getTime() < endDate.getTime()) {
-    store.allDates.push(formatBookingDisplayDate(date))
-    date.setDate(date.getDate() + 1)
-    store.nightsPerStay++
-  }
-}
-
 function resetCalendarInputs() {
   store.arrivialDate = ''
   store.departureDate = ''
@@ -684,26 +641,60 @@ function resetCalendarInputs() {
   roomTypeInput.value = 'optional'
 }
 
-const displaySearchError = (text) => {
-  searchError.innerText = text
-  searchError.classList.remove('hide')
-}
-
-const hideSearchError = () => {
-  searchError.classList.add('hide')
-}
-const hideApology = () => {
-  apologyMessage.classList.add('hide')
-}
-const showApology = () => {
-  apologyMessage.classList.remove('hide')
-}
-
 function resetResultsContainer() {
   resultsContainer.innerHTML = `<h1 class="available__title">Available</h1>`
 }
 
-function skipLogin() {
-  loginSuccess()
-  hideLoginModal()
+//--------------Hide, Show, Toggle Util Functions-------------------
+function toggleHtmlElement(element) {
+  element.classList.toggle('toggleDisplay')
+}
+
+const displaySearchError = (text) => {
+  searchError.innerText = text
+  hideElement(searchError)
+}
+
+const hideElement = (element) => {
+  if (!element.classList.contains('hide')) {
+    element.classList.add('hide')
+  }
+}
+
+const showElement = (element) => {
+  if (element.classList.contains('hide')) {
+    element.classList.remove('hide')
+  }
+}
+
+function checkBookingModalClasses() {
+  if (bookingModal.classList.contains('booking__modal-toggle')) {
+    bookingModal.classList.remove('booking__modal-toggle')
+  }
+}
+
+function hideErrorMessage() {
+  errorBookingPopUp.classList.remove('error__modal-toggle')
+}
+
+function showErrorMessage(element) {
+  element.classList.add('error__modal-toggle')
+  checkBookingModalClasses()
+}
+
+function hideSuccessMessage() {
+  successBookingPopUp.classList.remove('success__modal-toggle')
+}
+
+function showSuccessMessage(element) {
+  element.classList.add('success__modal-toggle')
+  checkBookingModalClasses()
+}
+
+function showLoginModal() {
+  loginModal.classList.add('login__modal-toggle')
+}
+
+function hideLoginModal() {
+  loginModal.classList.remove('login__modal-toggle')
 }
