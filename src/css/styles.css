@@ -99,6 +99,16 @@ input {
   height: 100%;
 }
 
+.hero__title {
+  font-family: 'Cormorant-Italic';
+  z-index: 75;
+  position: absolute;
+  top: 328px;
+  font-size: 104px;
+  color: #efc0ba78;
+  letter-spacing: 10px;
+}
+
 .login__modal {
   position: fixed;
   text-align: center;
@@ -135,12 +145,18 @@ input {
   height: 72vh;
 }
 
-@media (min-width: 1500px) and (max-width: 1920px) {
+@media (min-width: 960px) and (max-width: 1920px) {
   .login__details {
     height: 54vh;
   }
 }
 
+
+@media (min-height: 700px) and (max-height: 800px) {
+  .login__details {
+    height: 70vh;
+  }
+}
 .poppy_icon {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -701,6 +717,15 @@ input {
   color: #e15b5e;
 }
 
+.apology__error {
+  position: absolute;
+  font-family: Cormorant-Semi-Bold-Italic;
+  font-size: 28px;
+  bottom: 75px;
+  color: #efc0ba;
+  text-align: center;
+}
+
 .dates__container {
   display: flex;
   flex-direction: row;
@@ -902,9 +927,10 @@ input {
   transition: all 0.3s ease-in-out;
 }
 
+.dismiss__btn:hover,
 .confirm__btn:hover {
   background-color: #000000;
-  color: #fe398c;
+  color: #efc0ba;
 }
 
 /* Error Message */

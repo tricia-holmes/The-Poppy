@@ -13,6 +13,7 @@
     </header>
     <section data-page-type="login" class="page__layout login">
       <section class="hero__container">
+        <h1 data-id="heroTitle" class="hero__title">a getaway experience</h1>
         <video autoplay muted loop class="hero__video">
           <source src="./images/tablescape.mp4" type="video/mp4" />
         </video>
@@ -73,7 +74,12 @@
           <h2 class="currentBookings__title">UPCOMING STAYS</h2>
         </section>
         <section class="customer__container">
-          <img class="customer__icon" src="./images/poppy.png" />
+          <img
+            class="customer__icon"
+            src="./images/poppy.png"
+            alt="an illustration of a poppy flower for the hotel logo"
+          />
+
           <p class="customer__placeholder">
             customer name:
             <span data-id="customerName" class="customer__info"></span>
@@ -86,11 +92,7 @@
       </section>
 
       <section class="bottomrow__container">
-        <section
-          tabindex="0"
-          data-id="pastBookings"
-          class="pastBookings__container"
-        >
+        <section data-id="pastBookings" class="pastBookings__container">
           <h2 class="pastBookings__title">PAST STAYS</h2>
         </section>
         <section class="totalCost__container">
@@ -154,13 +156,17 @@
           <h3 data-id="searchError" class="search__error hide">
             Please select a date before you search.
           </h3>
+          <h3 data-id="apologyMessage" class="apology__error hide">
+            We are so sorry, but nothing is available for your current
+            selection! :(
+          </h3>
           <div class="dates__container">
             <div class="arrival__conatiner">
               <label class="search__label" for="arrivalDate">Arrival</label>
               <input type="date" name="check-in date" id="arrivalDate" />
             </div>
             <div class="departure__conatiner">
-              <label class="search__label" for="departureDate"">Departure</label>
+              <label class="search__label" for="departureDate">Departure</label>
               <input type="date" name="check-out date" id="departureDate" />
             </div>
           </div>
