@@ -47,6 +47,7 @@ const errorBookingPopUp = document.querySelector(
   '[data-id = errorBookingModal]'
 )
 const errorDashPopUp = document.querySelector('[data-id = errorDashModal]')
+const heroTitle = document.querySelector('[data-id = heroTitle]')
 const heroVideo = document.querySelector('.hero__video')
 const loginDetails = document.querySelector('.login__details')
 const loginErrorMessage = document.querySelector('[data-id=loginError]')
@@ -442,6 +443,7 @@ function loginSuccess() {
   changeElementInnerText(navBtn, 'Make Reservations')
   setCurrentPage('user dashboard')
   toggleHtmlElement(userDashboardSection)
+  hideElement(heroTitle)
   heroVideo.src = './images/water.mp4'
 }
 

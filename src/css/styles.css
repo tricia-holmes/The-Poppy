@@ -99,6 +99,16 @@ input {
   height: 100%;
 }
 
+.hero__title {
+  font-family: 'Cormorant-Italic';
+  z-index: 75;
+  position: absolute;
+  top: 328px;
+  font-size: 104px;
+  color: #efc0ba78;
+  letter-spacing: 10px;
+}
+
 .login__modal {
   position: fixed;
   text-align: center;
@@ -713,7 +723,7 @@ input {
   font-size: 28px;
   bottom: 75px;
   color: #efc0ba;
-  word-wrap: break-word;
+  text-align: center;
 }
 
 .dates__container {
