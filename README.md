@@ -53,16 +53,3 @@ Once all of this is completed, please visit `http://localhost:8080/` to use the 
 # Contributors:
 - [Tricia Holmes](https://github.com/tricia-holmes)
 - `Isabel Powers` - shoutout to my best friend for contributing some of the picutres you will see throughout the app as well as the name!
-
-# Learning Goals:
-
-The `Learning Goals` were: 
-- Use OOP to drive the design of the application and the code
-- Work with an API to send and receive data
-- Solidify the code review process
-- Create a robust test suite that thoroughly tests all functionality of a client-side application
-
-
-# Wins + Challenges:
-- A huge `win` for me was getting the app to function for when a customerm selected `multiple dates` and making the `network requests` for each date.
-- A big challenge was dates. This app has a lot to do with dates, so much of my time was spent on formatting and transforming dates.
