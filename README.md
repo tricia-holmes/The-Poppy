@@ -1,39 +1,13 @@
 # The Poppy Hotel <img height="50px" margin-left="5px" src="https://user-images.githubusercontent.com/108706408/202008927-1a5c7466-0d13-4888-96a3-12982fdcb54e.png">
 
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+
 
 https://user-images.githubusercontent.com/108706408/202103420-0287400f-d86b-4d3f-be7d-530db1b84746.mp4
-
 
 ## Welcome to the Poppy
 
 This app is for all patrons of the Poppy Hotel to manage their `upcoming bookings`, `review their past stays`, `create reservations for new stays`, and `review the total spent at The Poppy`. 
-
-- When a customer visits the app, they will be greeted with a video playing from one of the Poppy's many luxurious events. 
-- There will be a login button on the top right side of the menu. This button will open a login modal.
-- The login will take information for as `customer<number>` where number can be any number from `1-50`. 
-- The password for everyone (not much of a password, huh) is `overlook2021`.
-- Once logged into the `dashboard`, a customer will see their `customer information`, `upcoming stays`, `past stays`, and `total amont spent`. 
-- If a customer would like to book another stay, they can click on the button on the top right side of the menu. The customer will be taken to the `reservations page`. 
-- Here they can search the Poppy Hotel's rooms by `selected dates` and by `room type`. 
-- If a customer would like to book a room, they can click on the `book now` button on the desire room.
-- This will display the booking modal which includes `room details`, `date range of stay`, and `total cost for reservation`. 
-- Once booked, a `success message` will confirm to the customer their `new reservation`. 
-- A customer can get back their dashboard by selecting the `dashboard` button on the top right side of the menu. 
-- Once back on the dashboard, the customer will be able to see their new reservation in the `upcoming stays` section 🎉 
-
-# Context:
-
-- I am currently a 2208 Mod 2 student at Turing in the frontend program. This is the final solo project of Mod 2. The project was to create a hotel management tool for hotel customers to manage room bookings. 
-- The technologies used for it were `HTML`, `CSS`,`Javascript` -> `API calls` to a `local server` were used to get project data as well as adding customer's new bookings.
-
-# Inspiration:
-I went on a trip to Europe this year and fell in love with not only the beautiful hotels but also their websites! They took something mundane and made the user experience really interesting. I am happy to see the inspiration of those amazing hotels in this app! 
-
-Major inspirations for this project were also from [here](https://www.behance.net/gallery/129135595/The-Moore-Hotel?tracking_source=search_projects%7Chotel), [here](https://www.behance.net/gallery/140900029/Luxury-Hotel-Web-Design?tracking_source=search_projects%7Chotel), and [here](https://www.behance.net/gallery/135480647/The-Royal-Hotel-digital?tracking_source=search_projects%7Chotel). Thank you to those amazing designers!
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/108706408/202014335-e6cd8e4c-5d08-4b9e-a9de-95fcefb57d59.png" />
-</p>
 
 
 # Installation Instructions
@@ -53,3 +27,13 @@ Once all of this is completed, please visit `http://localhost:8080/` to use the 
 # Contributors:
 - [Tricia Holmes](https://github.com/tricia-holmes)
 - `Isabel Powers` - shoutout to my best friend for contributing some of the picutres you will see throughout the app as well as the name!
+
+# Inspiration:
+I went on a trip to Europe this year and fell in love with not only the beautiful hotels but also their websites! They took something mundane and made the user experience really interesting. I am happy to see the inspiration of those amazing hotels in this app! 
+
+Major inspirations for this project were also from [here](https://www.behance.net/gallery/129135595/The-Moore-Hotel?tracking_source=search_projects%7Chotel), [here](https://www.behance.net/gallery/140900029/Luxury-Hotel-Web-Design?tracking_source=search_projects%7Chotel), and [here](https://www.behance.net/gallery/135480647/The-Royal-Hotel-digital?tracking_source=search_projects%7Chotel). Thank you to those amazing designers!
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/108706408/202014335-e6cd8e4c-5d08-4b9e-a9de-95fcefb57d59.png" />
+</p>
+
